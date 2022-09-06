@@ -3,10 +3,10 @@ import api from 'zmp-sdk';
 import { useContext } from "react";
 import Time from "../../components/format/time";
 import Day from "../../components/format/day";
-import RestaurantContext from "./context";
+import HotelContext from "./context";
 
 function Information() {
-  const { hotel } = useContext(RestaurantContext);
+  const { hotel } = useContext(HotelContext);
 
   return <Box mx="2">
     <Box mx="2" mt="5">

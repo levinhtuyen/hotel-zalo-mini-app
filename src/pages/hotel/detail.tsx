@@ -4,13 +4,13 @@ import Distance from "../../components/distance";
 import DistrictName from "../../components/district-name";
 import { TabType } from "../../models";
 import store from "../../store";
-import RestaurantContext from "./context";
+import HotelContext from "./context";
 import Information from './information';
 import Menu from "./menu";
 import Booking from './booking';
 
-function RestaurantDetail() {
-  const { hotel } = useContext(RestaurantContext);
+function HotelDetail() {
+  const { hotel } = useContext(HotelContext);
   const currentTab = useStore('restaurantTab') as TabType;
   const setCurrentTab = (tab) => {
     store.dispatch('changeRestaurantTab', tab)
@@ -47,4 +47,4 @@ function RestaurantDetail() {
   </>;
 }
 
-export default RestaurantDetail;
+export default HotelDetail;

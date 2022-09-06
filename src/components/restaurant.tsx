@@ -4,7 +4,7 @@ import { Hotel } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 
-interface RestaurantProps {
+interface HotelProps {
   layout: 'cover' | 'list-item';
   hotel: Hotel;
   before?: React.ReactNode;
@@ -12,7 +12,7 @@ interface RestaurantProps {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const HotelItem: FunctionComponent<RestaurantProps> = ({ layout, hotel, before, after, onClick }) => {
+const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after, onClick }) => {
   const viewDetail = () => {
     zmp.views.main.router.navigate({
       path: '/hotel',

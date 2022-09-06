@@ -9,11 +9,11 @@ import Price from "../../components/format/price";
 import { pay } from "../../services/zalo";
 import store from "../../store";
 import { message } from "../../utils/notificaiton";
-import RestaurantContext from "./context";
+import HotelContext from "./context";
 
 function Booking() {
   const [seats, setSeats] = useState(4);
-  const { hotel } = useContext(RestaurantContext);
+  const { hotel } = useContext(HotelContext);
   const [hour, setHour] = useState(hotel.hours.opening);
   const [date, setDate] = useState(new Date());
   const [table, setTable] = useState('05');
