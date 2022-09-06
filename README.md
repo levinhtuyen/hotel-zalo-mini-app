@@ -1,4 +1,4 @@
-# ZMP Restaurant
+# ZMP Hotel Go2joy
 
 Starter template for building a restaurant's mini program. Main features:
 - View popular or nearby restaurants
@@ -78,7 +78,7 @@ Just change the `app.title` property in `app-config.json`:
 ```json
 {
   "app": {
-    "title": "ZMP Restaurant",
+    "title": "ZMP Hotel Go2joy",
   },
 }
 ```

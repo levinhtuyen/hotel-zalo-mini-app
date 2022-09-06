@@ -19,7 +19,7 @@ function NavigationBar() {
       Trang chủ
     </Link>
     <Link href="/calendar" animate={false} iconZMP="zi-calendar" tabLinkActive={currentRoute.path.startsWith('/calendar')}>
-      Lịch của tôi
+      Đặt phòng
     </Link>
   </Tabbar>;
 }

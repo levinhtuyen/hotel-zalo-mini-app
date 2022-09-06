@@ -19,7 +19,7 @@ function Popular() {
           </Box>)}
         </Box>
       </div> :
-      <Box mx="4">Không có địa điểm nào ở khu vực này</Box>
+      <Box mx="4">Không có khách sạn nào ở khu vực này</Box>
     }
   </>;
 }
@@ -44,7 +44,7 @@ const HomePage = () => {
       <Box mx="4" mb="4" mt="5">
         <Avatar className='shadow align-middle mb-2' src={user.avatar}>Hi</Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
-        <Title size='xlarge' bold>Hôm nay bạn muốn ăn ở đâu?</Title>
+        <Title size='xlarge' bold>Hôm nay bạn muốn ở khách sạn nào?</Title>
         <Inquiry />
         <Title size='small' className='mt-6 mb-4'>Phân loại nhanh</Title>
         <QuickFilter />
