@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Box, Button, Checkbox, Input, Sheet, Text, Title, useStore } from "zmp-framework/react";
 import { Cart, Food } from "../models";
 import store from "../store";
-import ExtraSelection from "./restaurant/menu/extra-selection";
+import ExtraSelection from "./hotel/menu/extra-selection";
 import Notch from "../components/notch";
 import Price from "../components/format/price";
 import { createPortal } from "react-dom";

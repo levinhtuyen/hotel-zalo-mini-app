@@ -1,16 +1,16 @@
 import { Box, Page } from "zmp-framework/react";
 import { useHotel } from "../hooks";
 import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
-import RestaurantContext from "./restaurant/context";
-import RestaurantDetail from "./restaurant/detail";
+import HotelContext from "./hotel/context";
+import HotelDetail from "./hotel/detail";
 
 function HotelPage({ zmproute }) {
   const hotel = useHotel(zmproute.query.id)!;
 
   return <Page onPageBeforeIn={hideNavigationBar} onPageBeforeOut={showNavigationBar}>
-    <RestaurantContext.Provider value={{ hotel }}>
-      <RestaurantDetail />
-    </RestaurantContext.Provider>
+    <HotelContext.Provider value={{ hotel }}>
+      <HotelDetail />
+    </HotelContext.Provider>
     <Box height={200}></Box>
   </Page>;
 }
