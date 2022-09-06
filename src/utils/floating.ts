@@ -1,5 +1,5 @@
 export default function floating() {
-  const fabElement = document.getElementById("floating-snap-btn-wrapper");
+  const fabElement = document.getElementById("floating-snap-btn-wrapper") as HTMLElement;
   let oldPositionX, oldPositionY
   const move = (e) => {
     if (!fabElement.classList.contains("fab-active")) {
@@ -36,7 +36,7 @@ export default function floating() {
   }
 
   const snapToSide = (e) => {
-    const wrapperElement = document.getElementById('main-wrapper');
+    const wrapperElement = document.getElementById('main-wrapper') as HTMLElement;
     const windowWidth = window.innerWidth;
     let currPositionX, currPositionY;
     if (e.type === "touchend") {
