@@ -18,9 +18,30 @@ export interface Restaurant {
   map: string
   rating: number
 }
+export interface Hotel
+{
+  id: number
+  name: string
+  districtId: number
+  location: Location
+  views: number
+  image: string
+  address: string
+  hours: {
+    opening: Hours,
+    closing: Hours,
+  },
+  days: {
+    opening: number
+    closing: number
+  },
+  hotline: string
+  map: string
+  rating: number
+}
 export interface Article {
   id: string
-  restaurant: Restaurant
+  hotel: Hotel
   cart?: Cart
   bookingInfo?: {
     date: Date
@@ -91,7 +112,7 @@ export type Hours = [number, number, 'AM' | 'PM'];
 
 export interface Booking {
   id: string
-  restaurant: Restaurant
+  hotel: Hotel
   cart?: Cart
   bookingInfo?: {
     date: Date

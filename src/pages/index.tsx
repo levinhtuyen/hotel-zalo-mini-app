@@ -1,11 +1,11 @@
 import { Page, useStore, Title, Box, Avatar, Text } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
-import RestaurantItem from '../components/restaurant';
-import { Restaurant } from '../models';
+import HotelItem from '../components/hotel';
+import { Hotel } from '../models';
 
 function Popular() {
-  const populars = useStore('populars') as Restaurant[];
+  const populars = useStore('populars') as Hotel[];
 
   return <>
     <Box mx="4" mt="6">
@@ -14,8 +14,8 @@ function Popular() {
     {populars.length ?
       <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
         <Box m="0" pr="4" flex className='w-max'>
-          {populars.map(restaurant => <Box key={restaurant.id} ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
-            <RestaurantItem layout="cover" restaurant={restaurant} />
+          {populars.map(hotel => <Box key={hotel.id} ml="4" mr="0" className='snap-start' style={{ width: 'calc(100vw - 120px)' }}>
+            <HotelItem layout="cover" hotel={hotel} />
           </Box>)}
         </Box>
       </div> :
@@ -25,12 +25,12 @@ function Popular() {
 }
 
 function Nearest() {
-  const nearests = useStore('nearests') as Restaurant[];
+  const nearests = useStore('nearests') as Hotel[];
   return <>
     <Box mx="4" mt="5">
       <Title size='small'>Gần bạn nhất</Title>
-      {nearests.map(restaurant => <Box key={restaurant.id} mx="0" my="3">
-        <RestaurantItem layout="list-item" restaurant={restaurant} after={<Text size="small" className="text-gray-500">{restaurant.address}</Text>} />
+      {nearests.map(hotel => <Box key={hotel.id} mx="0" my="3">
+        <HotelItem layout="list-item" hotel={hotel} after={<Text size="small" className="text-gray-500">{hotel.address}</Text>} />
       </Box>)}
     </Box>
   </>;

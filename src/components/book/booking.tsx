@@ -5,7 +5,7 @@ import { Booking } from "../../models";
 import store from "../../store";
 import Price from "../format/price";
 import Time from "../format/time";
-import RestaurantItem from "../restaurant";
+import HotelItem from "../hotel";
 import Swipeable from "../swipeable";
 
 interface BookingItemProps {
@@ -34,9 +34,9 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
         <Text className="ml-6 text-secondary mb-0 whitespace-nowrap" size="large" bold><Price amount={total} /></Text>
       </Box>
       <div className="border rounded-xl">
-        <RestaurantItem
+        <HotelItem
           layout="list-item"
-          restaurant={booking.restaurant}
+          hotel={booking.hotel}
           before={booking.bookingInfo ? <Text size="small" className="text-gray-500">
             <Time time={booking.bookingInfo?.hour} />
             {' - '}

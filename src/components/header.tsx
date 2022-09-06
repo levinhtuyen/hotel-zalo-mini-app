@@ -1,17 +1,17 @@
 import { useMemo } from "react";
 import { Box, Link, Title } from "zmp-framework/react";
-import { useCurrentRoute, useRestaurant } from "../hooks";
+import { useCurrentRoute, useHotel } from "../hooks";
 import appConfig from '../../app-config.json';
 
 function Header() {
   const [currentRoute] = useCurrentRoute();
 
-  const restaurant = useRestaurant(Number(currentRoute.query?.id));
+  const hotel = useHotel(Number(currentRoute.query?.id));
 
   const title = useMemo(() => {
-    if (currentRoute.path === '/restaurant/') {
-      if (restaurant) {
-        return restaurant.name
+    if (currentRoute.path === '/hotel/') {
+      if (hotel) {
+        return hotel.name
       }
     }
     return appConfig.app.title;

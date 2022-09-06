@@ -1,7 +1,7 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType } from './models';
+import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel } from './models';
 import { calcCrowFliesDistance } from './utils/location';
 
 interface StoreState {
@@ -9,7 +9,7 @@ interface StoreState {
   keyword: string
   position: Location | null
   restaurantTab: TabType
-  restaurants: Restaurant[]
+  hotels: Hotel[]
   districts: District[]
   selectedDistrict: number
   categories: string[]
@@ -52,7 +52,7 @@ const store = createStore<StoreState>({
     }],
     selectedDistrict: 1,
     restaurantTab: 'info',
-    restaurants: [
+    hotels: [
       {
         id: 1,
         name: 'Chi nhánh - Lê Thánh Tôn',
@@ -253,17 +253,17 @@ const store = createStore<StoreState>({
     keyword({ state }) {
       return state.keyword
     },
-    restaurants({ state }) {
-      return state.restaurants;
+    hotels({ state }) {
+      return state.hotels;
     },
     populars({ state }) {
-      return state.restaurants
-        .filter(restaurant => restaurant.name.toLowerCase().includes(state.keyword.toLowerCase()))
-        .filter(restaurant => state.selectedDistrict === 0 || restaurant.districtId === state.selectedDistrict)
-        .filter(restaurant => restaurant.views >= 50);
+      return state.hotels
+        .filter(hotel => hotel.name.toLowerCase().includes(state.keyword.toLowerCase()))
+        .filter(hotel => state.selectedDistrict === 0 || hotel.districtId === state.selectedDistrict)
+        .filter(hotel => hotel.views >= 50);
     },
     nearests({ state }) {
-      const res = [...state.restaurants];
+      const res = [...state.hotels];
       if (state.position) {
         res.sort((a, b) => {
           const aDistance = calcCrowFliesDistance(state.position!, a.location);
@@ -313,7 +313,7 @@ const store = createStore<StoreState>({
       // mock booking
       state.bookings.push({
         id: '1234567890',
-        restaurant: state.restaurants[0],
+        hotel: state.hotels[0],
         cart: {
           items: [{
             quantity: 1,

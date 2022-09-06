@@ -3,7 +3,7 @@ import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/re
 import { Cart, TabType, Booking } from "../../models";
 import Notch from "../notch";
 import Price from "../format/price";
-import { matchStatusBar, useCurrentRoute, useRestaurant } from "../../hooks";
+import { matchStatusBar, useCurrentRoute, useHotel } from "../../hooks";
 import store from "../../store";
 import { pay } from "../../services/zalo";
 import { message } from "../../utils/notificaiton";
@@ -33,7 +33,7 @@ function CartPreview() {
   const total = useStore('total') as number;
   const [expaned, setExpanded] = useState(false);
   const [currentRoute] = useCurrentRoute();
-  const restaurant = useRestaurant(Number(currentRoute.query?.id));
+  const hotel = useHotel(Number(currentRoute.query?.id));
 
   const sheetRef = useRef<any>();
 
@@ -58,7 +58,7 @@ function CartPreview() {
     await pay(total);
     await store.dispatch('book', {
       id: + new Date() + '',
-      restaurant: restaurant,
+      hotel: hotel,
     } as Booking)
     message('Đặt thức ăn thành công');
     matchStatusBar(false);
@@ -68,7 +68,7 @@ function CartPreview() {
   return <Sheet
     ref={sheetRef}
     backdrop={false}
-    opened={cart.items.length > 0 && currentRoute.path === '/restaurant/' && currentTab !== 'book'}
+    opened={cart.items.length > 0 && currentRoute.path === '/hotel/' && currentTab !== 'book'}
     closeByBackdropClick={false}
     className="h-auto border-t cart-preview"
     swipeToStep

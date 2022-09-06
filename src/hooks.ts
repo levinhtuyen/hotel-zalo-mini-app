@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useState } from "react"
 import { useStore, zmp } from "zmp-framework/react"
 import { Router } from "zmp-core/types";
-import { Booking, Restaurant } from "./models"
+import { Booking, Hotel } from "./models"
 import { Sheet } from 'zmp-core/types'
 import api from 'zmp-sdk';
 import appConfig from '../app-config.json';
 
-export const useRestaurant = (id: number) => {
-  const restaurants = useStore('restaurants') as Restaurant[]
-  const restaurant = useMemo(() => {
-    return restaurants.find(restaurant => restaurant.id == id);
+export const useHotel = (id: number) => {
+  const hotels = useStore('hotels') as Hotel[]
+  const hotel = useMemo(() => {
+    return hotels.find(hotel => hotel.id == id);
   }, [id])
-  return restaurant
+  return hotel
 }
 
 export const useCurrentRoute = () => {

@@ -13,8 +13,8 @@ import RestaurantContext from "./context";
 
 function Booking() {
   const [seats, setSeats] = useState(4);
-  const { restaurant } = useContext(RestaurantContext);
-  const [hour, setHour] = useState(restaurant.hours.opening);
+  const { hotel } = useContext(RestaurantContext);
+  const [hour, setHour] = useState(hotel.hours.opening);
   const [date, setDate] = useState(new Date());
   const [table, setTable] = useState('05');
   const total = useStore('total') as number;
@@ -22,7 +22,7 @@ function Booking() {
   const book = async () => {
     await pay(25000 + total);
     await store.dispatch('book', {
-      restaurant: restaurant,
+      hotel: hotel,
       id: + new Date() + '',
       bookingInfo: {
         seats,
@@ -42,7 +42,7 @@ function Booking() {
         <TableBooker value={table} onChange={setTable} />
         <SeatsPicker value={seats} onChange={setSeats} />
       </Box>
-      <TimeBooker hours={restaurant.hours} onChange={setHour} />
+      <TimeBooker hours={hotel.hours} onChange={setHour} />
       <Box height={80}></Box>
     </Box>
     <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">

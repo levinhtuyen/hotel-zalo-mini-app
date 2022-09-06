@@ -1,8 +1,8 @@
 import { createContext } from "react";
-import { Restaurant } from "../../models";
+import { Hotel } from "../../models";
 
 const RestaurantContext = createContext({
-  restaurant: {} as Restaurant,
+  hotel: {} as Hotel,
 })
 
 export default RestaurantContext;
