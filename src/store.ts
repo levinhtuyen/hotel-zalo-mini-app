@@ -21,9 +21,9 @@ interface StoreState {
 const store = createStore<StoreState>({
   state: {
     user: {
-      id: '',
-      avatar: '',
-      name: ''
+      id: '4031650262249602963',
+      avatar: 'https://avatars.githubusercontent.com/u/42595840?s=96&v=4',
+      name: 'Tuyen Le'
     },
     keyword: '',
     position: null,

@@ -1,4 +1,4 @@
-import { Page, useStore, Title, Box, Avatar, Text } from 'zmp-framework/react';
+import { Page, useStore, Title, Box, Avatar, Text,zmp } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import HotelItem from '../components/hotel';
@@ -38,11 +38,15 @@ function Nearest() {
 
 const HomePage = () => {
   const user: userInfo = useStore('user')
-
+  const viewProfile = () => {
+  zmp.views.main.router.navigate({
+      path: '/profile',
+    })
+  }
   return (
     <Page name="home" >
       <Box mx="4" mb="4" mt="5">
-        <Avatar className='shadow align-middle mb-2' src={user.avatar}>Hi</Avatar>
+        <Avatar  onClick={viewProfile} className='shadow align-middle mb-2' src={user.avatar}>Hi</Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
         <Title size='xlarge' bold>Hôm nay bạn muốn ở khách sạn nào?</Title>
         <Inquiry />
