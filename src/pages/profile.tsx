@@ -3,7 +3,6 @@ import { Box, Button, Text, Title, useStore } from 'zmp-framework/react';
 import HotelContext from './hotel/context';
 function ProfileDetail() {
   const user = useStore('user');
-  const { hotel } = useContext(HotelContext);
   return (
     <>
       <Box m='5'>
@@ -22,9 +21,7 @@ function ProfileDetail() {
             </Title>
             <div className='text-center font-normal text-lg'>{user.id}</div>
             <div className='px-6 text-center mt-2 font-light text-sm'>
-              <p>
-                Front end Developer
-              </p>
+              <p>Front end Developer</p>
             </div>
             <hr className='mt-8' />
             <div className='flex p-4'>

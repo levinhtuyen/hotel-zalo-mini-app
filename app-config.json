@@ -13,6 +13,7 @@
   "pages": [
     "/calendar",
     "/hotel",
-    "/profile"
+    "/profile",
+    "/hotel-list"
   ]
 }

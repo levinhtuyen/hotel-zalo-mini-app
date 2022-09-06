@@ -1,4 +1,4 @@
-import { Button, Searchbar, useStore } from "zmp-framework/react";
+import { Button, Searchbar, useStore,zmp } from "zmp-framework/react";
 import { District } from '../models'
 import store from "../store";
 
@@ -15,19 +15,37 @@ export function QuickFilter() {
   const setSelectedDistrict = (districtId: number) => {
     store.dispatch('changeDistrict', districtId);
   }
+  const viewHotelList = () => {
+    zmp.views.main.router.navigate({
+      path: '/hotel-list',
+    });
+  }
   const districts = useStore('districts') as District[];
-  return <div className="overflow-auto no-scrollbar snap-x snap-mandatory">
-    <div className="flex w-max">
-      <Button onClick={() => setSelectedDistrict(0)} typeName={!selectedDistrict ? 'primary' : 'tertiary'} className="mr-3 snap-start" fill>Tất cả</Button>
-      {districts.map(district => <Button
-        key={district.id}
-        typeName={selectedDistrict === district.id ? 'primary' : 'tertiary'}
-        className="mr-3 snap-start"
-        fill
-        onClick={() => setSelectedDistrict(district.id)}
-      >{district.name}</Button>)}
+  return (
+    <div className='overflow-auto no-scrollbar snap-x snap-mandatory'>
+      <div className='flex w-max'>
+        <Button
+          onClick={() => setSelectedDistrict(0)}
+          typeName={!selectedDistrict ? 'primary' : 'tertiary'}
+          className='mr-3 snap-start'
+          fill
+        >
+          Tất cả
+        </Button>
+        {districts.map((district) => (
+          <Button
+            key={district.id}
+            typeName={selectedDistrict === district.id ? 'primary' : 'tertiary'}
+            className='mr-3 snap-start'
+            fill
+            onClick={viewHotelList}
+          >
+            {district.name}
+          </Button>
+        ))}
+      </div>
     </div>
-  </div>;
+  );
 }
 
 export default Inquiry;
