@@ -30,6 +30,15 @@ const store = createStore<StoreState>({
     districts: [{
       id: 1,
       name: 'Quận 1',
+    },{
+      id: 2,
+      name: 'Quận 2',
+    },{
+      id: 3,
+      name: 'Quận 3',
+    },{
+      id: 4,
+      name: 'Quận 4',
     }, {
       id: 5,
       name: 'Quận 5',

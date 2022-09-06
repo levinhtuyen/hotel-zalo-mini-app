@@ -18,6 +18,17 @@ export interface Restaurant {
   map: string
   rating: number
 }
+export interface Article {
+  id: string
+  restaurant: Restaurant
+  cart?: Cart
+  bookingInfo?: {
+    date: Date
+    hour: Hours
+    table: string
+    seats: number
+  }
+}
 
 export interface District {
   id: number

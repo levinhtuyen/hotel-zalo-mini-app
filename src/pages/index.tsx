@@ -9,7 +9,7 @@ function Popular() {
 
   return <>
     <Box mx="4" mt="6">
-      <Title size='small'>Địa điểm phổ biến</Title>
+      <Title size='small'>Khách sạn phổ biến</Title>
     </Box>
     {populars.length ?
       <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
