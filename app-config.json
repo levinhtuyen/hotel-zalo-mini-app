@@ -1,0 +1,17 @@
+{
+  "app": {
+    "title": "ZMP Restaurant",
+    "headerColor": "",
+    "textColor": "black",
+    "statusBarColor": "#f4f5f6",
+    "leftButton": "back"
+  },
+  "debug": false,
+  "listCSS": [],
+  "listSyncJS": [],
+  "listAsyncJS": [],
+  "pages": [
+    "/calendar",
+    "/restaurant"
+  ]
+}

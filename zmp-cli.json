@@ -1,0 +1,18 @@
+{
+  "cwd": "",
+  "newProject": true,
+  "name": "ZMP hotel Go2joy",
+  "framework": "react-typescript",
+  "template": "tabs",
+  "cssPreProcessor": "scss",
+  "includeTailwind": true,
+  "theming": {
+    "customColor": false,
+    "color": "#007aff",
+    "darkTheme": false,
+    "iconFonts": true,
+    "fillBars": false,
+    "useUiKits": true
+  },
+  "customBuild": false
+}
