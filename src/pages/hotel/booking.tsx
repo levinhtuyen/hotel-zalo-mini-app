@@ -45,13 +45,6 @@ function Booking() {
       <TimeBooker hours={hotel.hours} onChange={setHour} />
       <Box height={80}></Box>
     </Box>
-    <Box m="0" p="6" className="bg-white fixed bottom-0 left-0 right-0 shadow z-10 border">
-      <Box mb="4" flex justifyContent="space-between">
-        <Title size="small">Phí dịch vụ</Title>
-        <Text className="ml-6 text-secondary mb-0" bold><Price amount={25000} /></Text>
-      </Box>
-      <Button fill responsive large className="rounded-xl" onClick={book}>Đặt bàn</Button>
-    </Box>
   </>;
 }
 
