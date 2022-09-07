@@ -1,7 +1,8 @@
 import { Button, Searchbar, useStore,zmp } from "zmp-framework/react";
 import { District } from '../models'
 import store from "../store";
-
+import { useState } from 'react';
+import ChooseLocation from "./modal/ChooseLocation";
 function Inquiry() {
   const keyword = useStore('keyword') as string;
   const setKeyword = (s: string) => {
@@ -12,13 +13,22 @@ function Inquiry() {
 
 export function QuickFilter() {
   const selectedDistrict = useStore('selectedDistrict') as number;
-  const setSelectedDistrict = (districtId: number) => {
+  const setSelectedDistrict = (districtId: number) =>
+  {
     store.dispatch('changeDistrict', districtId);
   }
   const viewHotelList = () => {
     zmp.views.main.router.navigate({
       path: '/hotel-list',
     });
+  }
+  const [customSheetOpened, setCustomSheetOpened] = useState(false);
+  const parentHandleChange = (e) => {
+    setCustomSheetOpened(false)
+  };
+  const openModalLocation = () =>
+  {
+    setCustomSheetOpened(true);
   }
   const districts = useStore('districts') as District[];
   return (
@@ -32,6 +42,18 @@ export function QuickFilter() {
         >
           Tất cả
         </Button>
+        <Button
+          typeName='tertiary'
+          className='mr-3 snap-start'
+          onClick={() => openModalLocation()}
+          fill
+        >
+          Chọn vị trí
+        </Button>
+        <ChooseLocation
+          handleChange={parentHandleChange}
+          customSheetOpened={customSheetOpened}
+        />
         {districts.map((district) => (
           <Button
             key={district.id}

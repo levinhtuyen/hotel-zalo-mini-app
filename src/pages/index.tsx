@@ -1,12 +1,11 @@
-import { Page, useStore, Title, Box, Avatar, Text,zmp } from 'zmp-framework/react';
+import { Page, useStore, Title, Box, Avatar, Text,zmp,Button } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
+
 import HotelItem from '../components/hotel';
 import { Hotel } from '../models';
-
 function Popular() {
   const populars = useStore('populars') as Hotel[];
-
   return <>
     <Box mx="4" mt="6">
       <Title size='small'>Khách sạn phổ biến</Title>
@@ -43,14 +42,27 @@ const HomePage = () => {
       path: '/profile',
     })
   }
+
   return (
-    <Page name="home" >
-      <Box mx="4" mb="4" mt="5">
-        <Avatar  onClick={viewProfile} className='shadow align-middle mb-2' src={user.avatar}>Hi</Avatar>
+    <Page name='home'>
+      <Box mx='4' mb='4' mt='5'>
+        <Avatar
+          onClick={viewProfile}
+          className='shadow align-middle mb-2'
+          src={user.avatar}
+        >
+          Hi
+        </Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
-        <Title size='xlarge' bold>Hôm nay bạn muốn ở khách sạn nào?</Title>
+        <Title size='xlarge' bold>
+          Hôm nay bạn muốn ở khách sạn nào?
+        </Title>
         <Inquiry />
-        <Title size='small' className='mt-6 mb-4'>Phân loại nhanh</Title>
+        <Box flex flexDirection='row' flexWrap mt='0' mb='2'>
+          <Title size='small' className='mt-6 mb-4'>
+            Phân loại nhanh
+          </Title>
+        </Box>
         <QuickFilter />
       </Box>
       <Popular />

@@ -50,7 +50,7 @@ const store = createStore<StoreState>({
       id: 13,
       name: 'Thủ Đức'
     }],
-    selectedDistrict: 1,
+    selectedDistrict: 0,
     restaurantTab: 'info',
     hotels: [
       {
