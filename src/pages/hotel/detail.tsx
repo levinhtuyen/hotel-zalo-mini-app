@@ -8,6 +8,7 @@ import HotelContext from "./context";
 import Information from './information';
 import Menu from "./menu";
 import Booking from './booking';
+import getImgUrl from '../../utils/img-url';
 
 function HotelDetail() {
   const { hotel } = useContext(HotelContext);
@@ -23,7 +24,7 @@ function HotelDetail() {
       <Box m='5'>
         <div className='relative aspect-video w-full'>
           <img
-            src={hotel.image}
+            src={getImgUrl(hotel.hotelImage)}
             className='absolute w-full h-full object-cover rounded-xl'
           />
         </div>

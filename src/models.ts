@@ -39,7 +39,15 @@ export interface HotelList
     total: number
   }
 }
-
+interface IParamsHotel {
+  bookingType: string | number
+  startTime?: string | undefined
+  startDate?: string | undefined
+  endDate?: string | undefined
+  endTime?: string | undefined
+  mode?: number | string | undefined
+  hotelSn: number | string
+}
 export interface HotelDetail
 {
   averageMark: number

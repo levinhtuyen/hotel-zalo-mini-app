@@ -27,7 +27,7 @@ const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after
     return (
       <div
         onClick={onClick ?? viewDetail}
-        className='relative bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover'
+        className='relative  bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover h-46 max-h-full'
       >
         <div className='aspect-cinema relative'>
           <img
@@ -39,7 +39,7 @@ const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after
           <Icon zmp='zi-star-solid' />
           {hotel.averageMark}
         </div>
-        <Title size='small' className='mt-2 mb-0 mx-4'>
+        <Title size='small' className='mt-2 mb-0 mx-4 limit-text-1-line'>
           {hotel.name}
         </Title>
         <Box flex mt='0'>
@@ -64,7 +64,7 @@ const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after
       onClick={onClick ?? viewDetail}
       className='bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover'
     >
-      <Box m='0' flex>
+      <Box m='0' flex className='h-36 max-h-full'>
         <div className='flex-none aspect-card relative w-32'>
           <img
             src={getImgUrl(hotel.hotelImage)}
@@ -73,7 +73,9 @@ const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after
         </div>
         <Box my='4' mx='5'>
           {before}
-          <Title size='small'>{hotel.name}</Title>
+          <Title className='limit-text-2-line h-48' size='small'>
+            {hotel.name}
+          </Title>
           {after}
           <Box mx='0' mb='0' flex>
             <Button

@@ -1,5 +1,16 @@
 @import "./tailwind.css";
+@mixin g2j-limit($_fontSize, $_limit) {
+  display: block;
+  overflow: hidden;
+  // height: $_fontSize * $_lineHeight * $_limit;
+  height: max-content;
+  text-overflow: ellipsis;
+  font-size: $_fontSize !important;
+  display: -webkit-box;
+  -webkit-line-clamp: $_limit;
+  -webkit-box-orient: vertical;
 
+}
 /* Your app custom styles here */
 :root {
   --zmp-theme-color: #0068ff;
@@ -134,4 +145,10 @@ body {
   left: 0;
   bottom: 0;
   width: 100%;
+}
+.limit-text-2-line {
+  @include g2j-limit(16px, 2);
+}
+.limit-text-1-line {
+  @include g2j-limit(16px, 1);
 }
