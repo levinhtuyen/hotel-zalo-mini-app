@@ -18,6 +18,50 @@ export interface Restaurant {
   map: string
   rating: number
 }
+export interface HotelList
+{
+  length: any
+  additionalData?: {
+    hotelCollectionName: string
+    hotelCollectionSn: number
+    latitudeMax: string
+    latitudeMin: string
+    longitudeMax: string
+    longitudeMin: string
+  },
+  hotelList: HotelDetail[],
+  meta: {
+    currentPage: number
+    from: number
+    lastPage: number
+    perPage: number
+    to: number
+    total: number
+  }
+}
+
+export interface HotelDetail
+{
+  averageMark: number
+  bookingType: number
+  discountPrice: number
+  districtName: string
+  facilityList: []
+  firstHours: number
+  hotelImage: string
+  isDirectDiscount: false
+  isExtraFee: false
+  isFavorite: false
+  isFlashSale: false
+  latitude: number
+  longitude: number
+  name: string
+  originPrice: number
+  percentDirectDiscount: number
+  provinceName: string
+  sn: number
+  totalReview: number
+}
 export interface Hotel
 {
   id: number

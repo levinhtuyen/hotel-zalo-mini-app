@@ -4,8 +4,10 @@ import { hideNavigationBar, showNavigationBar } from "../components/navigation-b
 import HotelContext from "./hotel/context";
 import HotelDetail from "./hotel/detail";
 
+
 function HotelPage({ zmproute }) {
   const hotel = useHotel(zmproute.query.id)!;
+
   const onBookNow = () =>
   {
     

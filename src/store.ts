@@ -1,15 +1,17 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel } from './models';
+import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList } from './models';
 import { calcCrowFliesDistance } from './utils/location';
-
+import apiCaller from './utils/apiCaller'
+import { getHotelList } from './utils/api/hotel-list'
 interface StoreState {
   user: userInfo,
   keyword: string
   position: Location | null
   restaurantTab: TabType
   hotels: Hotel[]
+  hotelList: any
   districts: District[]
   selectedDistrict: number
   categories: string[]
@@ -100,6 +102,7 @@ const store = createStore<StoreState>({
         map: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.585876004013!2d106.69000821538795!3d10.766364992328358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f1640b88ca3%3A0x8d9f87825b5b807!2zMTIxLzE1IMSQLiBUcuG6p24gSMawbmcgxJDhuqFvLCBQaMaw4budbmcgUGjhuqFtIE5nxakgTMOjbywgUXXhuq1uIDEsIFRow6BuaCBwaOG7kSBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1655782080310!5m2!1svi!2s'
       }
     ],
+    hotelList: {},
     categories: ['Pizza', 'Pasta', 'Salad', 'Sandwich', 'Drink'],
     foods: [{
       id: 1,
@@ -305,7 +308,10 @@ const store = createStore<StoreState>({
     },
     restaurantTab({ state }) {
       return state.restaurantTab;
-    }
+    },
+    hotelList({ state }) {
+      return state.hotelList;
+    },
   },
   actions: {
     setUser({ state }, data: userInfo) {
@@ -361,6 +367,11 @@ const store = createStore<StoreState>({
     },
     changeRestaurantTab({ state }, tab: TabType) {
       state.restaurantTab = tab;
+    },
+    async setHotelList({ state }, dataHotelList: HotelList)
+    {
+      const { data } = await getHotelList()
+      state.hotelList = data.data.hotelList
     }
   },
 })

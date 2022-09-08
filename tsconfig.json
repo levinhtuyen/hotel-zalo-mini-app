@@ -3,6 +3,7 @@
     "noEmit": true,
     "target": "es6", 
     "module": "esnext", 
+    "types": ["vite/client"],
     "noImplicitAny": false,
     "preserveConstEnums": true,
     "jsx": "react-jsx",
