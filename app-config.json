@@ -12,7 +12,7 @@
   "listAsyncJS": [],
   "pages": [
     "/calendar",
-    "/hotel",
+    "/hotel-detail",
     "/profile",
     "/hotel-list"
   ]

@@ -1,8 +1,8 @@
 import apiCaller from "../apiCaller";
 
-async function getHotelDetail(payload)
+async function getHotelDetail(params)
 {
-  return await apiCaller.post('/getHotelDetail', payload)
+  return await apiCaller.get('/v4/web-booking/hotel/getHotelDetail', {params: params})
 }
 
 export {

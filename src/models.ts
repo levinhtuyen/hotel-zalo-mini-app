@@ -29,7 +29,7 @@ export interface HotelList
     longitudeMax: string
     longitudeMin: string
   },
-  hotelList: HotelDetail[],
+  hotelList: HotelListDetail[],
   meta: {
     currentPage: number
     from: number
@@ -39,16 +39,11 @@ export interface HotelList
     total: number
   }
 }
-interface IParamsHotel {
+export interface IParamsHotel {
   bookingType: string | number
-  startTime?: string | undefined
-  startDate?: string | undefined
-  endDate?: string | undefined
-  endTime?: string | undefined
-  mode?: number | string | undefined
   hotelSn: number | string
 }
-export interface HotelDetail
+export interface HotelListDetail
 {
   averageMark: number
   bookingType: number

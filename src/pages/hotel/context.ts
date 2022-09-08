@@ -1,8 +1,8 @@
-import { HotelDetail } from '../../models';
+
 import { createContext } from "react";
 
 const HotelContext = createContext({
-  hotel: {} as HotelDetail,
+  hotel: {} as any,
 })
 
 export default HotelContext;

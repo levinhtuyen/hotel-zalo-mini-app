@@ -19,7 +19,7 @@ async function getHotelList()
     sort: 1,
     startTime: "10:30",
   }
-  return await apiCaller.post('/getHotelList', payload)
+  return await apiCaller.post('/v5/web-booking/hotel/getHotelList', payload)
 }
 
 export {

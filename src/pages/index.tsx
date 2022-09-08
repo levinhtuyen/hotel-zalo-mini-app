@@ -3,8 +3,8 @@ import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import React, { useState, useRef, useEffect } from 'react';
 import store from '../store';
-import HotelItem from '../components/hotel';
-import {  HotelList } from '../models';
+import HotelItem from '../components/hotel-item';
+import { HotelList } from '../models';
 function Popular(props)
 {
   const popular = props.dataHotel;
@@ -69,6 +69,7 @@ function Nearest(props)
 const HomePage = () => {
   const user: userInfo = useStore('user')
   const hotelList: HotelList = useStore('hotelList');
+  
   useEffect(() => {
     if (!hotelList?.length)
     {

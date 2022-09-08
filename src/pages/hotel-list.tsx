@@ -8,10 +8,9 @@ import {
   zmp,
 } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
-import { Hotel } from '../models';
-import HotelItem from '../components/hotel';
+import HotelItem from '../components/hotel-item'
 const HotelList = () => {
-  const hotelList = useStore('nearests') as Hotel[];
+  const hotelList = useStore('hotelList');
   const user: userInfo = useStore('user')
     return (
       <Page name='home'>
@@ -19,7 +18,7 @@ const HotelList = () => {
           <Box mx='4' mt='5'>
             <Title size='small'>Danh sách khách sạn</Title>
             {hotelList.map((hotel) => (
-              <Box key={hotel.id} mx='0' my='3'>
+              <Box key={hotel.sn} mx='0' my='3'>
                 <HotelItem
                   layout='list-item'
                   hotel={hotel}

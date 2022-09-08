@@ -1,8 +1,8 @@
-import { ReactNode, useContext } from "react";
-import { Box, Button, Text, Title, useStore } from "zmp-framework/react";
+import { ReactNode, useContext, useEffect } from 'react';
+import { Box, Button, Text, Title, useStore, zmp } from 'zmp-framework/react';
 import Distance from "../../components/distance";
 import DistrictName from "../../components/district-name";
-import { TabType } from "../../models";
+import { TabType } from '../../models';
 import store from "../../store";
 import HotelContext from "./context";
 import Information from './information';
@@ -12,12 +12,28 @@ import getImgUrl from '../../utils/img-url';
 
 function HotelDetail() {
   const { hotel } = useContext(HotelContext);
+  
   const currentTab = useStore('restaurantTab') as TabType;
   const setCurrentTab = (tab) => {
-    store.dispatch('changeRestaurantTab', tab)
-  }
+    store.dispatch('changeRestaurantTab', tab);
+  };
 
-  const TabItem = ({ tab, children }: { tab: TabType, children: ReactNode }) => <Button fill typeName={currentTab === tab ? 'primary' : 'tertiary'} onClick={() => setCurrentTab(tab)} className="mx-1 flex-none">{children}</Button>;
+  const TabItem = ({
+    tab,
+    children,
+  }: {
+    tab: TabType;
+    children: ReactNode;
+  }) => (
+    <Button
+      fill
+      typeName={currentTab === tab ? 'primary' : 'tertiary'}
+      onClick={() => setCurrentTab(tab)}
+      className='mx-1 flex-none'
+    >
+      {children}
+    </Button>
+  );
 
   return (
     <>
@@ -35,16 +51,18 @@ function HotelDetail() {
           style={{ marginTop: -60 }}
         >
           <Title bold>{hotel.name}</Title>
-          <Text className='text-gray-500'>{hotel.address}</Text>
+          <Text className='text-gray-500'>{hotel.provinceName}</Text>
           <Box flex justifyContent='center' mt='0' py='3'>
             <Button className='text-red-500' iconZMP='zi-location-solid'>
               <span className='text-gray-500'>
-                <DistrictName id={hotel.districtId} />
+                <DistrictName id={hotel.sn} />
               </span>
             </Button>
             <Button iconZMP='zi-send-solid'>
               <span className='text-gray-500'>
-                <Distance location={hotel.location} />
+                <Distance
+                  location={{ lat: hotel.latitude, long: hotel.longitude }}
+                />
               </span>
             </Button>
           </Box>

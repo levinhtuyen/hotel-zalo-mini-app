@@ -1,33 +1,33 @@
 import { FunctionComponent } from "react";
 import { Box, Button, Icon, Text, Title, zmp } from "zmp-framework/react";
-import { Hotel, HotelDetail } from "../models";
+import { Hotel, HotelListDetail } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import getImgUrl from '../utils/img-url';
 
 interface HotelProps {
   layout: 'cover' | 'list-item';
-  hotel: HotelDetail;
+  hotel: HotelListDetail;
   before?: React.ReactNode;
   after?: React.ReactNode;
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after, onClick }) => {
+const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after, onClick, }) => {
   const viewDetail = () => {
     zmp.views.main.router.navigate({
-      path: '/hotel',
+      path: '/hotel-detail',
       query: {
-        id: hotel.sn
-      }
-    })
+        hotelSn: hotel.sn,
+        bookingType: hotel.bookingType,
+      },
+    });
   }
-  console.log('hotel.hotelImage :>> ', hotel.hotelImage);
   if (layout === 'cover') {
     return (
       <div
         onClick={onClick ?? viewDetail}
-        className='relative  bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover h-46 max-h-full'
+        className='relative  bg-white rounded-xl overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'
       >
         <div className='aspect-cinema relative'>
           <img

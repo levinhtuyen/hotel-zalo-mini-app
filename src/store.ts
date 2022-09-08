@@ -1,10 +1,11 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList } from './models';
+import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList,HotelListDetail,IParamsHotel } from './models';
 import { calcCrowFliesDistance } from './utils/location';
 import apiCaller from './utils/apiCaller'
 import { getHotelList } from './utils/api/hotel-list'
+import { getHotelDetail } from './utils/api/hotel-detail'
 interface StoreState {
   user: userInfo,
   keyword: string
@@ -17,7 +18,8 @@ interface StoreState {
   categories: string[]
   foods: Food[]
   cart: Cart
-  bookings: Booking[]
+  bookings: Booking[],
+  hotelDetail: any
 }
 
 const store = createStore<StoreState>({
@@ -247,7 +249,8 @@ const store = createStore<StoreState>({
     cart: {
       items: []
     },
-    bookings: []
+    bookings: [],
+    hotelDetail: {}
   },
   getters: {
     user({ state }) {
@@ -312,6 +315,9 @@ const store = createStore<StoreState>({
     hotelList({ state }) {
       return state.hotelList;
     },
+    hotelDetail({ state }) {
+      return state.hotelDetail;
+    },
   },
   actions: {
     setUser({ state }, data: userInfo) {
@@ -372,7 +378,13 @@ const store = createStore<StoreState>({
     {
       const { data } = await getHotelList()
       state.hotelList = data.data.hotelList
-    }
+    },
+    async getHotelDetail ({ state }, query: IParamsHotel)
+    {
+      const { data } = await getHotelDetail(query)
+      state.hotelDetail = data.data
+      console.log('data.data :>> ', data.data);
+    },
   },
 })
 

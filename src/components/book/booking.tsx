@@ -5,7 +5,7 @@ import { Booking } from "../../models";
 import store from "../../store";
 import Price from "../format/price";
 import Time from "../format/time";
-import HotelItem from "../hotel";
+import HotelItem from "../hotel-item";
 import Swipeable from "../swipeable";
 
 interface BookingItemProps {
