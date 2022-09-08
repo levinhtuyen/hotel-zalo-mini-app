@@ -55,7 +55,6 @@ function HotelDetail() {
         </Box>
       </Box>
       {{ info: <Information />, menu: <Menu />, book: <Booking /> }[currentTab]}
-     
     </>
   );
 }

@@ -31,7 +31,7 @@ function Booking() {
         table
       }
     } as BookingModel)
-    message('Đặt bàn thành công');
+    message('Đặt phòng thành công');
     zmp.views.main.router.navigate('/calendar/');
   }
 

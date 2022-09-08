@@ -6,7 +6,10 @@ import HotelDetail from "./hotel/detail";
 
 function HotelPage({ zmproute }) {
   const hotel = useHotel(zmproute.query.id)!;
-  const onBookNow = () => {};
+  const onBookNow = () =>
+  {
+    
+  };
   return (
     <Page
       onPageBeforeIn={hideNavigationBar}
