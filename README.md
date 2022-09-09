@@ -93,7 +93,7 @@ You can change the primary and the secondary color theme by setting the variable
 
 ```scss
 :root {
-	--zmp-theme-color: #0068ff;
+	--zmp-theme-color: #ff6400;
 	--zmp-secondary-color: #ff8a00;
 }
 ```

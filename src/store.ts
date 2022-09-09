@@ -326,30 +326,9 @@ const store = createStore<StoreState>({
     },
   },
   actions: {
-    setUser({ state }, data: userInfo) {
+    setUser({ state }, data: userInfo)
+    {
       state.user = { ...state.user, ...data }
-      // mock booking
-      state.bookings.push({
-        id: '1234567890',
-        hotel: state.hotels[0],
-        cart: {
-          items: [{
-            quantity: 1,
-            food: state.foods[0],
-            note: ''
-          }, {
-            quantity: 2,
-            food: state.foods[1],
-            note: 'Kèm ớt trái'
-          }]
-        },
-        bookingInfo: {
-          date: new Date(),
-          hour: [20, 0, 'PM'],
-          table: '05',
-          seats: 4,
-        }
-      })
     },
     setPosition({ state }, data: Location) {
       state.position = data;
@@ -375,7 +354,7 @@ const store = createStore<StoreState>({
       state.bookings = [...state.bookings, booking];
     },
     unbook({ state }, bookingId: string) {
-      state.bookings = state.bookings.filter(b => b.id !== bookingId);
+      
     },
     changeHotelTab({ state }, tab: TabType) {
       state.hotelTab = tab;
@@ -394,6 +373,26 @@ const store = createStore<StoreState>({
     {
       const { data } = await getApiListRoom(query)
       state.listRoom = data.data
+    },
+    setBooking({ state })
+    {
+      const data = <any>[{
+        sn: 271639,
+        hotelName: "PHƯƠNG HẢI QUỲNH HOTEL",
+        hotelAddress: "Hẻm 467 Lê Đức Thọ, phường 16, Gò Vấp, Hồ Chí Minh, Việt Nam",
+        imagePath: "hotel/1718_1574574161127/6286f3b9aa49afe6aa7f2851df5e6ff8.jpg",
+        type: 2,
+        bookingStatus: 0,
+        roomTypeSn: 2536,
+        roomTypeName: "Standard Double",
+        amountFromUser: 135000,
+        checkIn: 1607698800,
+        duration: 86400,
+        paymentProvider: 10,
+        isAbleReview: false,
+        paymentInfo: null
+      }]
+      state.bookings =data
     },
   },
 })

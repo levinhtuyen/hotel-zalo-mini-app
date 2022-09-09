@@ -20,20 +20,20 @@ const FoodItem: FunctionComponent<FoodItemProps> = ({ room }) => {
   return (
     <div
       onClick={pick}
-      className='p-6 bg-white text-center'
+      className='p-6 bg-white text-left'
       style={{ borderRadius: 10 }}
     >
-      <Avatar size={96} src={getImgUrl(room.imagePath)} />
-      <Title size='small'>{room.name}</Title>
-      <Text size='xlarge' className='text-secondary' bold>
-        <Price amount={room.firstHoursOrigin} />
+      <img src={getImgUrl(room.imagePath)} />
+      <Title bold size='small'>
+        {room.name}
+      </Title>
+      <Text size='large' className='text-secondary' bold>
+        <Price amount={room.overnightOrigin} />
       </Text>
-      <Button
-        fill
-        responsive
-        large
-        className='rounded-xl'
-      >Room detail</Button>
+      <Text>{room.additionForBookingRoom}</Text>
+      <Button fill responsive large className='rounded-xl'>
+        Room detail
+      </Button>
     </div>
   );
 }

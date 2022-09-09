@@ -14,14 +14,26 @@ export const showNavigationBar = () => {
 function NavigationBar() {
   const [currentRoute] = useCurrentRoute();
 
-  return <Tabbar bottom id="app-tab-bar">
-    <Link href="/" animate={false} iconZMP="zi-home" tabLinkActive={currentRoute.path === '/'}>
-      Trang chủ
-    </Link>
-    <Link href="/calendar" animate={false} iconZMP="zi-calendar" tabLinkActive={currentRoute.path.startsWith('/calendar')}>
-      Đặt phòng
-    </Link>
-  </Tabbar>;
+  return (
+    <Tabbar bottom id='app-tab-bar'>
+      <Link
+        href='/'
+        animate={false}
+        iconZMP='zi-home'
+        tabLinkActive={currentRoute.path === '/'}
+      >
+        Trang chủ
+      </Link>
+      <Link
+        href='/booking-list'
+        animate={false}
+        iconZMP='zi-calendar'
+        tabLinkActive={currentRoute.path.startsWith('/booking-list')}
+      >
+        Đặt phòng
+      </Link>
+    </Tabbar>
+  );
 }
 
 export default NavigationBar;

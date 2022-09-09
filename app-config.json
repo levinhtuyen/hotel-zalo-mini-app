@@ -11,7 +11,8 @@
   "listSyncJS": [],
   "listAsyncJS": [],
   "pages": [
-    "/calendar",
+    "/booking-list",
+    "/booking-detail",
     "/hotel-detail",
     "/profile",
     "/hotel-list"

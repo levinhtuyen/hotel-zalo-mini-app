@@ -62,13 +62,13 @@ function CartPreview() {
     } as Booking)
     message('Đặt thức ăn thành công');
     matchStatusBar(false);
-    zmp.views.main.router.navigate('/calendar/');
+    zmp.views.main.router.navigate('/booking-list/');
   }
 
   return <Sheet
     ref={sheetRef}
     backdrop={false}
-    opened={cart.items.length > 0 && currentRoute.path === '/hotel/' && currentTab !== 'book'}
+    opened={cart.items.length > 0 && currentRoute.path === '/hotel/' && currentTab !== 'review'}
     closeByBackdropClick={false}
     className="h-auto border-t cart-preview"
     swipeToStep
