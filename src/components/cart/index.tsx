@@ -47,11 +47,11 @@ function CartPreview() {
     document.querySelector('.sheet-backdrop')?.classList[expaned ? 'add' : 'remove']('backdrop-in');
   }, [expaned])
 
-  const currentTab = useStore('restaurantTab') as TabType;
+  const currentTab = useStore('hotelTab') as TabType;
 
   const book = () => {
     matchStatusBar(false);
-    store.dispatch('changeRestaurantTab', 'book' as TabType)
+    store.dispatch('changeHotelTab', 'book' as TabType);
   }
 
   const payFoods = async () => {

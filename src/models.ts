@@ -43,6 +43,15 @@ export interface IParamsHotel {
   bookingType: string | number
   hotelSn: number | string
 }
+interface IParamsRoom {
+  hotelSn: number | string
+  bookingType: string | number
+  startTime?: string
+  startDate?: string
+  endDate?: string
+  endTime?: string
+  mode?: number | string
+}
 export interface HotelListDetail
 {
   averageMark: number
@@ -169,4 +178,4 @@ export interface Booking {
   }
 }
 
-export type TabType = 'info' | 'menu' | 'book';
+export type TabType = 'info' | 'room' | 'review';

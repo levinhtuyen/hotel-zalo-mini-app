@@ -1,9 +1,9 @@
 import { Box, Page, Button, useStore } from 'zmp-framework/react';
-import {  useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { useHotel } from "../hooks";
 import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
 import HotelContext from "./hotel/context";
-import HotelListDetail from "./hotel/detail";
+import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
 
 function HotelPage({ zmproute })
@@ -16,10 +16,8 @@ function HotelPage({ zmproute })
   useEffect(() => {
     if (!hotelDetail?.length) {
       store.dispatch('getHotelDetail', query);
-      // hotelDetail = useStore('hotelDetail');
     }
   }, []);
-  console.log('hotelDetail :>> ', hotelDetail);
   const onBookNow = () =>
   {
     
@@ -29,13 +27,9 @@ function HotelPage({ zmproute })
       onPageBeforeIn={hideNavigationBar}
       onPageBeforeOut={showNavigationBar}
     >
-      {hotelDetail ? (
-        <HotelContext.Provider value={{ hotelDetail }}>
-          <HotelListDetail />
-        </HotelContext.Provider>
-      ) : (
-        <Box mx='4'>Không có dữ liệu</Box>
-      )}
+      <HotelContext.Provider value={{ hotelDetail }}>
+        <HotelDetailComponent params={query} />
+      </HotelContext.Provider>
       <Box height={200}></Box>
       <Box className='fixed bottom-0 left-0 right-0 z-10'>
         <Button

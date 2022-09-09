@@ -6,16 +6,15 @@ import { TabType } from '../../models';
 import store from "../../store";
 import HotelContext from "./context";
 import Information from './information';
-import Menu from "./menu";
-import Booking from './booking';
+import Room from "./room";
+import Review from './review';
 import getImgUrl from '../../utils/img-url';
 
-function HotelDetail() {
-  const { hotel } = useContext(HotelContext);
-  
-  const currentTab = useStore('restaurantTab') as TabType;
+function HotelDetailComponent(props) {
+  const { hotelDetail } = useContext(HotelContext);
+  const currentTab = useStore('hotelTab') as TabType;
   const setCurrentTab = (tab) => {
-    store.dispatch('changeRestaurantTab', tab);
+    store.dispatch('changeHotelTab', tab);
   };
 
   const TabItem = ({
@@ -39,8 +38,9 @@ function HotelDetail() {
     <>
       <Box m='5'>
         <div className='relative aspect-video w-full'>
+          {hotelDetail.hotelImage}
           <img
-            src={getImgUrl(hotel.hotelImage)}
+            src={getImgUrl(hotelDetail.imagePath)}
             className='absolute w-full h-full object-cover rounded-xl'
           />
         </div>
@@ -50,32 +50,41 @@ function HotelDetail() {
           p='4'
           style={{ marginTop: -60 }}
         >
-          <Title bold>{hotel.name}</Title>
-          <Text className='text-gray-500'>{hotel.provinceName}</Text>
+          <Title bold>{hotelDetail.name}</Title>
+          <Text className='text-gray-500'>{hotelDetail?.address}</Text>
           <Box flex justifyContent='center' mt='0' py='3'>
             <Button className='text-red-500' iconZMP='zi-location-solid'>
               <span className='text-gray-500'>
-                <DistrictName id={hotel.sn} />
+                <DistrictName id={hotelDetail.sn} />
               </span>
             </Button>
             <Button iconZMP='zi-send-solid'>
               <span className='text-gray-500'>
                 <Distance
-                  location={{ lat: hotel.latitude, long: hotel.longitude }}
+                  location={{
+                    lat: hotelDetail.latitude,
+                    long: hotelDetail.longitude,
+                  }}
                 />
               </span>
             </Button>
           </Box>
           <Box flex justifyContent='center' mb='0'>
             <TabItem tab='info'>Thông tin</TabItem>
-            <TabItem tab='menu'>DS phòng</TabItem>
-            <TabItem tab='book'>Đánh giá</TabItem>
+            <TabItem tab='room'>DS phòng</TabItem>
+            <TabItem tab='review'>Đánh giá</TabItem>
           </Box>
         </Box>
       </Box>
-      {{ info: <Information />, menu: <Menu />, book: <Booking /> }[currentTab]}
+      {
+        {
+          info: <Information />,
+          room: <Room params={props.params} />,
+          review: <Review />,
+        }[currentTab]
+      }
     </>
   );
 }
 
-export default HotelDetail;
+export default HotelDetailComponent;

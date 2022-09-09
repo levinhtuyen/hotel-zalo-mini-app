@@ -6,11 +6,12 @@ import { calcCrowFliesDistance } from './utils/location';
 import apiCaller from './utils/apiCaller'
 import { getHotelList } from './utils/api/hotel-list'
 import { getHotelDetail } from './utils/api/hotel-detail'
+import { getApiListRoom } from './utils/api/list-room'
 interface StoreState {
   user: userInfo,
   keyword: string
   position: Location | null
-  restaurantTab: TabType
+  hotelTab: TabType
   hotels: Hotel[]
   hotelList: any
   districts: District[]
@@ -19,7 +20,8 @@ interface StoreState {
   foods: Food[]
   cart: Cart
   bookings: Booking[],
-  hotelDetail: any
+  hotelDetail: any,
+  listRoom: any
 }
 
 const store = createStore<StoreState>({
@@ -55,7 +57,7 @@ const store = createStore<StoreState>({
       name: 'Thủ Đức'
     }],
     selectedDistrict: 0,
-    restaurantTab: 'info',
+    hotelTab: 'info',
     hotels: [
       {
         id: 1,
@@ -250,7 +252,8 @@ const store = createStore<StoreState>({
       items: []
     },
     bookings: [],
-    hotelDetail: {}
+    hotelDetail: {},
+    listRoom: []
   },
   getters: {
     user({ state }) {
@@ -309,14 +312,17 @@ const store = createStore<StoreState>({
     bookings({ state }) {
       return state.bookings;
     },
-    restaurantTab({ state }) {
-      return state.restaurantTab;
+    hotelTab({ state }) {
+      return state.hotelTab;
     },
     hotelList({ state }) {
       return state.hotelList;
     },
     hotelDetail({ state }) {
       return state.hotelDetail;
+    },
+    listRoom ({ state }) {
+      return state.listRoom;
     },
   },
   actions: {
@@ -371,8 +377,8 @@ const store = createStore<StoreState>({
     unbook({ state }, bookingId: string) {
       state.bookings = state.bookings.filter(b => b.id !== bookingId);
     },
-    changeRestaurantTab({ state }, tab: TabType) {
-      state.restaurantTab = tab;
+    changeHotelTab({ state }, tab: TabType) {
+      state.hotelTab = tab;
     },
     async setHotelList({ state }, dataHotelList: HotelList)
     {
@@ -383,7 +389,11 @@ const store = createStore<StoreState>({
     {
       const { data } = await getHotelDetail(query)
       state.hotelDetail = data.data
-      console.log('data.data :>> ', data.data);
+    },
+    async getListRoom ({ state }, query: IParamsHotel)
+    {
+      const { data } = await getApiListRoom(query)
+      state.listRoom = data.data
     },
   },
 })
