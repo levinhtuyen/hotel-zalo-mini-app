@@ -5,41 +5,73 @@ import React, { useState, useRef, useEffect } from 'react';
 import store from '../store';
 import HotelItem from '../components/hotel-item';
 import { HotelList } from '../models';
+import SkeletonBlockHotel1 from '../components/skeleton-block/skeleton-block-hotel-1';
+import SkeletonBlockHotel2 from '../components/skeleton-block/skeleton-block-hotel-2';
 function Popular(props)
 {
   const popular = props.dataHotel;
-  // const populars = useStore('populars') as Hotel[];
-  return (
-    <>
-      <Box mx='4' mt='6'>
-        <Title size='small'>Khách sạn phổ biến</Title>
-      </Box>
-      {popular.length ? (
+  if (props.loadingPopular)
+  {
+    return (
+      <>
+        <Box mx='4' mt='6'>
+          <Title size='small'>Khách sạn phổ biến</Title>
+        </Box>
         <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
           <Box m='0' pr='4' flex className='w-max'>
-            {popular.map((hotel) => (
-              <Box
-                key={hotel.sn}
-                ml='4'
-                mr='0'
-                className='snap-start'
-                style={{ width: 'calc(100vw - 120px)' }}
-              >
-                <HotelItem layout='cover' hotel={hotel} />
-              </Box>
-            ))}
+            
+              <SkeletonBlockHotel2 />
+              <SkeletonBlockHotel2 />
+              <SkeletonBlockHotel2 />
           </Box>
         </div>
-      ) : (
-        <Box mx='4'>Không có khách sạn nào ở khu vực này</Box>
-      )}
-    </>
-  );
+      </>
+    );
+  }
+    return (
+      <>
+        <Box mx='4' mt='6'>
+          <Title size='small'>Khách sạn phổ biến</Title>
+        </Box>
+        {popular.length ? (
+          <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
+            <Box m='0' pr='4' flex className='w-max'>
+              {popular.map((hotel) => (
+                <Box
+                  key={hotel.sn}
+                  ml='4'
+                  mr='0'
+                  className='snap-start'
+                  style={{ width: 'calc(100vw - 120px)' }}
+                >
+                  <HotelItem layout='cover' hotel={hotel} />
+                </Box>
+              ))}
+            </Box>
+          </div>
+        ) : (
+          <Box mx='4'>Không có khách sạn nào ở khu vực này</Box>
+        )}
+      </>
+    );
 }
 
 function Nearest(props)
 {
   const nearests = props.dataHotel;
+  if (props.loadingNearest)
+  {
+    return (
+      <>
+        <Box mx='4' mt='5'>
+          <Title size='small'>Gần bạn nhất</Title>
+          <SkeletonBlockHotel1 />
+          <SkeletonBlockHotel1 />
+          <SkeletonBlockHotel1 />
+        </Box>
+      </>
+    );
+  }
   return (
     <>
       {nearests.length ? (
@@ -67,20 +99,20 @@ function Nearest(props)
 }
 
 const HomePage = () => {
-  const user: userInfo = useStore('user')
+  const user: userInfo = useStore('user');
   const hotelList: HotelList = useStore('hotelList');
-  
+  const loadingNearest = useStore('loadingNearest');
+  const loadingPopular = useStore('loadingPopular') ;
   useEffect(() => {
-    if (!hotelList?.length)
-    {
+    if (!hotelList?.length) {
       store.dispatch('setHotelList');
     }
   }, []);
   const viewProfile = () => {
-  zmp.views.main.router.navigate({
+    zmp.views.main.router.navigate({
       path: '/profile',
-    })
-  }
+    });
+  };
 
   return (
     <Page name='home'>
@@ -104,8 +136,8 @@ const HomePage = () => {
         </Box>
         <QuickFilter />
       </Box>
-      <Popular dataHotel={hotelList} />
-      <Nearest dataHotel={hotelList} />
+      <Popular loadingPopular={loadingPopular} dataHotel={hotelList} />
+      <Nearest loadingNearest={loadingNearest} dataHotel={hotelList} />
     </Page>
   );
 }

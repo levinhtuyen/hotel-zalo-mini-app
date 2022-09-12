@@ -152,3 +152,9 @@ body {
 .limit-text-1-line {
   @include g2j-limit(16px, 1);
 }
+.limit-text-3-line {
+  @include g2j-limit(16px, 3);
+}
+.limit-text-43-line {
+  @include g2j-limit(16px, 4);
+}

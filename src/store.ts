@@ -25,7 +25,11 @@ interface StoreState {
   hotelDetail: any,
   listRoom: any,
   bookingDetail: any,
-  loadingBookingItem: Boolean
+  loadingBookingItem: Boolean,
+  loadingBookingDetail: Boolean,
+  loadingPopular: Boolean,
+  loadingNearest: Boolean,
+  loadingQuickFilter: Boolean
 }
 
 const store = createStore<StoreState>({
@@ -257,6 +261,10 @@ const store = createStore<StoreState>({
     },
     bookings: [],
     loadingBookingItem: false,
+    loadingBookingDetail: false,
+    loadingPopular: false,
+    loadingNearest: false,
+    loadingQuickFilter: false,
     hotelDetail: {},
     listRoom: [],
     bookingDetail: {},
@@ -336,6 +344,18 @@ const store = createStore<StoreState>({
     bookingDetail({ state }) {
       return state.bookingDetail;
     },
+    loadingBookingDetail({ state }) {
+      return state.loadingBookingDetail;
+    },
+    loadingPopular({ state }) {
+      return state.loadingPopular;
+    },
+    loadingNearest({ state }) {
+      return state.loadingNearest;
+    },
+    loadingQuickFilter({ state }) {
+      return state.loadingQuickFilter;
+    },
   },
   actions: {
     setUser({ state }, data: userInfo)
@@ -395,8 +415,10 @@ const store = createStore<StoreState>({
     },
     async getBookingDetail({ state }, query: IQueryBookingDetail)
     {
+      state.loadingBookingDetail = true
       const { data } = await getApiBookingDetail(query)
       state.bookingDetail = data.data
+      state.loadingBookingDetail = false
     },
   },
 })

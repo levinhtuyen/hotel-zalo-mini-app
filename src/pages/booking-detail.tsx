@@ -1,21 +1,41 @@
 import { useState, useRef, useEffect } from 'react';
-import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/react";
+import {
+  Box,
+  Page,
+  Sheet,
+  Text,
+  Title,
+  useStore,
+  zmp,
+} from 'zmp-framework/react';
 import store from '../store';
-import BookingDetailItem from "../components/booking-detail/booking-item";
+import BookingDetail from "../components/booking-detail/detail";
 
-function BookingDetail({ zmproute }) {
+function BookingDetailPage({ zmproute })
+{
+  const loading = useStore('loadingBookingDetail');
   const bookingDetail: any = useStore('bookingDetail');
   useEffect(() => {
     if (!bookingDetail?.length) {
       store.dispatch('getBookingDetail', zmproute.query);
     }
   }, []);
-  console.log('bookingDetail :>> ', bookingDetail);
 
+  
+  if (loading)
+  {
+    return <BookingDetail loading bookingDetail={undefined} />;
+  }
   return (
-    <h1>booking detail</h1>
-  )
+    <Page name='booking-detail'>
+      <>
+        <Box mx='4' mt='5'>
+          <BookingDetail loading={false} bookingDetail={bookingDetail} />
+        </Box>
+      </>
+    </Page>
+  );
 
 }
 
-export default BookingDetail;
+export default BookingDetailPage;

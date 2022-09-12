@@ -7,7 +7,6 @@ import store from '../store';
 function BookingPage() {
   const bookings: any = useStore('bookings');
   const loading = useStore('loadingBookingItem');
-  console.log('loading :>> ', loading);
   useEffect(() => {
     if (!bookings?.length) {
       store.dispatch('setBooking');
