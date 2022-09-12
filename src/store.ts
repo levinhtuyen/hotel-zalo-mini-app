@@ -1,12 +1,14 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList,HotelListDetail,IParamsHotel } from './models';
+import { District, Restaurant, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList,IQueryBookingDetail,IParamsHotel } from './models';
 import { calcCrowFliesDistance } from './utils/location';
 import apiCaller from './utils/apiCaller'
 import { getHotelList } from './utils/api/hotel-list'
 import { getHotelDetail } from './utils/api/hotel-detail'
 import { getApiListRoom } from './utils/api/list-room'
+import { getApiBookingDetail } from './utils/api/booking-detail'
+import { getApiBookingList } from './utils/api/booking-list'
 interface StoreState {
   user: userInfo,
   keyword: string
@@ -21,7 +23,9 @@ interface StoreState {
   cart: Cart
   bookings: Booking[],
   hotelDetail: any,
-  listRoom: any
+  listRoom: any,
+  bookingDetail: any,
+  loadingBookingItem: Boolean
 }
 
 const store = createStore<StoreState>({
@@ -252,8 +256,10 @@ const store = createStore<StoreState>({
       items: []
     },
     bookings: [],
+    loadingBookingItem: false,
     hotelDetail: {},
-    listRoom: []
+    listRoom: [],
+    bookingDetail: {},
   },
   getters: {
     user({ state }) {
@@ -312,6 +318,9 @@ const store = createStore<StoreState>({
     bookings({ state }) {
       return state.bookings;
     },
+    loadingBookingItem({ state }) {
+      return state.loadingBookingItem;
+    },
     hotelTab({ state }) {
       return state.hotelTab;
     },
@@ -323,6 +332,9 @@ const store = createStore<StoreState>({
     },
     listRoom ({ state }) {
       return state.listRoom;
+    },
+    bookingDetail({ state }) {
+      return state.bookingDetail;
     },
   },
   actions: {
@@ -374,25 +386,17 @@ const store = createStore<StoreState>({
       const { data } = await getApiListRoom(query)
       state.listRoom = data.data
     },
-    setBooking({ state })
+    async setBooking({ state })
     {
-      const data = <any>[{
-        sn: 271639,
-        hotelName: "PHƯƠNG HẢI QUỲNH HOTEL",
-        hotelAddress: "Hẻm 467 Lê Đức Thọ, phường 16, Gò Vấp, Hồ Chí Minh, Việt Nam",
-        imagePath: "hotel/1718_1574574161127/6286f3b9aa49afe6aa7f2851df5e6ff8.jpg",
-        type: 2,
-        bookingStatus: 0,
-        roomTypeSn: 2536,
-        roomTypeName: "Standard Double",
-        amountFromUser: 135000,
-        checkIn: 1607698800,
-        duration: 86400,
-        paymentProvider: 10,
-        isAbleReview: false,
-        paymentInfo: null
-      }]
-      state.bookings =data
+      state.loadingBookingItem = true
+      const { data } = await getApiBookingList()
+      state.bookings = data.data.bookingList
+      state.loadingBookingItem = false
+    },
+    async getBookingDetail({ state }, query: IQueryBookingDetail)
+    {
+      const { data } = await getApiBookingDetail(query)
+      state.bookingDetail = data.data
     },
   },
 })

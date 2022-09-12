@@ -1,13 +1,16 @@
-import { ReactNode, useEffect, useMemo, useState } from "react";
+import { useState, useRef, useEffect } from 'react';
 import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/react";
-import { Booking } from "../models";
+import store from '../store';
+import BookingDetailItem from "../components/booking-detail/booking-item";
 
-
-
-
-function BookingDetail({ zmproute, zmprouter }) {
-  const bookings = useStore('bookings') as Booking[];
-
+function BookingDetail({ zmproute }) {
+  const bookingDetail: any = useStore('bookingDetail');
+  useEffect(() => {
+    if (!bookingDetail?.length) {
+      store.dispatch('getBookingDetail', zmproute.query);
+    }
+  }, []);
+  console.log('bookingDetail :>> ', bookingDetail);
 
   return (
     <h1>booking detail</h1>

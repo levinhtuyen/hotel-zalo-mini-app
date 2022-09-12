@@ -43,6 +43,10 @@ export interface IParamsHotel {
   bookingType: string | number
   hotelSn: number | string
 }
+export interface IQueryBookingDetail
+{
+  userBookingSn: number | string
+}
 interface IParamsRoom {
   hotelSn: number | string
   bookingType: string | number
