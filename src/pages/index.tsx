@@ -101,11 +101,39 @@ function Nearest(props)
 const HomePage = () => {
   const user: userInfo = useStore('user');
   const hotelList: HotelList = useStore('hotelList');
+  const hotelPopular = useStore('hotelPopular');
+  const hotelNearest = useStore('hotelNearest');
   const loadingNearest = useStore('loadingNearest');
   const loadingPopular = useStore('loadingPopular') ;
   useEffect(() => {
     if (!hotelList?.length) {
       store.dispatch('setHotelList');
+    }
+  }, []);
+  useEffect(() => {
+    if (!hotelPopular?.length) {
+      store.dispatch('getHotelPopular', {
+        bookingType: 1,
+        limit: 20,
+        sort: 2,
+        page: 1,
+        provinceSn: 1,
+        maxPrice: 10000000,
+        minPrice: 20000,
+      });
+    }
+  }, []);
+  useEffect(() => {
+    if (!hotelNearest?.length) {
+      store.dispatch('getHotelNearest', {
+        bookingType: 1,
+        limit: 20,
+        sort: 1,
+        page: 1,
+        provinceSn: 1,
+        maxPrice: 10000000,
+        minPrice: 20000,
+      });
     }
   }, []);
   const viewProfile = () => {
@@ -136,8 +164,8 @@ const HomePage = () => {
         </Box>
         <QuickFilter />
       </Box>
-      <Popular loadingPopular={loadingPopular} dataHotel={hotelList} />
-      <Nearest loadingNearest={loadingNearest} dataHotel={hotelList} />
+      <Popular loadingPopular={loadingPopular} dataHotel={hotelPopular} />
+      <Nearest loadingNearest={loadingNearest} dataHotel={hotelNearest} />
     </Page>
   );
 }

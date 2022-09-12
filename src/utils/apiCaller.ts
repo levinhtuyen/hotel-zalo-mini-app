@@ -6,7 +6,7 @@ const apiCaller = axios.create({
   headers: {
     Accept: 'application/json',
     'Content-Type': 'application/json',
-    'Device-Encode': '88153480-3ab7-11ec-8a68-d7fd852ead77'
+    'Device-Encode': '88153480-3ab7-11ec-8a68-d7fd852ead77',
   }
 })
 // req

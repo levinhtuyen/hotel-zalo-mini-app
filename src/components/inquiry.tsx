@@ -56,8 +56,8 @@ export function QuickFilter() {
         />
         {districts.map((district) => (
           <Button
-            key={district.id}
-            typeName={selectedDistrict === district.id ? 'primary' : 'tertiary'}
+            key={district.sn}
+            typeName={selectedDistrict === district.sn ? 'primary' : 'tertiary'}
             className='mr-3 snap-start'
             fill
             onClick={viewHotelList}

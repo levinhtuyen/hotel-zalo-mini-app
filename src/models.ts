@@ -47,6 +47,21 @@ export interface IQueryBookingDetail
 {
   userBookingSn: number | string
 }
+export interface IQueryHotelListHome
+{
+  minPrice?: number,
+  maxPrice?: number,
+  page?: number,
+  limit?: number,
+  sort?: number,
+  checkInDatePlan?: string,
+  endDate?: string,
+  longitude?: number,
+  latitude?: number,
+  bookingType?: number,
+  startTime?: string,
+  endTime?: string,
+}
 interface IParamsRoom {
   hotelSn: number | string
   bookingType: string | number
@@ -112,8 +127,17 @@ export interface Article {
 }
 
 export interface District {
-  id: number
-  name: string
+  code: string | number
+  idx?: number,
+  iosTotalAccess?: number,
+  lastUpdate?: string
+  name?: string
+  nameCode?: string
+  provinceSn?: number,
+  sn?: number,
+  status?: number,
+  totalContracted?: number,
+  totalHotel?: number,
 }
 
 export interface Location {
