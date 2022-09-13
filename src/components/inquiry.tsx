@@ -21,7 +21,7 @@ function Inquiry() {
   const keyword = useStore('keyword') as string;
   const loading = useStore('loadingSearchKeyword');
   const hotelSearch = useStore('hotelSearch');
-  const logo = './src/static/icons/logo-app.png';
+  const logo = 'src/static/icons/logo-app.png';
   const setKeyword = async (s: string) =>
   {
     if (!s)
@@ -61,7 +61,6 @@ function Inquiry() {
         placeholder='Tìm kiếm'
         onBlur={handleBlur}
       />
-      <Title>{logo }</Title>
       <Card className='list-card' onBlur={handleBlur}>
         {loading ? (
           <>
