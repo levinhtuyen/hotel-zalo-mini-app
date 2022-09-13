@@ -776,6 +776,7 @@ const store = createStore<StoreState>({
       state.loadingQuickFilter = false
     },
     async getHotelSearchKeyword ({ state }) {
+      
       state.loadingSearchKeyword = true
       const { data } = await getApiHotelSearchKeyword({keyword : state.keyword})
       state.hotelSearch = data.data

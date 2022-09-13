@@ -6,7 +6,7 @@ import HotelContext from './context';
 function Information()
 {
   const { hotelDetail } = useContext(HotelContext);
-  const logo = '/src/static/icons/logo-app.png';
+  const logo = 'https://go2joy.vn/images/logo-mini.png';
   const [toastLoading, setToastLoading] = useState(true);
   setTimeout(() =>
   {

@@ -21,15 +21,16 @@ function Inquiry() {
   const keyword = useStore('keyword') as string;
   const loading = useStore('loadingSearchKeyword');
   const hotelSearch = useStore('hotelSearch');
-  const logo = '/src/static/icons/logo-app.png';
+  const logo = 'https://go2joy.vn/images/logo-mini.png';
   const setKeyword = async (s: string) =>
   {
+    await store.dispatch('setKeyword', s);
     if (!s)
     {
-      s = ''
+      return
     }
     setFocusDisplay('block');
-    await store.dispatch('setKeyword', s);
+    
     getApiSearchKeyword()
     
   }

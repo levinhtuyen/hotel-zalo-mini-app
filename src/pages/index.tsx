@@ -69,7 +69,7 @@ function Popular(props)
 function Nearest(props)
 {
   const nearests = props.dataHotel;
-  const logo = '/src/static/icons/logo-app.png';
+  const logo = 'https://go2joy.vn/images/logo-mini.png';
   if (props.loadingNearest)
   {
     return (
