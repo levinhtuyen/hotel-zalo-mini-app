@@ -13,7 +13,7 @@ import HotelContext from "./context";
 function Review() {
   const { hotelDetail } = useContext(HotelContext);
   const reviews = hotelDetail?.userReviewFormList;
-  const logo = 'src/static/icons/logo-app.png';
+  const logo = '@static/icons/logo-app.png';
   const [toastLoading, setToastLoading] = useState(true);
   setTimeout(() => {
     setToastLoading(false);

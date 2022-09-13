@@ -8,8 +8,12 @@ export default defineConfig(({ command }) => ({
     sourcemap: command === 'serve',
   },
   resolve: {
-    alias: {
-      src: path.resolve('src/'),
+      alias: {
+        "@components": path.resolve(__dirname, "src/components"),
+        "@pages": path.resolve(__dirname, "src/pages"),
+        "@static": path.resolve(__dirname, "src/static"),
+        "@hooks": path.resolve(__dirname, "src/hooks"),
+        "@utils": path.resolve(__dirname, "src/utils"),
+      },
     },
-  }
 }))

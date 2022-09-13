@@ -29,7 +29,10 @@
     "removeComments": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "baseUrl": "./"
+    "baseUrl": "src",
+    "paths": {
+      "@*": ["*"]
+    }
   },
   "exclude": ["node_modules", "build"],
   "include": ["src"],

@@ -21,7 +21,7 @@ function Inquiry() {
   const keyword = useStore('keyword') as string;
   const loading = useStore('loadingSearchKeyword');
   const hotelSearch = useStore('hotelSearch');
-  const logo = 'src/static/icons/logo-app.png';
+  const logo = '@static/icons/logo-app.png';
   const setKeyword = async (s: string) =>
   {
     if (!s)
@@ -56,8 +56,7 @@ function Inquiry() {
       <Searchbar
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
-        clearButton={true}
-        disableButtonText='Cancel'
+        clearButton={false}
         className='inquiry'
         placeholder='Tìm kiếm'
         onBlur={handleBlur}
