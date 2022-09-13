@@ -29,7 +29,7 @@
     "sourceMap": true,
     "resolveJsonModule": true,
     "paths": {
-      "*": ["./node_modules/*", "./src/"]
+      "@": ["./node_modules/*", "./src/"]
     }
   },
   "exclude": ["node_modules"],
