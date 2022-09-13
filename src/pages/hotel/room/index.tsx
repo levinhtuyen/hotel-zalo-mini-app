@@ -5,7 +5,7 @@ import store from '../../../store';
 
 function TabRoom(props) {
   const [selectedCategory, setSelectedCategory] = useState(0);
-  const logo = '/src/static/logo-app.png';
+  const logo = '/src/static/icons/logo-app.png';
   const listRoom: any = useStore('listRoom');
   const loading = useStore('loadingListRoom');
   useEffect(() => {

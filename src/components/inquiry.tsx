@@ -21,7 +21,7 @@ function Inquiry() {
   const keyword = useStore('keyword') as string;
   const loading = useStore('loadingSearchKeyword');
   const hotelSearch = useStore('hotelSearch');
-  const logo = '/src/static/logo-app.png';
+  const logo = '/src/static/icons/logo-app.png';
   const setKeyword = async (s: string) =>
   {
     if (!s)
