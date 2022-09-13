@@ -1,8 +1,8 @@
 {
-  "name": "foods",
+  "name": "go2joy",
   "private": true,
   "version": "1.0.0",
-  "description": "ZMP Restaurant",
+  "description": "Mimi App Go2Joy",
   "repository": "",
   "license": "UNLICENSED",
   "browserslist": [
