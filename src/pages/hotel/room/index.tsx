@@ -1,17 +1,30 @@
 import { useMemo, useState, useEffect } from 'react';
-import { Box, Button, useStore } from 'zmp-framework/react';
+import { Box, Button, useStore, Preloader } from 'zmp-framework/react';
 import RoomItem from './room';
 import store from '../../../store';
 
-function MenuTable(props) {
+function TabRoom(props) {
   const [selectedCategory, setSelectedCategory] = useState(0);
-
+  const logo = 'src/static/icons/logo-app.png';
   const listRoom: any = useStore('listRoom');
+  const loading = useStore('loadingListRoom');
   useEffect(() => {
     if (!listRoom?.length) {
       store.dispatch('getListRoom', props.params);
     }
   }, []);
+  if (loading)
+  {
+    return (
+      <>
+        <Box mx='4' mt='5'>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Preloader logo={logo} />
+          </div>
+        </Box>
+      </>
+    );
+  }
   return (
     <>
       <Box className='overflow-x-auto no-scrollbar snap-mandatory snap-x scroll-p-4'>
@@ -41,4 +54,4 @@ function MenuTable(props) {
   );
 }
 
-export default MenuTable;
+export default TabRoom;

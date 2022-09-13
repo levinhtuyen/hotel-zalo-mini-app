@@ -1,5 +1,11 @@
-import { Box, Page, Button, useStore } from 'zmp-framework/react';
-import { useEffect, useMemo } from 'react';
+import {
+  Box,
+  Page,
+  Button,
+  useStore,
+  ToastPreloader,
+} from 'zmp-framework/react';
+import { useEffect, useState } from 'react';
 import { useHotel } from "../hooks";
 import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
 import HotelContext from "./hotel/context";
@@ -12,8 +18,12 @@ function HotelPage({ zmproute })
     bookingType: zmproute.query.bookingType,
     hotelSn: zmproute.query.hotelSn,
   };
+    const [toastLoading, setToastLoading] = useState(true);
   const hotelDetail: any = useStore('hotelDetail');
-  useEffect(() => {
+  const loading = useStore('loadingHotelDetail');
+  useEffect(() =>
+  {
+    openToastLoading()
     if (!hotelDetail?.length) {
       store.dispatch('getHotelDetail', query);
     }
@@ -22,6 +32,20 @@ function HotelPage({ zmproute })
   {
     
   };
+  const openToastLoading = () => {
+    setToastLoading(true);
+    setTimeout(() => {
+      setToastLoading(false);
+    }, 500);
+  };
+  if (loading)
+  {
+    return (
+      <>
+        <ToastPreloader visible={toastLoading} text='Đang tải' />
+      </>
+    );
+  }
   return (
     <Page
       onPageBeforeIn={hideNavigationBar}

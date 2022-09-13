@@ -6,7 +6,7 @@ import { TabType } from '../../models';
 import store from "../../store";
 import HotelContext from "./context";
 import Information from './information';
-import Room from "./room";
+import TabRoom from './room';
 import Review from './review';
 import getImgUrl from '../../utils/img-url';
 
@@ -79,7 +79,7 @@ function HotelDetailComponent(props) {
       {
         {
           info: <Information />,
-          room: <Room params={props.params} />,
+          room: <TabRoom params={props.params} />,
           review: <Review />,
         }[currentTab]
       }

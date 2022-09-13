@@ -3,7 +3,6 @@ import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
 import { District, IQueryHotelListHome, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList,IQueryBookingDetail,IParamsHotel } from './models';
 import { calcCrowFliesDistance } from './utils/location';
-import apiCaller from './utils/apiCaller'
 import { getHotelList } from './utils/api/hotel-list'
 import { getHotelDetail } from './utils/api/hotel-detail'
 import { getApiListRoom } from './utils/api/list-room'
@@ -12,7 +11,7 @@ import { getApiBookingList } from './utils/api/booking-list'
 import { getApiHotelNearest } from './utils/api/hotel-nearest'
 import { getApiHotelPopular } from './utils/api/hotel-popular'
 import { getApiQuickFilter } from './utils/api/hotel-quick-filter'
-
+import { getApiHotelSearchKeyword } from './utils/api/hotel-search-keyword'
 
 interface StoreState {
   user: userInfo,
@@ -38,6 +37,10 @@ interface StoreState {
   loadingPopular: Boolean,
   loadingNearest: Boolean,
   loadingQuickFilter: Boolean
+  loadingHotelDetail: Boolean,
+  loadingListRoom: Boolean,
+  loadingSearchKeyword: Boolean,
+  hotelSearch: any
 }
 
 const store = createStore<StoreState>({
@@ -564,12 +567,16 @@ const store = createStore<StoreState>({
     loadingPopular: false,
     loadingNearest: false,
     loadingQuickFilter: false,
+    loadingHotelDetail: false,
+    loadingListRoom: false,
+    loadingSearchKeyword: false,
     hotelDetail: {},
     listRoom: [],
     bookingDetail: {},
     hotelPopular: [],
     hotelNearest: [],
     hotelQuickFilter: [],
+    hotelSearch: []
   },
   getters: {
     user({ state }) {
@@ -667,6 +674,18 @@ const store = createStore<StoreState>({
     loadingQuickFilter({ state }) {
       return state.loadingQuickFilter;
     },
+    loadingHotelDetail({ state }) {
+      return state.loadingHotelDetail;
+    },
+    loadingListRoom({ state }) {
+      return state.loadingListRoom;
+    },
+    loadingSearchKeyword({ state }) {
+      return state.loadingSearchKeyword;
+    },
+    hotelSearch({ state }) {
+      return state.hotelSearch;
+    },
   },
   actions: {
     setUser({ state }, data: userInfo)
@@ -676,7 +695,8 @@ const store = createStore<StoreState>({
     setPosition({ state }, data: Location) {
       state.position = data;
     },
-    setKeyword({ state }, keyword: string) {
+    setKeyword({ state }, keyword: string)
+    {
       state.keyword = keyword;
     },
     changeDistrict({ state }, districtId: number) {
@@ -709,13 +729,17 @@ const store = createStore<StoreState>({
     },
     async getHotelDetail ({ state }, query: IParamsHotel)
     {
+      state.loadingHotelDetail = true
       const { data } = await getHotelDetail(query)
       state.hotelDetail = data.data
+      state.loadingHotelDetail = false
     },
     async getListRoom ({ state }, query: IParamsHotel)
     {
+      state.loadingListRoom = true
       const { data } = await getApiListRoom(query)
       state.listRoom = data.data
+      state.loadingListRoom = false
     },
     async setBooking({ state })
     {
@@ -750,6 +774,12 @@ const store = createStore<StoreState>({
       const { data } = await getApiQuickFilter(query)
       state.hotelQuickFilter = data.data.hotelList
       state.loadingQuickFilter = false
+    },
+    async getHotelSearchKeyword ({ state }) {
+      state.loadingSearchKeyword = true
+      const { data } = await getApiHotelSearchKeyword({keyword : state.keyword})
+      state.hotelSearch = data.data
+      state.loadingSearchKeyword = false
     },
   },
 })

@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "noEmit": true,
-    "target": "es6", 
-    "module": "esnext", 
+    "target": "es6",
+    "module": "esnext",
     "types": ["vite/client"],
     "noImplicitAny": false,
     "preserveConstEnums": true,
@@ -11,7 +11,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "allowJs": true,
-    "skipLibCheck": true, 
+    "skipLibCheck": true,
     "declaration": false,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -27,7 +27,10 @@
     "pretty": true,
     "removeComments": true,
     "sourceMap": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "paths": {
+      "*": ["./node_modules/*", "./src/"]
+    }
   },
   "exclude": ["node_modules"],
   "include": ["src"]

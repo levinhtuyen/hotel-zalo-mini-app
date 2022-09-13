@@ -1,4 +1,14 @@
-import { Page, useStore, Title, Box, Avatar, Text,zmp,Button } from 'zmp-framework/react';
+import {
+  Page,
+  useStore,
+  Title,
+  Box,
+  Avatar,
+  Text,
+  zmp,
+  ToastPreloader,
+  Preloader
+} from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import React, { useState, useRef, useEffect } from 'react';
@@ -10,6 +20,7 @@ import SkeletonBlockHotel2 from '../components/skeleton-block/skeleton-block-hot
 function Popular(props)
 {
   const popular = props.dataHotel;
+
   if (props.loadingPopular)
   {
     return (
@@ -19,10 +30,9 @@ function Popular(props)
         </Box>
         <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
           <Box m='0' pr='4' flex className='w-max'>
-            
-              <SkeletonBlockHotel2 />
-              <SkeletonBlockHotel2 />
-              <SkeletonBlockHotel2 />
+            <SkeletonBlockHotel2 />
+            <SkeletonBlockHotel2 />
+            <SkeletonBlockHotel2 />
           </Box>
         </div>
       </>
@@ -59,12 +69,18 @@ function Popular(props)
 function Nearest(props)
 {
   const nearests = props.dataHotel;
+  const logo = 'src/static/icons/logo-app.png';
   if (props.loadingNearest)
   {
     return (
       <>
         <Box mx='4' mt='5'>
           <Title size='small'>Gần bạn nhất</Title>
+          <Box mx='4' mt='5'>
+            <div style={{ display: 'flex', justifyContent: 'center' }}>
+              <Preloader logo={logo} />
+            </div>
+          </Box>
           <SkeletonBlockHotel1 />
           <SkeletonBlockHotel1 />
           <SkeletonBlockHotel1 />
@@ -104,8 +120,11 @@ const HomePage = () => {
   const hotelPopular = useStore('hotelPopular');
   const hotelNearest = useStore('hotelNearest');
   const loadingNearest = useStore('loadingNearest');
-  const loadingPopular = useStore('loadingPopular') ;
-  useEffect(() => {
+  const loadingPopular = useStore('loadingPopular');
+  const [toastLoading, setToastLoading] = useState(true);
+  useEffect(() =>
+  {
+    openToastLoading();
     if (!hotelList?.length) {
       store.dispatch('setHotelList');
     }
@@ -141,7 +160,12 @@ const HomePage = () => {
       path: '/profile',
     });
   };
-
+  const openToastLoading = () => {
+    setToastLoading(true);
+    setTimeout(() => {
+      setToastLoading(false);
+    }, 500);
+  };
   return (
     <Page name='home'>
       <Box mx='4' mb='4' mt='5'>
@@ -166,6 +190,7 @@ const HomePage = () => {
       </Box>
       <Popular loadingPopular={loadingPopular} dataHotel={hotelPopular} />
       <Nearest loadingNearest={loadingNearest} dataHotel={hotelNearest} />
+      <ToastPreloader visible={toastLoading} text='Đang tải' />
     </Page>
   );
 }
