@@ -62,7 +62,7 @@ function Inquiry() {
         placeholder='Tìm kiếm'
         onBlur={handleBlur}
       />
-
+      <Title>{logo }</Title>
       <Card className='list-card' onBlur={handleBlur}>
         {loading ? (
           <>
