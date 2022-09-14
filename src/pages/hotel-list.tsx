@@ -9,11 +9,14 @@ import {
 } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
+import Header from '@components/header';
+
 const HotelList = () => {
   const hotelList = useStore('hotelList');
   const user: userInfo = useStore('user')
     return (
       <Page name='home'>
+        <Header title={'Hotel detail'} back />
         <>
           <Box mx='4' mt='5'>
             <Title size='small'>Danh sách khách sạn</Title>

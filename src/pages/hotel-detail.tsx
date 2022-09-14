@@ -3,6 +3,7 @@ import {
   Page,
   Button,
   useStore,
+  zmp,
   ToastPreloader,
 } from 'zmp-framework/react';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,7 @@ import { hideNavigationBar, showNavigationBar } from "../components/navigation-b
 import HotelContext from "./hotel/context";
 import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
+import Header from '@components/header';
 
 function HotelPage({ zmproute })
 {
@@ -30,7 +32,9 @@ function HotelPage({ zmproute })
   }, []);
   const onBookNow = () =>
   {
-    
+    zmp.views.main.router.navigate({
+      path: '/booking-list',
+    });
   };
   const openToastLoading = () => {
     setToastLoading(true);
@@ -51,6 +55,7 @@ function HotelPage({ zmproute })
       onPageBeforeIn={hideNavigationBar}
       onPageBeforeOut={showNavigationBar}
     >
+      <Header title={'Hotel detail'} back />
       <HotelContext.Provider value={{ hotelDetail }}>
         <HotelDetailComponent params={query} />
       </HotelContext.Provider>
@@ -69,5 +74,4 @@ function HotelPage({ zmproute })
     </Page>
   );
 }
-
 export default HotelPage;

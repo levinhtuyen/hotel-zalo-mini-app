@@ -1,28 +1,22 @@
-import { useMemo } from "react";
-import { Box, Link, Title } from "zmp-framework/react";
-import { useCurrentRoute, useHotel } from "../hooks";
-import appConfig from '../../app-config.json';
+import React, { useEffect } from 'react';
+import { Title, Button, Icon, zmp, Box, Navbar } from 'zmp-framework/react';
 
-function Header() {
-  const [currentRoute] = useCurrentRoute();
+export const Header = ({ title, back }) => {
+  if (!title) return null;
 
-  const hotel = useHotel(Number(currentRoute.query?.id));
+  const titleContent = title;
 
-  const title = useMemo(() => {
-    if (currentRoute.path === '/hotel/') {
-      if (hotel) {
-        return hotel.name
-      }
-    }
-    return appConfig.app.title;
-  }, [currentRoute])
+  return (
+    <Navbar backLink={back} className='h-11' slot='fixed' noHairline noShadow>
+      <Title
+        size='normal'
+        className='font-extrabold text-blue-dark my-0 overflow-ellipsis pr-28 overflow-hidden whitespace-nowrap'
+      >
+        {titleContent}
+      </Title>
+    </Navbar>
+  );
+};
 
-  return <Box className="header">
-    <Title size="small" className="flex items-center">
-      {currentRoute.path !== '/' && <Link iconZMP="zi-arrow-left" className="pl-2 pr-4" back />}
-      {title}
-    </Title>
-  </Box>;
-}
-
+Header.displayName = 'zmp-navbar';
 export default Header;
