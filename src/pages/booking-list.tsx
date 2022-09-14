@@ -3,7 +3,6 @@ import { Box, Title, Page, useStore } from 'zmp-framework/react';
 import BookingItem from "../components/book/booking-item";
 import { useEffect } from 'react';
 import store from '../store';
-import Header from '@components/header';
 
 function BookingPage() {
   const bookings: any = useStore('bookings');
@@ -24,7 +23,6 @@ function BookingPage() {
   }
   return (
     <Page className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'>
-      <Header title={'booking detail'} back/>
       <Box mx='4' mt='5'>
         <Title size='large'>DS đặt phòng</Title>
       </Box>

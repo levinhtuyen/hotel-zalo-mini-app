@@ -12,7 +12,6 @@ import { hideNavigationBar, showNavigationBar } from "../components/navigation-b
 import HotelContext from "./hotel/context";
 import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
-import Header from '@components/header';
 
 function HotelPage({ zmproute })
 {
@@ -55,11 +54,9 @@ function HotelPage({ zmproute })
       onPageBeforeIn={hideNavigationBar}
       onPageBeforeOut={showNavigationBar}
     >
-      <Header title={'Hotel detail'} back />
       <HotelContext.Provider value={{ hotelDetail }}>
         <HotelDetailComponent params={query} />
       </HotelContext.Provider>
-      <Box height={200}></Box>
       <Box className='fixed bottom-0 left-0 right-0 z-10'>
         <Button
           fill

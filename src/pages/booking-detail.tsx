@@ -9,7 +9,6 @@ import {
   zmp,
 } from 'zmp-framework/react';
 import store from '../store';
-import Header from '@components/header';
 import BookingDetail from "../components/booking-detail/detail";
 
 function BookingDetailPage({ zmproute })
@@ -29,7 +28,6 @@ function BookingDetailPage({ zmproute })
   }
   return (
     <Page name='booking-detail'>
-      <Header title={'booking detail'} back/>
       <>
         <Box mx='4' mt='5'>
           <BookingDetail loading={false} bookingDetail={bookingDetail} />
