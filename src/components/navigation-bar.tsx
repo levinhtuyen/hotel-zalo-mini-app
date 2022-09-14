@@ -42,21 +42,6 @@ function NavigationBar() {
           Đặt phòng
         </Link>
       </Tabbar>
-
-      <Link
-        className='display-none'
-        href='/hotel-detail/'
-        tabLinkActive={currentRoute.path.startsWith('/hotel-detail/')}
-      >
-        Hotel detail
-      </Link>
-      <Link
-        className='display-none'
-        href='/booking-detail/'
-        tabLinkActive={currentRoute.path.startsWith('/booking-detail/')}
-      >
-        booking detail
-      </Link>
     </>
   );
 }
