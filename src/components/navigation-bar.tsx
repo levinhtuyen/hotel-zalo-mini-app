@@ -15,34 +15,32 @@ function NavigationBar() {
   const [currentRoute] = useCurrentRoute();
 
   return (
-    <>
-      <Tabbar bottom id='app-tab-bar'>
-        <Link
-          href='/'
-          animate={false}
-          iconZMP='zi-home'
-          tabLinkActive={currentRoute.path === '/'}
-        >
-          Trang chủ
-        </Link>
-        <Link
-          href='/hotel-list'
-          animate={true}
-          iconZMP='zi-bookmark'
-          tabLinkActive={currentRoute.path.startsWith('/hotel-list')}
-        >
-          History
-        </Link>
-        <Link
-          href='/booking-list'
-          animate={true}
-          iconZMP='zi-calendar'
-          tabLinkActive={currentRoute.path.startsWith('/booking-list')}
-        >
-          Đặt phòng
-        </Link>
-      </Tabbar>
-    </>
+    <Tabbar bottom id='app-tab-bar' style={{ height: '100px' }}>
+      <Link
+        href='/'
+        animate={false}
+        iconZMP='zi-home'
+        tabLinkActive={currentRoute.path === '/'}
+      >
+        Trang chủ
+      </Link>
+      <Link
+        href='/hotel-list'
+        animate={false}
+        iconZMP='zi-bookmark'
+        tabLinkActive={currentRoute.path.startsWith('/hotel-list')}
+      >
+        History
+      </Link>
+      <Link
+        href='/booking-list'
+        animate={false}
+        iconZMP='zi-calendar'
+        tabLinkActive={currentRoute.path.startsWith('/booking-list')}
+      >
+        Đặt phòng
+      </Link>
+    </Tabbar>
   );
 }
 

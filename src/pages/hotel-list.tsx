@@ -5,10 +5,8 @@ import {
   Title,
   Box,
   Text,
-  zmp,
 } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
-import Header from '@components/header';
 import HotelItem from '../components/hotel-item'
 
 const HotelList = () => {

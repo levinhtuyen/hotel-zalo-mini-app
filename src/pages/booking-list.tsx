@@ -3,9 +3,7 @@ import { Box, Title, Page, useStore, zmp } from 'zmp-framework/react';
 import BookingItem from "../components/book/booking-item";
 import { useEffect } from 'react';
 import store from '../store';
-import Header from '@components/header';
 import {
-  hideNavigationBar,
   showNavigationBar,
 } from '../components/navigation-bar';
 

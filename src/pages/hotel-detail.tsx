@@ -7,12 +7,10 @@ import {
   ToastPreloader,
 } from 'zmp-framework/react';
 import { useEffect, useState } from 'react';
-import { useHotel } from "../hooks";
-import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
+import { showNavigationBar } from "../components/navigation-bar";
 import HotelContext from "./hotel/context";
 import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
-import Header from '@components/header';
 
 function HotelPage({ zmproute })
 {
@@ -59,22 +57,20 @@ function HotelPage({ zmproute })
       key='detail'
       name='detail'
     >
-      <>
-        <HotelContext.Provider value={{ hotelDetail }}>
-          <HotelDetailComponent params={query} />
-        </HotelContext.Provider>
-        <Box className='bottom-0 left-0 right-0 z-10'>
-          <Button
-            fill
-            responsive
-            large
-            className='rounded-xl'
-            onClick={onBookNow}
-          >
-            Book Now
-          </Button>
-        </Box>
-      </>
+      <HotelContext.Provider value={{ hotelDetail }}>
+        <HotelDetailComponent params={query} />
+      </HotelContext.Provider>
+      <Box className='bottom-0 left-0 right-0 z-10'>
+        <Button
+          fill
+          responsive
+          large
+          className='rounded-xl'
+          onClick={onBookNow}
+        >
+          Book Now
+        </Button>
+      </Box>
     </Page>
   );
 }

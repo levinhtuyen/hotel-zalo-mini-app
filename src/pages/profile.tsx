@@ -1,6 +1,6 @@
-import { ReactDOM, useContext } from 'react';
-import { Box, Button, Text, Title, useStore } from 'zmp-framework/react';
-import HotelContext from './hotel/context';
+
+import { Box, Title, useStore } from 'zmp-framework/react';
+
 function ProfileDetail() {
   const user = useStore('user');
   return (

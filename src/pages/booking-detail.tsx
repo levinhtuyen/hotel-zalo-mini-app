@@ -1,15 +1,10 @@
-import { useState, useRef, useEffect } from 'react';
+import {  useEffect } from 'react';
 import {
   Box,
   Page,
-  Sheet,
-  Text,
-  Title,
   useStore,
-  zmp,
 } from 'zmp-framework/react';
 import store from '../store';
-import Header from '@components/header';
 import BookingDetail from "../components/booking-detail/detail";
 
 function BookingDetailPage({ zmproute })

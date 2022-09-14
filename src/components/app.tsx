@@ -5,7 +5,6 @@ import Header from './header';
 import NavigationBar from './navigation-bar';
 import store from '../store';
 import Cart from './cart';
-import { useSheetStatusBar } from '../hooks';
 import ErrorBoundary from './error-boundary';
 import { getUser, requestLocation } from '../services/zalo';
 import appConfig from '../../app-config.json';
@@ -30,8 +29,6 @@ const MyApp = () => {
     init();
     floating()
   }, [])
-
-  useSheetStatusBar();
 
   return (
     <ErrorBoundary>

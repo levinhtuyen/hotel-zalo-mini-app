@@ -26,30 +26,28 @@ function Header() {
       route
     }: HeaderType = useStore('header');
   return (
-    <>
-      <Navbar>
-        <NavLeft>
-          <Link
-            className='no-ripple'
-            noLinkClass
-            onClick={() =>
-              route
-                ? zmp.views.main.router.navigate(route, {
-                    transition: 'zmp-fade',
-                  })
-                : zmp.views.main.router.back('', { transition: 'zmp-fade' })
-            }
-          >
-            <Icon zmp='zi-arrow-left' />
-          </Link>
-        </NavLeft>
-        <NavTitle>{title}</NavTitle>
-        <NavRight>
-          {/* Thêm các button tuỳ chỉnh */}
-          <ActionsButton />
-        </NavRight>
-      </Navbar>
-    </>
+    <Navbar>
+      <NavLeft>
+        <Link
+          className='no-ripple'
+          noLinkClass
+          onClick={() =>
+            route
+              ? zmp.views.main.router.navigate(route, {
+                  transition: 'zmp-fade',
+                })
+              : zmp.views.main.router.back('', { transition: 'zmp-fade' })
+          }
+        >
+          <Icon zmp='zi-arrow-left' />
+        </Link>
+      </NavLeft>
+      <NavTitle>{title}</NavTitle>
+      <NavRight>
+        {/* Thêm các button tuỳ chỉnh */}
+        <ActionsButton />
+      </NavRight>
+    </Navbar>
   );
 }
 Header.displayName = 'zmp-navbar';

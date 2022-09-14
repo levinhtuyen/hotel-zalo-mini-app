@@ -9,7 +9,7 @@ interface DistrictNameProps {
 const DistrictName: FunctionComponent<DistrictNameProps> = ({ id }) => {
   const districts = useStore('districts') as District[]
   const name = useMemo(() => {
-    return districts.find(d => d.id === id)?.name ?? ''
+    return districts.find(d => d.sn === id)?.name ?? ''
   }, [id, districts])
   return <>{name}</>
 }
