@@ -1,12 +1,18 @@
 
-import { Box, Title, Page, useStore } from 'zmp-framework/react';
+import { Box, Title, Page, useStore, zmp } from 'zmp-framework/react';
 import BookingItem from "../components/book/booking-item";
 import { useEffect } from 'react';
 import store from '../store';
+import Header from '@components/header';
+import {
+  hideNavigationBar,
+  showNavigationBar,
+} from '../components/navigation-bar';
 
 function BookingPage() {
   const bookings: any = useStore('bookings');
   const loading = useStore('loadingBookingItem');
+
   useEffect(() => {
     if (!bookings?.length) {
       store.dispatch('setBooking');
@@ -22,7 +28,14 @@ function BookingPage() {
     );
   }
   return (
-    <Page className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'>
+    <Page
+      onPageBeforeIn={() => {
+        zmp.toolbar.show('#main-nav', true);
+      }}
+      onPageBeforeOut={showNavigationBar}
+      className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'
+    >
+      <Header back />
       <Box mx='4' mt='5'>
         <Title size='large'>DS đặt phòng</Title>
       </Box>

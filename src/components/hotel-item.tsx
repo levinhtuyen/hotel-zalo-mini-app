@@ -16,7 +16,7 @@ interface HotelProps {
 const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after, onClick, }) => {
   const viewDetail = () => {
     zmp.views.main.router.navigate({
-      path: '/hotel-detail',
+      path: '/hotel-detail/',
       query: {
         hotelSn: hotel.sn,
         bookingType: hotel.bookingType,

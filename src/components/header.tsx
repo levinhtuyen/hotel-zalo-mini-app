@@ -2,34 +2,53 @@ import { useMemo } from "react";
 import {
   Box,
   Link,
-  NavTitleLarge,
+  Title,
   Navbar,
+  zmp,
+  NavTitle,
   NavLeft,
+  NavRight,
   Icon,
   ActionsButton,
-  NavRight,
 } from 'zmp-framework/react';
-import { useCurrentRoute } from "../hooks";
+import { useCurrentRoute, useHotel } from "../hooks";
 import appConfig from '../../app-config.json';
+import parseQueryString from "@utils/getParams";
 
-function Header({ back }) {
+function Header({back}) {
   const [currentRoute] = useCurrentRoute();
-
   const title = useMemo(() => {
+
     return appConfig.app.title;
-  }, [currentRoute]);
-  const logo = 'https://go2joy.vn/images/logo-mini.png';
+  }, [currentRoute])
+
+  const backToPage = () =>
+  {
+    if (!back)
+    {
+      return
+    }
+    const query = parseQueryString(
+      zmp.views.main.history[zmp.views.main.history.length - 2]
+    ) as any
+    var urlPath =
+      zmp.views.main.history[zmp.views.main.history.length - 2]?.split('/?');
+    zmp.views.main.router.navigate({
+      path: urlPath[0],
+      query: query ? query : '',
+    });
+  };
   return (
     <>
       <Navbar>
         <NavLeft>
-          <Link className='no-ripple' noLinkClass back>
+          <Link className='no-ripple' noLinkClass onClick={backToPage}>
             <Icon zmp='zi-arrow-left' />
           </Link>
         </NavLeft>
-        <NavTitleLarge>{title}</NavTitleLarge>
+        <NavTitle>{title}</NavTitle>
         <NavRight>
-          <img className='logo-nav' src={logo} alt='' />
+          {/* Thêm các button tuỳ chỉnh */}
           <ActionsButton />
         </NavRight>
       </Navbar>

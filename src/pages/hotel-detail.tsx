@@ -12,6 +12,7 @@ import { hideNavigationBar, showNavigationBar } from "../components/navigation-b
 import HotelContext from "./hotel/context";
 import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
+import Header from '@components/header';
 
 function HotelPage({ zmproute })
 {
@@ -51,24 +52,28 @@ function HotelPage({ zmproute })
   }
   return (
     <Page
-      onPageBeforeIn={hideNavigationBar}
+      onPageBeforeIn={() => {
+        zmp.toolbar.show('#main-nav', true);
+      }}
       onPageBeforeOut={showNavigationBar}
     >
-      <HotelContext.Provider value={{ hotelDetail }}>
-        <HotelDetailComponent params={query} />
-      </HotelContext.Provider>
-      <Box height={200}></Box>
-      <Box className='fixed bottom-0 left-0 right-0 z-10'>
-        <Button
-          fill
-          responsive
-          large
-          className='rounded-xl'
-          onClick={onBookNow}
-        >
-          Book Now
-        </Button>
-      </Box>
+      <Header back />
+      <>
+        <HotelContext.Provider value={{ hotelDetail }}>
+          <HotelDetailComponent params={query} />
+        </HotelContext.Provider>
+        <Box className='bottom-0 left-0 right-0 z-10'>
+          <Button
+            fill
+            responsive
+            large
+            className='rounded-xl'
+            onClick={onBookNow}
+          >
+            Book Now
+          </Button>
+        </Box>
+      </>
     </Page>
   );
 }

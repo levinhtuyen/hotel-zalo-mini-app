@@ -29,6 +29,7 @@ function BookingDetailPage({ zmproute })
   }
   return (
     <Page name='booking-detail'>
+      <Header back />
       <>
         <Box mx='4' mt='5'>
           <BookingDetail loading={false} bookingDetail={bookingDetail} />
