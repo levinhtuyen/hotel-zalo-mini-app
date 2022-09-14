@@ -48,7 +48,7 @@ const MyApp = () => {
             </div>
           </div>
         </div>
-        <Header />
+        <Header back />
         <View
           main
           url="/"

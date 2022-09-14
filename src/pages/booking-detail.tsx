@@ -9,6 +9,7 @@ import {
   zmp,
 } from 'zmp-framework/react';
 import store from '../store';
+import Header from '@components/header';
 import BookingDetail from "../components/booking-detail/detail";
 
 function BookingDetailPage({ zmproute })

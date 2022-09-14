@@ -57,6 +57,7 @@ function HotelPage({ zmproute })
       <HotelContext.Provider value={{ hotelDetail }}>
         <HotelDetailComponent params={query} />
       </HotelContext.Provider>
+      <Box height={200}></Box>
       <Box className='fixed bottom-0 left-0 right-0 z-10'>
         <Button
           fill
