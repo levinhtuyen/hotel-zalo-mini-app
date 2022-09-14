@@ -25,7 +25,7 @@ function Information()
           <Box mx='2'>
             <Box mx='2' mt='5'>
               <Title size='small'>Thông tin</Title>
-              <Text>
+              {/* <Text>
                 {hotelDetail?.description ? (
                   <div
                     dangerouslySetInnerHTML={{
@@ -35,7 +35,7 @@ function Information()
                 ) : (
                   ''
                 )}
-              </Text>
+              </Text> */}
             </Box>
             <Box mx='2' mt='6'>
               <Title size='small'>Giờ mở cửa</Title>

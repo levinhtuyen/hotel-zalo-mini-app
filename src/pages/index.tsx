@@ -167,7 +167,7 @@ const HomePage = () => {
     }, 500);
   };
   return (
-    <Page name='home'>
+    <Page name='home' key='home'>
       <Box mx='4' mb='4' mt='5'>
         <Avatar
           onClick={viewProfile}

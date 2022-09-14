@@ -9,40 +9,37 @@ import {
   NavLeft,
   NavRight,
   Icon,
+  useStore,
   ActionsButton,
 } from 'zmp-framework/react';
 import { useCurrentRoute, useHotel } from "../hooks";
+import { HeaderType } from '../models';
 import appConfig from '../../app-config.json';
-import parseQueryString from "@utils/getParams";
 
-function Header({back}) {
+function Header() {
   const [currentRoute] = useCurrentRoute();
   const title = useMemo(() => {
 
     return appConfig.app.title;
   }, [currentRoute])
-
-  const backToPage = () =>
-  {
-    if (!back)
-    {
-      return
-    }
-    const query = parseQueryString(
-      zmp.views.main.history[zmp.views.main.history.length - 2]
-    ) as any
-    var urlPath =
-      zmp.views.main.history[zmp.views.main.history.length - 2]?.split('/?');
-    zmp.views.main.router.navigate({
-      path: urlPath[0],
-      query: query ? query : '',
-    });
-  };
+    const {
+      route
+    }: HeaderType = useStore('header');
   return (
     <>
       <Navbar>
         <NavLeft>
-          <Link className='no-ripple' noLinkClass onClick={backToPage}>
+          <Link
+            className='no-ripple'
+            noLinkClass
+            onClick={() =>
+              route
+                ? zmp.views.main.router.navigate(route, {
+                    transition: 'zmp-fade',
+                  })
+                : zmp.views.main.router.back('', { transition: 'zmp-fade' })
+            }
+          >
             <Icon zmp='zi-arrow-left' />
           </Link>
         </NavLeft>

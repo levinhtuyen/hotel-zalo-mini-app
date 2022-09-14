@@ -56,8 +56,9 @@ function HotelPage({ zmproute })
         zmp.toolbar.show('#main-nav', true);
       }}
       onPageBeforeOut={showNavigationBar}
+      key='detail'
+      name='detail'
     >
-      <Header back />
       <>
         <HotelContext.Provider value={{ hotelDetail }}>
           <HotelDetailComponent params={query} />

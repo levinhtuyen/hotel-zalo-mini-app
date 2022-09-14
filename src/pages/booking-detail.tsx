@@ -28,8 +28,8 @@ function BookingDetailPage({ zmproute })
     return <BookingDetail loading bookingDetail={undefined} />;
   }
   return (
-    <Page name='booking-detail'>
-      <Header back />
+    <Page name='booking-detail' key='booking-detail'>
+      
       <>
         <Box mx='4' mt='5'>
           <BookingDetail loading={false} bookingDetail={bookingDetail} />

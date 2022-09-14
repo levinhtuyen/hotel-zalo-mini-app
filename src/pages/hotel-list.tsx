@@ -15,8 +15,7 @@ const HotelList = () => {
   const hotelList = useStore('hotelList');
   const user: userInfo = useStore('user')
     return (
-      <Page name='home'>
-        <Header back />
+      <Page name='hotel-list' key='hotel-list'>
         <>
           <Box mx='4' mt='5'>
             <Title size='small'>Danh sách khách sạn</Title>

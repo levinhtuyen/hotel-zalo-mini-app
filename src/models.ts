@@ -71,6 +71,9 @@ interface IParamsRoom {
   endTime?: string
   mode?: number | string
 }
+export type HeaderType = {
+  route?: string;
+};
 export interface HotelListDetail
 {
   averageMark: number

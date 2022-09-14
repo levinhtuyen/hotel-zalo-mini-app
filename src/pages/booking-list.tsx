@@ -32,10 +32,11 @@ function BookingPage() {
       onPageBeforeIn={() => {
         zmp.toolbar.show('#main-nav', true);
       }}
+      name="booking-list"
+      key='booking-list'
       onPageBeforeOut={showNavigationBar}
       className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'
     >
-      <Header back />
       <Box mx='4' mt='5'>
         <Title size='large'>DS đặt phòng</Title>
       </Box>

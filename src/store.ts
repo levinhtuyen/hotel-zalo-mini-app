@@ -1,7 +1,7 @@
 
 import { createStore } from 'zmp-core/lite';
 import { userInfo } from 'zmp-sdk';
-import { District, IQueryHotelListHome, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList,IQueryBookingDetail,IParamsHotel } from './models';
+import { District, IQueryHotelListHome, Location, Menu, Food, Cart, Booking, TabType, Hotel, HotelList,IQueryBookingDetail,IParamsHotel,HeaderType } from './models';
 import { calcCrowFliesDistance } from './utils/location';
 import { getHotelList } from './utils/api/hotel-list'
 import { getHotelDetail } from './utils/api/hotel-detail'
@@ -40,7 +40,8 @@ interface StoreState {
   loadingHotelDetail: Boolean,
   loadingListRoom: Boolean,
   loadingSearchKeyword: Boolean,
-  hotelSearch: any
+  hotelSearch: any,
+  header: HeaderType;
 }
 
 const store = createStore<StoreState>({
@@ -576,7 +577,8 @@ const store = createStore<StoreState>({
     hotelPopular: [],
     hotelNearest: [],
     hotelQuickFilter: [],
-    hotelSearch: []
+    hotelSearch: [],
+    header: {},
   },
   getters: {
     user({ state }) {
@@ -628,6 +630,9 @@ const store = createStore<StoreState>({
     },
     cart({ state }) {
       return state.cart;
+    },
+    header({ state }) {
+      return state.header;
     },
     total({ state }) {
       return state.cart.items.reduce((total, item) => total + item.quantity * item.food.price, 0);
@@ -747,6 +752,12 @@ const store = createStore<StoreState>({
       const { data } = await getApiBookingList()
       state.bookings = data.data.bookingList
       state.loadingBookingItem = false
+    },
+    setHeader({ state }, data: HeaderType)
+    {
+      console.log('state.header  :>> ', state.header );
+      state.header = data;
+      console.log('data :>> ', data);
     },
     async getBookingDetail({ state }, query: IQueryBookingDetail)
     {
