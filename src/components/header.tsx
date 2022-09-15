@@ -1,5 +1,5 @@
 
-import { useStore, zmp, Box, Icon, Title, Link } from 'zmp-framework/react';
+import { useStore, zmp, Box, Icon, Title, Link, Button } from 'zmp-framework/react';
 import { useMemo } from 'react';
 import { cx } from '../utils';
 import { HeaderType } from '../models';
@@ -19,12 +19,9 @@ const typeColor = {
   },
 };
 
-const Header = () => {
+const Header = (back) => {
   const {
     route,
-    hasLeftIcon,
-    rightIcon,
-    customTitle,
     type,
   }: HeaderType = useStore('header');
   const [currentRoute] = useCurrentRoute();
@@ -47,13 +44,12 @@ const Header = () => {
             <Link
               onClick={() =>
                 route
-                  ? zmp.views.main.router.navigate(route)
-                  : zmp.views.main.router.back('')
+                  ? back
+                  : zmp.views.main.router.back('/')
               }
               iconZMP='zi-arrow-left'
               className='pl-2 pr-4'
-              back
-            />
+            ></Link>
           )}
           {title}
         </Title>
@@ -61,4 +57,5 @@ const Header = () => {
     </div>
   );
 };
+Header.displayName = 'zmp-navbar';
 export default Header;

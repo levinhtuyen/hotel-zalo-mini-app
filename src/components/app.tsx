@@ -11,15 +11,11 @@ import appConfig from '../../app-config.json';
 import floating from "../utils/floating"
 import HomePage from '@pages/index';
 
-const MyApp = () => {
+const HotelApp = () => {
   const zmpparams = {
     name: appConfig.app.title,
     theme: 'auto',
     store: store,
-    touch: {
-      iosTouchRipple: true,
-      mdTouchRipple: false,
-    },
   };
   
 
@@ -79,4 +75,4 @@ const MyApp = () => {
     </ErrorBoundary>
   );
 }
-export default MyApp;
+export default HotelApp;

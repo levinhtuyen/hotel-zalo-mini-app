@@ -1,4 +1,5 @@
-import { FunctionComponent } from 'react';
+
+import React, { FunctionComponent } from 'react';
 import {
   Box,
   Button,
@@ -101,12 +102,12 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({
           {booking.hotelAddress}
         </p>
         <div className='flex gap-4 mt-auto'>
-          <button
+          <Button
             onClick={toBookingDetail}
             className='ml-auto flex-end items-center gap-1 sm:text-lg border border-gray-300 px-3 py-1 rounded-full hover:bg-gray-50 transition-colors focus:bg-gray-100 focus:outline-none focus-visible:border-gray-500'
           >
             <span>Xem thêm</span>
-          </button>
+          </Button>
         </div>
       </div>
     </div>

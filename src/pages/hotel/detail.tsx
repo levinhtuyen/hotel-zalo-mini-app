@@ -11,7 +11,7 @@ import Review from './review';
 import getImgUrl from '../../utils/img-url';
 
 function HotelDetailComponent(props) {
-  const { hotelDetail } = useContext(HotelContext);
+  const hotelDetail: any = useStore('hotelDetail');
   const currentTab = useStore('hotelTab') as TabType;
   const setCurrentTab = (tab) => {
     store.dispatch('changeHotelTab', tab);

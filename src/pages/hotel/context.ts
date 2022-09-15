@@ -1,6 +1,4 @@
-
-import { createContext } from "react";
-
+import React, { createContext } from 'react';
 const HotelContext = createContext({
   hotelDetail: {} as any,
 })
