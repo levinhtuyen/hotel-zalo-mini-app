@@ -18,7 +18,7 @@ function NavigationBar() {
     <Tabbar bottom id='app-tab-bar'>
       <Link
         href='/'
-        animate={false}
+        animate={true}
         iconZMP='zi-home'
         tabLinkActive={currentRoute.path === '/'}
       >
@@ -26,7 +26,7 @@ function NavigationBar() {
       </Link>
       <Link
         href='/hotel-list'
-        animate={false}
+        animate={true}
         iconZMP='zi-check-circle'
         tabLinkActive={currentRoute.path.startsWith('/hotel-list')}
       >
@@ -34,7 +34,7 @@ function NavigationBar() {
       </Link>
       <Link
         href='/booking-list'
-        animate={false}
+        animate={true}
         iconZMP='zi-calendar'
         tabLinkActive={currentRoute.path.startsWith('/booking-list')}
       >

@@ -17,6 +17,7 @@ apiCaller.interceptors.request.use(function (config) {
     config.headers.Authorization = `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJzY29wZVwiOlwid2ViLWJvb2tpbmdcIixcImFwcFVzZXJTblwiOjE1NTU2MyxcInJlYWRBZ3JlZVBvbGljeVwiOjF9IiwiZXhwIjoxNjc4MjcwMzgxLCJpc3MiOiJnbzJqb3ktand0IiwiaWF0IjoxNjYyNzE4MzgxfQ.QK2e-HBhhfwUes6lMDxEnU0XBzPBB57fYspQpP8soS4`
     config.headers.Localization = 'vi'
   }
+  axios.defaults.headers.common['Authorization'] = token;
   return config
 }, function (error) {
   return Promise.reject(error)

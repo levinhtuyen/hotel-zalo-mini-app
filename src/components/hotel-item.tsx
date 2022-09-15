@@ -4,6 +4,7 @@ import { Hotel, HotelListDetail } from "../models";
 import Distance from "./distance";
 import DistrictName from "./district-name";
 import getImgUrl from '../utils/img-url';
+import { useCurrentRoute } from '../hooks';
 
 interface HotelProps {
   layout: 'cover' | 'list-item';
@@ -13,8 +14,12 @@ interface HotelProps {
   onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
 }
 
-const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after, onClick, }) => {
-  const viewDetail = () => {
+const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after, onClick, }) =>
+{
+  const [currentRoute] = useCurrentRoute();
+  const viewDetail = () =>
+  {
+    currentRoute.path.startsWith('/hotel-detail');
     zmp.views.main.router.navigate({
       path: '/hotel-detail',
       query: {

@@ -11,14 +11,13 @@ import { showNavigationBar } from "../components/navigation-bar";
 import HotelContext from "./hotel/context";
 import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
-
 function HotelPage({ zmproute })
 {
   const query = {
     bookingType: zmproute.query.bookingType,
     hotelSn: zmproute.query.hotelSn,
   };
-    const [toastLoading, setToastLoading] = useState(true);
+  const [toastLoading, setToastLoading] = useState(true);
   const hotelDetail: any = useStore('hotelDetail');
   const loading = useStore('loadingHotelDetail');
   useEffect(() =>
@@ -57,7 +56,9 @@ function HotelPage({ zmproute })
       key='detail'
       name='detail'
     >
-      <HotelDetailComponent params={query} />
+      <HotelContext.Provider value={{ hotelDetail }}>
+        <HotelDetailComponent params={query} />
+      </HotelContext.Provider>
       <Box className='bottom-0 left-0 right-0 z-10'>
         <Button
           fill

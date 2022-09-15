@@ -24,34 +24,16 @@ const Header = (back) => {
     route,
     type,
   }: HeaderType = useStore('header');
-  const [currentRoute] = useCurrentRoute();
-  const title = useMemo(() => {
-    return appConfig.app.title;
-  }, [currentRoute]);
 
   const { headerColor, textColor, iconColor } = typeColor[type! || 'primary'];
   return (
     <div className={cx('sticky z-50', headerColor, textColor)}>
       <Box
-        className={cx(
-          'sticky top-0 z-50 w-ful my-0 py-[10px] align-middle',
-          headerColor,
-          textColor
-        )}
+        className='sticky top-0 z-50 w-ful my-0 py-[10px] align-middle bg-primary text-white'
       >
         <Title size='small' className='flex items-center m-0'>
-          {currentRoute.path !== '/' && (
-            <Link
-              onClick={() =>
-                route
-                  ? back
-                  : zmp.views.main.router.back('/')
-              }
-              iconZMP='zi-arrow-left'
-              className='pl-2 pr-4'
-            ></Link>
-          )}
-          {title}
+          <Link back iconZMP='zi-arrow-left'></Link>
+          ZMP Hotel Go2Joy
         </Title>
       </Box>
     </div>
