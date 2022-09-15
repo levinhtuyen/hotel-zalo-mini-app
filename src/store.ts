@@ -755,9 +755,7 @@ const store = createStore<StoreState>({
     },
     setHeader({ state }, data: HeaderType)
     {
-      console.log('state.header  :>> ', state.header );
       state.header = data;
-      console.log('data :>> ', data);
     },
     async getBookingDetail({ state }, query: IQueryBookingDetail)
     {

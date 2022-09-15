@@ -15,7 +15,7 @@ function NavigationBar() {
   const [currentRoute] = useCurrentRoute();
 
   return (
-    <Tabbar bottom id='app-tab-bar' style={{ height: '100px' }}>
+    <Tabbar bottom id='app-tab-bar'>
       <Link
         href='/'
         animate={false}
@@ -27,7 +27,7 @@ function NavigationBar() {
       <Link
         href='/hotel-list'
         animate={false}
-        iconZMP='zi-bookmark'
+        iconZMP='zi-check-circle'
         tabLinkActive={currentRoute.path.startsWith('/hotel-list')}
       >
         History

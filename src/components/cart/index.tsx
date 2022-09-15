@@ -18,9 +18,6 @@ function CartDetail() {
         cartItemIndex: i
       }
     });
-    setTimeout(() => {
-      document.querySelector('.sheet-backdrop')?.classList.add('backdrop-in');
-    }, 300); // workaround for backdrop not showing
   }
 
   return <Box m="0" p="2" pt="3" className="overflow-y-auto" style={{ maxHeight: '50vh' }}>

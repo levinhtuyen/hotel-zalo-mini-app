@@ -1,4 +1,4 @@
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent } from 'react';
 import {
   Box,
   Button,
@@ -12,7 +12,6 @@ import {
   useStore,
 } from 'zmp-framework/react';
 
-import store from "../../store";
 import getImgUrl from '../../utils/img-url';
 
 interface BookingItemProps {
@@ -22,7 +21,10 @@ interface BookingItemProps {
 
 const BookingItem: FunctionComponent<BookingItemProps> = ({
   loading,booking,
-}) => {
+}) =>
+{
+
+
   const toBookingDetail = () => {
     zmp.views.main.router.navigate({
       path: '/booking-detail',

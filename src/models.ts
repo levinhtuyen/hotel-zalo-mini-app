@@ -1,4 +1,6 @@
-export interface Restaurant {
+import { ReactNode } from 'react';
+export interface Restaurant
+{
   id: number
   name: string
   districtId: number
@@ -73,6 +75,11 @@ interface IParamsRoom {
 }
 export type HeaderType = {
   route?: string;
+  hasLeftIcon?: boolean;
+  title?: string;
+  customTitle?: ReactNode;
+  type?: 'primary' | 'secondary';
+  rightIcon?: ReactNode;
 };
 export interface HotelListDetail
 {

@@ -11,10 +11,7 @@ interface FoodItemProps {
 const FoodItem: FunctionComponent<FoodItemProps> = ({ room }) => {
   const pick = () => {
     zmp.views.main.router.navigate({
-      path: '/food-picker/',
-      query: {
-        id: room.sn
-      }
+      path: '/booking-list/',
     })
   }
   return (

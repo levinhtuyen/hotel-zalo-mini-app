@@ -16,6 +16,10 @@ const MyApp = () => {
     name: appConfig.app.title,
     theme: 'auto',
     store: store,
+    touch: {
+      iosTouchRipple: true,
+      mdTouchRipple: false,
+    },
   };
   
 
@@ -33,6 +37,7 @@ const MyApp = () => {
   return (
     <ErrorBoundary>
       <App {...zmpparams}>
+        <Header />
         <div className='main-wrapper' id='main-wrapper'>
           <div id='floating-snap-btn-wrapper'>
             <div className='fab-btn'>
@@ -55,13 +60,10 @@ const MyApp = () => {
             </div>
           </div>
         </div>
-        <Header />
+
         <View
           main
           url='/'
-          animate={true}
-          iosDynamicNavbar={true}
-          browserHistory={true}
           routesAdd={[
             {
               path: '/',
@@ -73,7 +75,6 @@ const MyApp = () => {
         ></View>
 
         <NavigationBar />
-        <Cart />
       </App>
     </ErrorBoundary>
   );
