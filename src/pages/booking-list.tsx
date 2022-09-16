@@ -3,14 +3,15 @@ import { Box, Title, Page, useStore, zmp } from 'zmp-framework/react';
 import BookingItem from "../components/book/booking-item";
 import { useEffect } from 'react';
 import store from '../store';
+import setHeader from '../services/header';
+import { changeStatusBarColor } from '../services/navigation-bar';
 import {
   showNavigationBar,
+  hideNavigationBar,
 } from '../components/navigation-bar';
-
 function BookingPage() {
   const bookings: any = useStore('bookings');
   const loading = useStore('loadingBookingItem');
-
   useEffect(() => {
     if (!bookings?.length) {
       store.dispatch('setBooking');
@@ -19,20 +20,35 @@ function BookingPage() {
   if (loading)
   {
     return (
-      <Page className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'>
-        <BookingItem loading booking={undefined} />
-        <BookingItem loading booking={undefined} />
-      </Page>
+      <>
+        <div>
+          <Page
+            className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'
+            onPageBeforeIn={() => {
+              showNavigationBar();
+              zmp.toolbar.show('#view-booking-list', true);
+              setHeader({ title: 'Booking list', type: 'primary' });
+              changeStatusBarColor('secondary');
+            }}
+          >
+            <BookingItem loading booking={undefined} />
+            <BookingItem loading booking={undefined} />
+          </Page>
+        </div>
+      </>
     );
   }
   return (
     <Page
       onPageBeforeIn={() => {
+        showNavigationBar;
         zmp.toolbar.show('#main-nav', true);
+        setHeader({ title: 'Booking list', type: 'primary' });
+        changeStatusBarColor('secondary');
       }}
-      name="booking-list"
-      key='booking-list'
       onPageBeforeOut={showNavigationBar}
+      name='booking-list'
+      key='booking-list'
       className='relative  bg-white overflow-hidden p-0 restaurant-with-cover h-50 max-h-full'
     >
       <Box mx='4' mt='5'>

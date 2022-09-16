@@ -17,6 +17,12 @@ import HotelItem from '../components/hotel-item';
 import { HotelList } from '../models';
 import SkeletonBlockHotel1 from '../components/skeleton-block/skeleton-block-hotel-1';
 import SkeletonBlockHotel2 from '../components/skeleton-block/skeleton-block-hotel-2';
+import setHeader from '../services/header';
+import { changeStatusBarColor } from '../services/navigation-bar';
+import {
+  showNavigationBar,
+  hideNavigationBar,
+} from '../components/navigation-bar';
 function Popular(props)
 {
   const popular = props.dataHotel;
@@ -167,7 +173,14 @@ const HomePage = () => {
     }, 500);
   };
   return (
-    <Page name='home' key='home'>
+    <Page
+      name='home'
+      key='home'
+      onPageBeforeIn={() => {
+        setHeader({ title: 'Home page', type: 'primary' });
+        changeStatusBarColor('secondary');
+      }}
+    >
       <Box mx='4' mb='4' mt='5'>
         <Avatar
           onClick={viewProfile}

@@ -33,7 +33,7 @@ const HotelApp = () => {
   return (
     <ErrorBoundary>
       <App {...zmpparams}>
-        <Header />
+        <Header/>
         <div className='main-wrapper' id='main-wrapper'>
           <div id='floating-snap-btn-wrapper'>
             <div className='fab-btn'>

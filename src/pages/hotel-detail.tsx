@@ -7,10 +7,15 @@ import {
   ToastPreloader,
 } from 'zmp-framework/react';
 import { useEffect, useState } from 'react';
-import { showNavigationBar } from "../components/navigation-bar";
+import {
+  showNavigationBar,
+  hideNavigationBar,
+} from '../components/navigation-bar';
+import { changeStatusBarColor } from '../services/navigation-bar';
 import HotelContext from "./hotel/context";
 import HotelDetailComponent from "./hotel/detail";
 import store from '../store';
+import setHeader from '../services/header';
 function HotelPage({ zmproute })
 {
   const query = {
@@ -48,29 +53,37 @@ function HotelPage({ zmproute })
     );
   }
   return (
-    <Page
-      onPageBeforeIn={() => {
-        zmp.toolbar.show('#main-nav', true);
-      }}
-      onPageBeforeOut={showNavigationBar}
-      key='detail'
-      name='detail'
-    >
-      <HotelContext.Provider value={{ hotelDetail }}>
-        <HotelDetailComponent params={query} />
-      </HotelContext.Provider>
-      <Box className='bottom-0 left-0 right-0 z-10'>
-        <Button
-          fill
-          responsive
-          large
-          className='rounded-xl'
-          onClick={onBookNow}
+    <>
+      <div>
+        <Page
+          onPageBeforeIn={() => {
+            zmp.toolbar.show('#view-hotel-detail', true);
+            hideNavigationBar();
+            setHeader({ title: 'Hotel detail', type: 'primary' });
+            changeStatusBarColor('secondary');
+          }}
+          key='hotel-detail'
+          name='hotel-detail'
         >
-          Book Now
-        </Button>
-      </Box>
-    </Page>
+          <>
+            <HotelContext.Provider value={{ hotelDetail }}>
+              <HotelDetailComponent params={query} />
+            </HotelContext.Provider>
+            <Box className='bottom-0 left-0 right-0 z-10'>
+              <Button
+                fill
+                responsive
+                large
+                className='rounded-xl'
+                onClick={onBookNow}
+              >
+                Book Now
+              </Button>
+            </Box>
+          </>
+        </Page>
+      </div>
+    </>
   );
 }
 export default HotelPage;

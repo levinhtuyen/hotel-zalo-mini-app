@@ -1,11 +1,8 @@
 
-import { useStore, zmp, Box, Icon, Title, Link, Button } from 'zmp-framework/react';
-import { useMemo } from 'react';
+import { useStore, zmp, Box, Icon } from 'zmp-framework/react';
 import { cx } from '../utils';
 import { HeaderType } from '../models';
-import appConfig from '../../app-config.json';
-import { useCurrentRoute, useHotel } from '../hooks';
-
+import { useCurrentRoute } from '../hooks';
 const typeColor = {
   primary: {
     headerColor: 'bg-primary',
@@ -18,26 +15,49 @@ const typeColor = {
     iconColor: 'text-gray-400',
   },
 };
-
-const Header = (back) => {
+  
+const Header = () => {
   const {
     route,
+    hasLeftIcon,
+    rightIcon,
+    title,
+    customTitle,
     type,
   }: HeaderType = useStore('header');
-
+  const [currentRoute] = useCurrentRoute();
   const { headerColor, textColor, iconColor } = typeColor[type! || 'primary'];
   return (
-    <div className={cx('sticky z-50', headerColor, textColor)}>
+    <div className={cx('sticky top-0 z-50 w-ful', headerColor, textColor)}>
       <Box
-        className='sticky top-0 z-50 w-ful my-0 py-[10px] align-middle bg-primary text-white'
+        flex
+        alignItems='center'
+        justifyContent='space-between'
+        className='h-[44px] pl-5 pr-[110px] gap-3 w-full'
+        m='0'
       >
-        <Title size='small' className='flex items-center m-0'>
-          <Link back iconZMP='zi-arrow-left'></Link>
-          ZMP Hotel Go2Joy
-        </Title>
+        <>
+          {hasLeftIcon && currentRoute.path !== '/' && (
+            <Icon
+              zmp='zi-arrow-left'
+              className={iconColor}
+              onClick={() =>
+                route
+                  ? zmp.views.main.router.navigate(route, {
+                      transition: 'zmp-fade',
+                    })
+                  : zmp.views.main.router.back('', { transition: 'zmp-fade' })
+              }
+            />
+          )}
+          {customTitle || (
+            <div className={cx('text-lg font-medium')}>{title}</div>
+          )}
+        </>
+        {rightIcon || <div />}
       </Box>
     </div>
   );
 };
-Header.displayName = 'zmp-navbar';
+
 export default Header;

@@ -1,20 +1,28 @@
 
-import {
-  Page,
-  useStore,
-  Title,
-  Box,
-  Text,
-} from 'zmp-framework/react';
+import { Page, useStore, Title, Box, Text, zmp } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
+import setHeader from '../services/header';
+import { changeStatusBarColor } from '../services/navigation-bar';
+import {
+  showNavigationBar
+} from '../components/navigation-bar';
 
 const HotelList = () => {
   const hotelList = useStore('hotelList');
-  const user: userInfo = useStore('user')
-    return (
-      <Page name='hotel-list' key='hotel-list'>
-        <>
+  return (
+    <>
+      <div>
+        <Page
+          name='hotel-list'
+          key='hotel-list'
+          onPageBeforeIn={() => {
+            zmp.toolbar.show('#view-hotel-list', true);
+            showNavigationBar;
+            setHeader({ title: 'Hotel List', type: 'primary' });
+            changeStatusBarColor('secondary');
+          }}
+        >
           <Box mx='4' mt='5'>
             <Title size='small'>Danh sách khách sạn</Title>
             {hotelList.map((hotel) => (
@@ -31,9 +39,10 @@ const HotelList = () => {
               </Box>
             ))}
           </Box>
-        </>
-      </Page>
-    );
-}
+        </Page>
+      </div>
+    </>
+  );
+};
 
 export default HotelList;

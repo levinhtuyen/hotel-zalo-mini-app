@@ -20,7 +20,7 @@ const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after
   const viewDetail = () =>
   {
     currentRoute.path.startsWith('/hotel-detail');
-    zmp.views.main.router.navigate({
+    zmp.views.current?.router.navigate({
       path: '/hotel-detail',
       query: {
         hotelSn: hotel.sn,

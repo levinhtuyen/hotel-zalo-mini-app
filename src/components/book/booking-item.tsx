@@ -27,7 +27,7 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({
 
 
   const toBookingDetail = () => {
-    zmp.views.main.router.navigate({
+    zmp.views.current?.router.navigate({
       path: '/booking-detail',
       query: {
         userBookingSn: booking.sn,

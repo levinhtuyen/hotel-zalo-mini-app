@@ -19,6 +19,7 @@ function NavigationBar() {
       <Link
         href='/'
         animate={true}
+        tabLink='#view-main'
         iconZMP='zi-home'
         tabLinkActive={currentRoute.path === '/'}
       >
@@ -27,6 +28,7 @@ function NavigationBar() {
       <Link
         href='/hotel-list'
         animate={true}
+        tabLink='#view-hotel-list'
         iconZMP='zi-check-circle'
         tabLinkActive={currentRoute.path.startsWith('/hotel-list')}
       >
@@ -35,6 +37,7 @@ function NavigationBar() {
       <Link
         href='/booking-list'
         animate={true}
+        tabLink='#view-booking-list'
         iconZMP='zi-calendar'
         tabLinkActive={currentRoute.path.startsWith('/booking-list')}
       >

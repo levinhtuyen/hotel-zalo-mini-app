@@ -9,7 +9,7 @@
   "debug": false,
   "listCSS": [],
   "listSyncJS": [],
-  "listAsyncJS": [],
+  "listAsyncJS": ["vendor.9ebec189.module.js","hotel-detail.a8550eb0.module.js","context.fda51ed7.module.js","booking-detail.b4ce2b02.module","booking-list.668d525a.module.js","detail.6718f77d.module.js","extra-selection.31e1442b.module.js","hotel-list.cb2078a6.module.js","index.225652d4.module.js","index.a2932ee7.module.js","information.c1e76920.module.js","profile.035830e7.module.js","review.8c203299.module.js","room.3adf9474.module.js"],
   "pages": [
     "/booking-list",
     "/booking-detail",
