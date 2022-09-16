@@ -1,6 +1,6 @@
 import React, { createContext } from 'react';
 const HotelContext = createContext({
-  hotelDetail: {} as any,
+  dataHotelDetail: {} as any,
 })
 
 export default HotelContext;

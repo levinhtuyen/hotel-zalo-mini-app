@@ -28,9 +28,6 @@ function HotelPage({ zmproute })
   useEffect(() =>
   {
     openToastLoading()
-    if (!hotelDetail?.length) {
-      // store.dispatch('getHotelDetail', query);
-    }
   }, []);
   const onBookNow = () =>
   {

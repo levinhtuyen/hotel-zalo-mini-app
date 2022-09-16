@@ -12,7 +12,7 @@ import {
   SkeletonImage,
   useStore,
 } from 'zmp-framework/react';
-
+import store from '../../store'
 import getImgUrl from '../../utils/img-url';
 
 interface BookingItemProps {
@@ -26,7 +26,12 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({
 {
 
 
-  const toBookingDetail = () => {
+  const toBookingDetail = () =>
+  {
+    const query = {
+      userBookingSn: booking.sn,
+    };
+    store.dispatch('getBookingDetail', query);
     zmp.views.current?.router.navigate({
       path: '/booking-detail',
       query: {

@@ -4,20 +4,12 @@ import store from '../store';
 import BookingDetail from "../components/booking-detail/detail";
 import setHeader from '../services/header';
 import { changeStatusBarColor } from '../services/navigation-bar';
-import {
-  showNavigationBar,
-  hideNavigationBar,
-} from '../components/navigation-bar';
+
 
 function BookingDetailPage({ zmproute })
 {
   const loading = useStore('loadingBookingDetail');
   const bookingDetail: any = useStore('bookingDetail');
-  useEffect(() => {
-    if (!bookingDetail?.length) {
-      // store.dispatch('getBookingDetail', zmproute.query);
-    }
-  }, []);
 
   if (loading)
   {

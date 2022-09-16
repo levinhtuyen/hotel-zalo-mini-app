@@ -5,6 +5,7 @@ import Distance from "./distance";
 import DistrictName from "./district-name";
 import getImgUrl from '../utils/img-url';
 import { useCurrentRoute } from '../hooks';
+import store from '../store'
 
 interface HotelProps {
   layout: 'cover' | 'list-item';
@@ -20,6 +21,8 @@ const HotelItem: FunctionComponent<HotelProps> = ({ layout, hotel, before, after
   const viewDetail = () =>
   {
     currentRoute.path.startsWith('/hotel-detail');
+    const query = { hotelSn: hotel.sn, bookingType: hotel.bookingType };
+    store.dispatch('getHotelDetail', query);
     zmp.views.current?.router.navigate({
       path: '/hotel-detail',
       query: {
