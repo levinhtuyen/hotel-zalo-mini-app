@@ -3,6 +3,7 @@ import { useStore, zmp, Box, Icon } from 'zmp-framework/react';
 import { cx } from '../utils';
 import { HeaderType } from '../models';
 import { useCurrentRoute } from '../hooks';
+import React from 'react'
 const typeColor = {
   primary: {
     headerColor: 'bg-primary',
@@ -28,7 +29,7 @@ const Header = () => {
   const [currentRoute] = useCurrentRoute();
   const { headerColor, textColor, iconColor } = typeColor[type! || 'primary'];
   return (
-    <>
+    <React.Fragment key={'header'}>
       <div className={cx('sticky top-0 z-50 w-ful', headerColor, textColor)}>
         <Box
           flex
@@ -58,7 +59,7 @@ const Header = () => {
           {rightIcon || <div />}
         </Box>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

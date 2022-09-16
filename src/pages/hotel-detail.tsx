@@ -29,7 +29,7 @@ function HotelPage({ zmproute })
   {
     openToastLoading()
     if (!hotelDetail?.length) {
-      store.dispatch('getHotelDetail', query);
+      // store.dispatch('getHotelDetail', query);
     }
   }, []);
   const onBookNow = () =>
@@ -53,7 +53,7 @@ function HotelPage({ zmproute })
     );
   }
   return (
-    <>
+    <React.Fragment key={hotelDetail.sn}>
       <Page
         onPageBeforeIn={() => {
           zmp.toolbar.show('#view-hotel-detail', true);
@@ -64,24 +64,22 @@ function HotelPage({ zmproute })
         key='hotel-detail'
         name='hotel-detail'
       >
-        <React.Fragment key={hotelDetail.sn}>
-          <HotelContext.Provider value={{ hotelDetail }}>
-            <HotelDetailComponent params={query} />
-          </HotelContext.Provider>
-          <Box className='bottom-0 left-0 right-0 z-10'>
-            <Button
-              fill
-              responsive
-              large
-              className='rounded-xl'
-              onClick={onBookNow}
-            >
-              Book Now
-            </Button>
-          </Box>
-        </React.Fragment>
+        <HotelContext.Provider value={{ hotelDetail }}>
+          <HotelDetailComponent params={query} />
+        </HotelContext.Provider>
+        <Box className='bottom-0 left-0 right-0 z-10'>
+          <Button
+            fill
+            responsive
+            large
+            className='rounded-xl'
+            onClick={onBookNow}
+          >
+            Book Now
+          </Button>
+        </Box>
       </Page>
-    </>
+    </React.Fragment>
   );
 }
 export default HotelPage;

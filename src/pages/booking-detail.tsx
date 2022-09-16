@@ -15,7 +15,7 @@ function BookingDetailPage({ zmproute })
   const bookingDetail: any = useStore('bookingDetail');
   useEffect(() => {
     if (!bookingDetail?.length) {
-      store.dispatch('getBookingDetail', zmproute.query);
+      // store.dispatch('getBookingDetail', zmproute.query);
     }
   }, []);
 

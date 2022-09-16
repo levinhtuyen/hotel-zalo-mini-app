@@ -60,9 +60,7 @@ function Popular(props)
                   className='snap-start'
                   style={{ width: 'calc(100vw - 120px)' }}
                 >
-                  <React.Fragment key={hotel.sn}>
-                    <HotelItem layout='cover' hotel={hotel} />
-                  </React.Fragment>
+                  <HotelItem layout='cover' hotel={hotel} />
                 </Box>
               ))}
             </Box>
@@ -103,17 +101,15 @@ function Nearest(props)
           <Title size='small'>Gần bạn nhất</Title>
           {nearests.map((hotel) => (
             <Box key={hotel.sn} mx='0' my='3'>
-              <React.Fragment key={hotel.sn}>
-                <HotelItem
-                  layout='list-item'
-                  hotel={hotel}
-                  after={
-                    <Text size='small' className='text-gray-500'>
-                      {hotel.address}
-                    </Text>
-                  }
-                />
-              </React.Fragment>
+              <HotelItem
+                layout='list-item'
+                hotel={hotel}
+                after={
+                  <Text size='small' className='text-gray-500'>
+                    {hotel.address}
+                  </Text>
+                }
+              />
             </Box>
           ))}
         </Box>
@@ -183,6 +179,8 @@ const HomePage = () => {
       onPageBeforeIn={() => {
         setHeader({ title: 'Home page', type: 'primary' });
         changeStatusBarColor('secondary');
+        showNavigationBar();
+        zmp.toolbar.show('#view-main', true);
       }}
     >
       <Box mx='4' mb='4' mt='5'>
