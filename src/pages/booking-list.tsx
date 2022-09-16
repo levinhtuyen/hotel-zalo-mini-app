@@ -1,7 +1,7 @@
 
 import { Box, Title, Page, useStore, zmp } from 'zmp-framework/react';
 import BookingItem from "../components/book/booking-item";
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import store from '../store';
 import setHeader from '../services/header';
 import { changeStatusBarColor } from '../services/navigation-bar';
@@ -62,7 +62,9 @@ function BookingPage() {
         <>
           {bookings.map((booking) => (
             <Box key={booking.sn} my='4'>
-              <BookingItem loading={false} booking={booking} />
+              <React.Fragment key={booking.sn}>
+                <BookingItem loading={false} booking={booking} />
+              </React.Fragment>
             </Box>
           ))}
         </>

@@ -29,4 +29,5 @@ if (!(window as any).APP_CONFIG) {
 ZMP.use(ZMPReact)
 
 // Mount React App
+
 createRoot(document.getElementById('app')!).render(React.createElement(App));

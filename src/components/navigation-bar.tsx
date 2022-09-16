@@ -43,6 +43,26 @@ function NavigationBar() {
       >
         Đặt phòng
       </Link>
+      <Link
+        className='block-none'
+        href='/booking-detail'
+        animate={true}
+        tabLink='#view-booking-detail'
+        iconZMP='zi-calendar'
+        tabLinkActive={currentRoute.path.startsWith('/booking-detail')}
+      >
+        Đặt phòng
+      </Link>
+      <Link
+        className='block-none'
+        href='/hotel-detail'
+        animate={true}
+        tabLink='#view-hotel-detail'
+        iconZMP='zi-calendar'
+        tabLinkActive={currentRoute.path.startsWith('/hotel-detail')}
+      >
+        Đặt phòng
+      </Link>
     </Tabbar>
   );
 }

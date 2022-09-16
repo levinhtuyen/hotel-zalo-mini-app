@@ -60,7 +60,9 @@ function Popular(props)
                   className='snap-start'
                   style={{ width: 'calc(100vw - 120px)' }}
                 >
-                  <HotelItem layout='cover' hotel={hotel} />
+                  <React.Fragment key={hotel.sn}>
+                    <HotelItem layout='cover' hotel={hotel} />
+                  </React.Fragment>
                 </Box>
               ))}
             </Box>
@@ -101,15 +103,17 @@ function Nearest(props)
           <Title size='small'>Gần bạn nhất</Title>
           {nearests.map((hotel) => (
             <Box key={hotel.sn} mx='0' my='3'>
-              <HotelItem
-                layout='list-item'
-                hotel={hotel}
-                after={
-                  <Text size='small' className='text-gray-500'>
-                    {hotel.address}
-                  </Text>
-                }
-              />
+              <React.Fragment key={hotel.sn}>
+                <HotelItem
+                  layout='list-item'
+                  hotel={hotel}
+                  after={
+                    <Text size='small' className='text-gray-500'>
+                      {hotel.address}
+                    </Text>
+                  }
+                />
+              </React.Fragment>
             </Box>
           ))}
         </Box>

@@ -25,7 +25,7 @@ function BookingDetailPage({ zmproute })
   }
   return (
     <>
-      <div>
+      <React.Fragment key={bookingDetail.sn}>
         <Page
           name='booking-detail'
           key='booking-detail'
@@ -39,7 +39,7 @@ function BookingDetailPage({ zmproute })
             <BookingDetail loading={false} bookingDetail={bookingDetail} />
           </Box>
         </Page>
-      </div>
+      </React.Fragment>
     </>
   );
 
