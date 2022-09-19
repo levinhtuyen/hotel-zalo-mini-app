@@ -168,9 +168,7 @@ const HomePage = () => {
   };
   const openToastLoading = () => {
     setToastLoading(true);
-    setTimeout(() => {
-      setToastLoading(false);
-    }, 500);
+    setToastLoading(false);
   };
   return (
     <Page
