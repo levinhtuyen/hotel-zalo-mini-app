@@ -5,6 +5,6 @@ async function getApiQuickFilter(params)
   return await apiCaller.post('/v5/web-booking/hotel/getHotelList',params)
 }
 
-export {
+export default {
   getApiQuickFilter
 }

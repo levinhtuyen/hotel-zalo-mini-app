@@ -5,6 +5,6 @@ async function getApiBookingList()
   return await apiCaller.get('/v5/web-booking/booking/getBookingList')
 }
 
-export {
+export default {
   getApiBookingList
 }

@@ -22,6 +22,6 @@ async function getHotelList()
   return await apiCaller.post('/v5/web-booking/hotel/getHotelList', payload)
 }
 
-export {
+export default {
   getHotelList
 }
