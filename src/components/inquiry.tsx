@@ -40,7 +40,7 @@ function Inquiry() {
   };
   const clickToHotelDetail = (sn) => {
     zmp.views.main.router.navigate({
-      path: '/hotel-detail',
+      path: '/restaurant',
       query: {
         hotelSn: sn,
         bookingType: 1,
