@@ -53,25 +53,14 @@ function BookingDetail({ zmproute, zmprouter }) {
           </Box>
           <hr />
           <div className='swiper-handler'>
-            {bookingDetail.bookingDetailInfo && (
+            {bookingDetail && (
               <>
                 <Section
-                  left='Ngày, giờ'
-                  right={
-                    <>
-                      {bookingDetail.bookingDetailInfo.date.toLocaleDateString()}{' '}
-                      - <Time time={bookingDetail.bookingDetailInfo.hour} />
-                    </>
-                  }
+                  left='Room name'
+                  right={<>{bookingDetail.totalDiscount}</>}
                 />
-                <Section
-                  left='Bàn số'
-                  right={bookingDetail.bookingDetailInfo.seats}
-                />
-                <Section
-                  left='Số ghế'
-                  right={bookingDetail.bookingDetailInfo.table}
-                />
+                <Section left='Booking NO' right={bookingDetail.bookingNo} />
+                <Section left='Địa chỉ' right={bookingDetail.hotelAddress} />
               </>
             )}
             <Section left='Chi tiết' right={bookingDetail.hotelFee} />
@@ -87,9 +76,7 @@ function BookingDetail({ zmproute, zmprouter }) {
                 }px)`,
                 minHeight: 120,
               }}
-            >
-             
-            </Box>
+            ></Box>
           ) : (
             <Box my='4' flex justifyContent='center'>
               Không có dữ liệu
