@@ -1,66 +1,24 @@
+import { useMemo } from "react";
+import { Box, Link, Title } from "zmp-framework/react";
+import { useCurrentRoute, useRestaurant } from "../hooks";
+import appConfig from '../../app-config.json';
 
-import { useStore, zmp, Box, Icon } from 'zmp-framework/react';
-import { cx } from '../utils';
-import { HeaderType } from '../models';
-import { useCurrentRoute } from '../hooks';
-import React from 'react'
-const typeColor = {
-  primary: {
-    headerColor: 'bg-primary',
-    textColor: 'text-white',
-    iconColor: 'text-white',
-  },
-  secondary: {
-    headerColor: 'bg-white',
-    textColor: 'text-black',
-    iconColor: 'text-gray-400',
-  },
-};
-  
-const Header = () => {
-  const {
-    route,
-    hasLeftIcon,
-    rightIcon,
-    title,
-    customTitle,
-    type,
-  }: HeaderType = useStore('header');
+function Header() {
   const [currentRoute] = useCurrentRoute();
-  const { headerColor, textColor, iconColor } = typeColor[type! || 'primary'];
-  return (
-    <React.Fragment key={'header'}>
-      <div className={cx('sticky top-0 z-50 w-ful', headerColor, textColor)}>
-        <Box
-          flex
-          alignItems='center'
-          justifyContent='space-between'
-          className='h-[44px] pl-5 pr-[110px] gap-3 w-full'
-          m='0'
-        >
-          <>
-            {hasLeftIcon && currentRoute.path !== '/' && (
-              <Icon
-                zmp='zi-arrow-left'
-                className={iconColor}
-                onClick={() =>
-                  route
-                    ? zmp.views.main.router.navigate(route, {
-                        transition: 'zmp-fade',
-                      })
-                    : zmp.views.main.router.back('', { transition: 'zmp-fade' })
-                }
-              />
-            )}
-            {customTitle || (
-              <div className={cx('text-lg font-medium')}>{title}</div>
-            )}
-          </>
-          {rightIcon || <div />}
-        </Box>
-      </div>
-    </React.Fragment>
-  );
-};
+
+  const restaurant = useRestaurant(Number(currentRoute.query?.id));
+
+  const title = useMemo(() => {
+
+    return appConfig.app.title;
+  }, [currentRoute])
+
+  return <Box className="header">
+    <Title size="small" className="flex items-center">
+      {currentRoute.path !== '/' && <Link iconZMP="zi-arrow-left" className="pl-2 pr-4" back />}
+      {title}
+    </Title>
+  </Box>;
+}
 
 export default Header;

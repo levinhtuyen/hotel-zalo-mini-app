@@ -1,5 +1,8 @@
 module.exports = {
-  content: ['./src/**/*.{js,jsx,ts,tsx,vue}'],
+  purge: {
+    enabled: true,
+    content: ['./src/**/*.{js,jsx,ts,tsx,vue}'],
+  },
   theme: {
     extend: {
       aspectRatio: {

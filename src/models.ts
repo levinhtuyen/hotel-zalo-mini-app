@@ -1,5 +1,24 @@
-import { ReactNode } from 'react';
-export interface Restaurant
+export interface Restaurant {
+  id: number
+  name: string
+  districtId: number
+  location: Location
+  views: number
+  image: string
+  address: string
+  hours: {
+    opening: Hours,
+    closing: Hours,
+  },
+  days: {
+    opening: number
+    closing: number
+  },
+  hotline: string
+  map: string
+  rating: number
+}
+export interface Hotel
 {
   id: number
   name: string
@@ -41,46 +60,6 @@ export interface HotelList
     total: number
   }
 }
-export interface IParamsHotel {
-  bookingType: string | number
-  hotelSn: number | string
-}
-export interface IQueryBookingDetail
-{
-  userBookingSn: number | string
-}
-export interface IQueryHotelListHome
-{
-  minPrice?: number,
-  maxPrice?: number,
-  page?: number,
-  limit?: number,
-  sort?: number,
-  checkInDatePlan?: string,
-  endDate?: string,
-  longitude?: number,
-  latitude?: number,
-  bookingType?: number,
-  startTime?: string,
-  endTime?: string,
-}
-interface IParamsRoom {
-  hotelSn: number | string
-  bookingType: string | number
-  startTime?: string
-  startDate?: string
-  endDate?: string
-  endTime?: string
-  mode?: number | string
-}
-export type HeaderType = {
-  route?: string;
-  hasLeftIcon?: boolean;
-  title?: string;
-  customTitle?: ReactNode;
-  type?: 'primary' | 'secondary';
-  rightIcon?: ReactNode;
-};
 export interface HotelListDetail
 {
   averageMark: number
@@ -103,39 +82,14 @@ export interface HotelListDetail
   sn: number
   totalReview: number
 }
-export interface Hotel
+export interface IParamsHotel {
+  bookingType: string | number
+  hotelSn: number | string
+}
+export interface IQueryBookingDetail
 {
-  id: number
-  name: string
-  districtId: number
-  location: Location
-  views: number
-  image: string
-  address: string
-  hours: {
-    opening: Hours,
-    closing: Hours,
-  },
-  days: {
-    opening: number
-    closing: number
-  },
-  hotline: string
-  map: string
-  rating: number
+  userBookingSn: number | string
 }
-export interface Article {
-  id: string
-  hotel: Hotel
-  cart?: Cart
-  bookingInfo?: {
-    date: Date
-    hour: Hours
-    table: string
-    seats: number
-  }
-}
-
 export interface District {
   code: string | number
   idx?: number,
@@ -206,7 +160,7 @@ export type Hours = [number, number, 'AM' | 'PM'];
 
 export interface Booking {
   id: string
-  hotel: Hotel
+  restaurant: Restaurant
   cart?: Cart
   bookingInfo?: {
     date: Date
@@ -216,4 +170,4 @@ export interface Booking {
   }
 }
 
-export type TabType = 'info' | 'room' | 'review';
+export type TabType = 'info' | 'menu' | 'book';

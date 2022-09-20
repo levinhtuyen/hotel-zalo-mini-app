@@ -1,11 +1,8 @@
 import { Box, Page, useStore, zmp, ToastPreloader } from 'zmp-framework/react';
-import { useRestaurant } from '../hooks';
-import {
-  hideNavigationBar,
-  showNavigationBar,
-} from '../components/navigation-bar';
+import { useRestaurant } from "../hooks";
+import { hideNavigationBar, showNavigationBar } from "../components/navigation-bar";
 import HotelContext from './restaurant/context';
-import RestaurantDetail from './restaurant/detail';
+import RestaurantDetail from "./restaurant/detail";
 import React, { useEffect, useState } from 'react';
 import store from '../store';
 function RestaurantPage({ zmproute }) {

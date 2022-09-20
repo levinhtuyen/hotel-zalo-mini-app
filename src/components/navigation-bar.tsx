@@ -18,50 +18,19 @@ function NavigationBar() {
     <Tabbar bottom id='app-tab-bar'>
       <Link
         href='/'
-        animate={true}
-        tabLink='#view-main'
+        animate={false}
         iconZMP='zi-home'
         tabLinkActive={currentRoute.path === '/'}
       >
         Trang chủ
       </Link>
       <Link
-        href='/hotel-list'
-        animate={true}
-        tabLink='#view-hotel-list'
-        iconZMP='zi-check-circle'
-        tabLinkActive={currentRoute.path.startsWith('/hotel-list')}
-      >
-        History
-      </Link>
-      <Link
         href='/booking-list'
-        animate={true}
-        tabLink='#view-booking-list'
+        animate={false}
         iconZMP='zi-calendar'
         tabLinkActive={currentRoute.path.startsWith('/booking-list')}
       >
-        Đặt phòng
-      </Link>
-      <Link
-        className='block-none'
-        href='/booking-detail'
-        animate={true}
-        tabLink='#view-booking-detail'
-        iconZMP='zi-calendar'
-        tabLinkActive={currentRoute.path.startsWith('/booking-detail')}
-      >
-        Đặt phòng
-      </Link>
-      <Link
-        className='block-none'
-        href='/hotel-detail'
-        animate={true}
-        tabLink='#view-hotel-detail'
-        iconZMP='zi-calendar'
-        tabLinkActive={currentRoute.path.startsWith('/hotel-detail')}
-      >
-        Đặt phòng
+        Lịch của tôi
       </Link>
     </Tabbar>
   );

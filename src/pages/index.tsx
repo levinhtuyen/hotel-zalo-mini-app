@@ -5,30 +5,22 @@ import {
   Box,
   Avatar,
   Text,
-  zmp,
   ToastPreloader,
-  Preloader
+  Preloader,
 } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
-import React, { useState, useRef, useEffect } from 'react';
-import store from '../store';
-import HotelItem from '../components/hotel-item';
-import { HotelList } from '../models';
-import SkeletonBlockHotel1 from '../components/skeleton-block/skeleton-block-hotel-1';
-import SkeletonBlockHotel2 from '../components/skeleton-block/skeleton-block-hotel-2';
-import setHeader from '../services/header';
-import { changeStatusBarColor } from '../services/navigation-bar';
-import {
-  showNavigationBar,
-  hideNavigationBar,
-} from '../components/navigation-bar';
-function Popular(props)
-{
-  const popular = props.dataHotel;
+import HotelItem from '../components/restaurant';
+import { Restaurant, HotelList } from '../models';
+import React, { useEffect, useState } from 'react';
+import store from '../store'
+import SkeletonBlockHotel2 from '../components/skeleton-block/skeleton-block-hotel-2'
+import SkeletonBlockHotel1 from '@components/skeleton-block/skeleton-block-hotel-1';
 
-  if (props.loadingPopular)
-  {
+function Popular(props) {
+  // const populars = useStore('populars') as Restaurant[];
+  const popular = props.dataHotel;
+  if (props.loadingPopular) {
     return (
       <>
         <Box mx='4' mt='6'>
@@ -44,40 +36,38 @@ function Popular(props)
       </>
     );
   }
-    return (
-      <>
-        <Box mx='4' mt='6'>
-          <Title size='small'>Khách sạn phổ biến</Title>
-        </Box>
-        {popular.length ? (
-          <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
-            <Box m='0' pr='4' flex className='w-max'>
-              {popular.map((hotel) => (
-                <Box
-                  key={hotel.sn}
-                  ml='4'
-                  mr='0'
-                  className='snap-start'
-                  style={{ width: 'calc(100vw - 120px)' }}
-                >
-                  <HotelItem layout='cover' hotel={hotel} />
-                </Box>
-              ))}
-            </Box>
-          </div>
-        ) : (
-          <Box mx='4'>Không có khách sạn nào ở khu vực này</Box>
-        )}
-      </>
-    );
+  return (
+    <>
+      <Box mx='4' mt='6'>
+        <Title size='small'>Khách sạn phổ biến</Title>
+      </Box>
+      {popular.length ? (
+        <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
+          <Box m='0' pr='4' flex className='w-max'>
+            {popular.map((hotel, index) => (
+              <Box
+                key={index}
+                ml='4'
+                mr='0'
+                className='snap-start'
+                style={{ width: 'calc(100vw - 120px)' }}
+              >
+                <HotelItem layout='cover' hotel={hotel} />
+              </Box>
+            ))}
+          </Box>
+        </div>
+      ) : (
+        <Box mx='4'>Không có khách sạn nào ở khu vực này</Box>
+      )}
+    </>
+  );
 }
 
-function Nearest(props)
-{
+function Nearest(props) {
   const nearests = props.dataHotel;
   const logo = 'https://go2joy.vn/images/logo-mini.png';
-  if (props.loadingNearest)
-  {
+  if (props.loadingNearest) {
     return (
       <>
         <Box mx='4' mt='5'>
@@ -99,8 +89,8 @@ function Nearest(props)
       {nearests.length ? (
         <Box mx='4' mt='5'>
           <Title size='small'>Gần bạn nhất</Title>
-          {nearests.map((hotel) => (
-            <Box key={hotel.sn} mx='0' my='3'>
+          {nearests.map((hotel,index) => (
+            <Box key={index} mx='0' my='3'>
               <HotelItem
                 layout='list-item'
                 hotel={hotel}
@@ -120,16 +110,16 @@ function Nearest(props)
   );
 }
 
-const HomePage = () => {
-  const user: userInfo = useStore('user');
-  const hotelList: HotelList = useStore('hotelList');
+const HomePage = () =>
+{
+  const hotelList = useStore('hotelList');
+  const user: userInfo = useStore('user')
   const hotelPopular = useStore('hotelPopular');
   const hotelNearest = useStore('hotelNearest');
   const loadingNearest = useStore('loadingNearest');
   const loadingPopular = useStore('loadingPopular');
   const [toastLoading, setToastLoading] = useState(true);
-  useEffect(() =>
-  {
+  useEffect(() => {
     openToastLoading();
     if (!hotelList?.length) {
       store.dispatch('setHotelList');
@@ -161,44 +151,26 @@ const HomePage = () => {
       });
     }
   }, []);
-  const viewProfile = () => {
-    zmp.views.main.router.navigate({
-      path: '/profile',
-    });
-  };
   const openToastLoading = () => {
     setToastLoading(true);
-    setToastLoading(false);
+    setTimeout(() => {
+      setToastLoading(false);
+    }, 500);
   };
   return (
-    <Page
-      name='home'
-      key='home'
-      onPageBeforeIn={() => {
-        setHeader({ title: 'Home page', type: 'primary' });
-        changeStatusBarColor('secondary');
-        showNavigationBar();
-        zmp.toolbar.show('#view-main', true);
-      }}
-    >
+    <Page name='home'>
       <Box mx='4' mb='4' mt='5'>
-        <Avatar
-          onClick={viewProfile}
-          className='shadow align-middle mb-2'
-          src={user.avatar}
-        >
+        <Avatar className='shadow align-middle mb-2' src={user.avatar}>
           Hi
         </Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
         <Title size='xlarge' bold>
-          Hôm nay bạn muốn ở khách sạn nào?
+          Hôm nay bạn muốn ăn ở đâu?
         </Title>
         <Inquiry />
-        <Box flex flexDirection='row' flexWrap mt='0' mb='2'>
-          <Title size='small' className='mt-6 mb-4'>
-            Phân loại nhanh
-          </Title>
-        </Box>
+        <Title size='small' className='mt-6 mb-4'>
+          Phân loại nhanh
+        </Title>
         <QuickFilter />
       </Box>
       <Popular loadingPopular={loadingPopular} dataHotel={hotelPopular} />

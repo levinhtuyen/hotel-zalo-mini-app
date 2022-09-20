@@ -1,39 +1,62 @@
-import React, { useEffect } from 'react';
-import { Box, Page, useStore, zmp } from 'zmp-framework/react';
-import store from '../store';
-import BookingDetail from "../components/booking-detail/detail";
-import setHeader from '../services/header';
-import { changeStatusBarColor } from '../services/navigation-bar';
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/react";
+import Notch from "../components/notch";
+import Price from "../components/format/price";
+import { Booking } from "../models";
+import { useBookingTotal } from "../hooks";
+import Time from "../components/format/time";
+import CartItem from "../components/cart/cart-item";
+import store from '../store'
 
-
-function BookingDetailPage({ zmproute })
-{
-  const loading = useStore('loadingBookingDetail');
-  const bookingDetail: any = useStore('bookingDetail');
-
-  if (loading)
-  {
-    return <BookingDetail loading bookingDetail={undefined} />;
-  }
-  return (
-    <>
-      <React.Fragment key={bookingDetail.sn}>
-        <Page
-          name='booking-detail'
-          key='booking-detail'
-          onPageBeforeIn={() => {
-            zmp.toolbar.show('#view-booking-detail', true);
-            setHeader({ title: 'Booking detail', type: 'primary' });
-            changeStatusBarColor('secondary');
-          }}
-        >
-          <Box mx='4' mt='5'>
-            <BookingDetail loading={false} bookingDetail={bookingDetail} />
-          </Box>
-        </Page>
-      </React.Fragment>
-    </>
-  );
-
+function Section({ left, right }: { left: ReactNode, right: ReactNode }) {
+  return <>
+    <Box m="0" flex justifyContent="space-between" alignItems="center">
+      <Title size="small" className="mx-6 my-4">{left}</Title>
+      <Title size="small" className="mx-6 my-4">{right}</Title>
+    </Box>
+    <hr />
+  </>;
 }
-export default BookingDetailPage;
+
+function BookingDetail({ zmproute, zmprouter }) {
+  // const bookings = useStore('bookings') as Booking[];
+  // const booking = useMemo(() => bookings.find(b => b.id === zmproute.query.id), [zmproute])
+  const booking = useStore('bookingDetail')
+  useEffect(() =>
+  {
+    const query = {
+      userBookingSn: 271639,
+    };
+    if (!booking?.length) {
+      store.dispatch('getDataBookingDetail', query);
+    }
+  }, []);
+  const [total] = useBookingTotal(booking);
+
+  return <Sheet backdrop swipeToClose className="h-auto" swipeHandler=".swiper-handler">
+    <Notch color="black" />
+    {booking && <>
+      <Box className="swiper-handler" p="4" mt="6" flex justifyContent="center">
+        <Title size="small">{booking.bookingInfo ? 'Thông tin đặt bàn' : 'Pizza'}</Title>
+      </Box>
+      <hr />
+      <div className="swiper-handler">
+        {booking.bookingInfo && <>
+          <Section left="Ngày, giờ" right={<>{booking.bookingInfo.date.toLocaleDateString()} - <Time time={booking.bookingInfo.hour} /></>} />
+          <Section left="Bàn số" right={booking.bookingInfo.seats} />
+          <Section left="Số ghế" right={booking.bookingInfo.table} />
+        </>}
+        <Section left="Chi tiết" right={<Price amount={total} />} />
+      </div>
+      {booking.cart && booking.cart.items.length ? <Box m="0" p="2" className="overflow-y-auto" style={{ maxHeight: `calc(50vh - ${booking.bookingInfo ? 54 * 4 : 0}px)`, minHeight: 120 }}>
+        {booking.cart.items.map((item, i) => <CartItem key={i} item={item} />)}
+      </Box> : <Box my="4" flex justifyContent="center">Không có món ăn</Box>}
+      <hr />
+      <Box m="6">
+        <Button onClick={() => zmprouter.back()} large typeName="secondary" responsive className="rounded-xl">Huỷ</Button>
+      </Box>
+    </>}
+  </Sheet>;
+}
+
+export default BookingDetail;

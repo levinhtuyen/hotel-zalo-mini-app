@@ -1,4 +1,4 @@
-# ZMP Hotel Go2joy
+# Go2Joy hotel app
 
 Starter template for building a restaurant's mini program. Main features:
 - View popular or nearby restaurants
@@ -78,7 +78,7 @@ Just change the `app.title` property in `app-config.json`:
 ```json
 {
   "app": {
-    "title": "ZMP Hotel Go2joy",
+    "title": "Go2Joy hotel app",
   },
 }
 ```
@@ -93,7 +93,7 @@ You can change the primary and the secondary color theme by setting the variable
 
 ```scss
 :root {
-	--zmp-theme-color: #ff6400;
+	--zmp-theme-color: #0068ff;
 	--zmp-secondary-color: #ff8a00;
 }
 ```

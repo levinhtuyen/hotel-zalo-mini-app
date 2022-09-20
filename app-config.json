@@ -1,6 +1,6 @@
 {
   "app": {
-    "title": "ZMP Hotel Go2joy",
+    "title": "Go2Joy hotel app",
     "headerColor": "",
     "textColor": "black",
     "statusBarColor": "#f4f5f6",
@@ -12,9 +12,6 @@
   "listAsyncJS": [],
   "pages": [
     "/booking-list",
-    "/booking-detail",
-    "/hotel-detail",
-    "/profile",
-    "/hotel-list"
+    "/hotel-detail"
   ]
 }

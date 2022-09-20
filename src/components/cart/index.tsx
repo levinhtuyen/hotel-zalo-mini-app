@@ -3,10 +3,10 @@ import { Box, Button, Sheet, Text, Title, useStore, zmp } from "zmp-framework/re
 import { Cart, TabType, Booking } from "../../models";
 import Notch from "../notch";
 import Price from "../format/price";
-import { matchStatusBar, useCurrentRoute, useHotel } from "../../hooks";
+import { matchStatusBar, useCurrentRoute, useRestaurant } from "../../hooks";
 import store from "../../store";
 import { pay } from "../../services/zalo";
-import { message } from "../../utils/notificaiton";
+import { message } from "../../utils/notification";
 import CartItem from "./cart-item";
 
 function CartDetail() {
@@ -18,6 +18,9 @@ function CartDetail() {
         cartItemIndex: i
       }
     });
+    setTimeout(() => {
+      document.querySelector('.sheet-backdrop')?.classList.add('backdrop-in');
+    }, 300); // workaround for backdrop not showing
   }
 
   return <Box m="0" p="2" pt="3" className="overflow-y-auto" style={{ maxHeight: '50vh' }}>
@@ -30,7 +33,7 @@ function CartPreview() {
   const total = useStore('total') as number;
   const [expaned, setExpanded] = useState(false);
   const [currentRoute] = useCurrentRoute();
-  const hotel = useHotel(Number(currentRoute.query?.id));
+  const restaurant = useRestaurant(Number(currentRoute.query?.id));
 
   const sheetRef = useRef<any>();
 
@@ -48,63 +51,109 @@ function CartPreview() {
 
   const book = () => {
     matchStatusBar(false);
-    store.dispatch('changeHotelTab', 'book' as TabType);
+    store.dispatch('changehotelTab', 'book' as TabType)
   }
 
   const payFoods = async () => {
     await pay(total);
     await store.dispatch('book', {
       id: + new Date() + '',
-      hotel: hotel,
+      restaurant: restaurant,
     } as Booking)
     message('Đặt thức ăn thành công');
     matchStatusBar(false);
-    zmp.views.main.router.navigate('/booking-list/');
+    zmp.views.main.router.navigate('/calendar/');
   }
 
-  return <Sheet
-    ref={sheetRef}
-    backdrop={false}
-    opened={cart.items.length > 0 && currentRoute.path === '/hotel/' && currentTab !== 'review'}
-    closeByBackdropClick={false}
-    className="h-auto border-t cart-preview"
-    swipeToStep
-    onSheetStepOpen={() => {
-      setExpanded(true);
-      matchStatusBar(true);
-    }}
-    onSheetStepClose={() => {
-      setExpanded(false);
-      matchStatusBar(false);
-    }}
-    onSheetClose={() => setExpanded(false)}
-    swipeHandler=".swipe-handler"
-  >
-    <Notch color="#637875" />
-    <Box className="swipe-handler" p="1"></Box>
-    <div className={`swipe-handler sheet-modal-swipe-step ${expaned ? 'pb-4' : 'pb-6'}`}>
-      {expaned && <>
-        <Box p="4" flex justifyContent="center"><Title size="small">Pizza</Title></Box>
-        <hr />
-        <Title size="small" className="mx-6 my-4">Chi tiết</Title>
-        <hr />
-        <CartDetail />
-        <hr />
-      </>}
-      <Box className="swipe-handler" m="0" px="6" mt="6" flex justifyContent="space-between">
-        <Title bold size="small">Tổng cộng ({cart.items.length} món)</Title>
-        <Text className="ml-6 text-secondary mb-0" size="xlarge" bold><Price amount={total} /></Text>
-      </Box>
-      <Box m="0" px="6" pt="6">
-        <Button large fill responsive className="rounded-xl" onClick={expaned ? book : nextStep}>
-          {expaned ? <span>Đặt bàn với thực đơn</span> : <span>Tiếp theo</span>}
+  return (
+    <Sheet
+      ref={sheetRef}
+      backdrop={false}
+      opened={
+        cart.items.length > 0 &&
+        currentRoute.path === '/hotel-detail/' &&
+        currentTab !== 'book'
+      }
+      closeByBackdropClick={false}
+      className='h-auto border-t cart-preview'
+      swipeToStep
+      onSheetStepOpen={() => {
+        setExpanded(true);
+        matchStatusBar(true);
+      }}
+      onSheetStepClose={() => {
+        setExpanded(false);
+        matchStatusBar(false);
+      }}
+      onSheetClose={() => setExpanded(false)}
+      swipeHandler='.swipe-handler'
+    >
+      <Notch color='#637875' />
+      <Box className='swipe-handler' p='1'></Box>
+      <div
+        className={`swipe-handler sheet-modal-swipe-step ${
+          expaned ? 'pb-4' : 'pb-6'
+        }`}
+      >
+        {expaned && (
+          <>
+            <Box p='4' flex justifyContent='center'>
+              <Title size='small'>Pizza</Title>
+            </Box>
+            <hr />
+            <Title size='small' className='mx-6 my-4'>
+              Chi tiết
+            </Title>
+            <hr />
+            <CartDetail />
+            <hr />
+          </>
+        )}
+        <Box
+          className='swipe-handler'
+          m='0'
+          px='6'
+          mt='6'
+          flex
+          justifyContent='space-between'
+        >
+          <Title bold size='small'>
+            Tổng cộng ({cart.items.length} món)
+          </Title>
+          <Text className='ml-6 text-secondary mb-0' size='xlarge' bold>
+            <Price amount={total} />
+          </Text>
+        </Box>
+        <Box m='0' px='6' pt='6'>
+          <Button
+            large
+            fill
+            responsive
+            className='rounded-xl'
+            onClick={expaned ? book : nextStep}
+          >
+            {expaned ? (
+              <span>Đặt bàn với thực đơn</span>
+            ) : (
+              <span>Tiếp theo</span>
+            )}
+          </Button>
+        </Box>
+      </div>
+      <Box m='0' px='6' pb='6'>
+        <Button
+          onClick={payFoods}
+          large
+          fill
+          responsive
+          className='rounded-xl'
+          typeName='secondary'
+        >
+          Chỉ đặt món ăn
         </Button>
       </Box>
-    </div>
-    <Box m="0" px="6" pb="6">
-      <Button onClick={payFoods} large fill responsive className="rounded-xl" typeName="secondary">Chỉ đặt món ăn</Button>
-    </Box>
-  </Sheet>;
+    </Sheet>
+  );
 }
 
 export default CartPreview;
