@@ -15,29 +15,7 @@ import getImgUrl from '../../utils/img-url';
 
 function HotelDetailComponent(props) {
   const hotelDetail: any = useStore('hotelDetail');
-  console.log('props :>> ', props);
   
-  const currentTab = useStore('hotelTab') as TabType;
-  const setCurrentTab = (tab) => {
-    store.dispatch('changeHotelTab', tab);
-  };
-
-  const TabItem = ({
-    tab,
-    children,
-  }: {
-    tab: TabType;
-    children: ReactNode;
-  }) => (
-    <Button
-      fill
-      typeName={currentTab === tab ? 'primary' : 'tertiary'}
-      onClick={() => setCurrentTab(tab)}
-      className='mx-1 flex-none'
-    >
-      {children}
-    </Button>
-  );
 
   return (
     <div>
@@ -78,11 +56,7 @@ function HotelDetailComponent(props) {
       </Box>
       <Suspense fallback={<p>loading...</p>}>
         {
-          {
-            info: <Information />,
-            room: <TabRoom />,
-            review: <Review />,
-          }[currentTab]
+          <Information />
         }
       </Suspense>
     </div>

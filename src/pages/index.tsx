@@ -13,6 +13,10 @@ import Inquiry, { QuickFilter } from '../components/inquiry';
 import HotelItem from '../components/restaurant';
 import { Restaurant, HotelList } from '../models';
 import React, { useEffect, useState } from 'react';
+import {
+  hideNavigationBar,
+  showNavigationBar,
+} from '../components/navigation-bar';
 import store from '../store'
 import SkeletonBlockHotel2 from '../components/skeleton-block/skeleton-block-hotel-2'
 import SkeletonBlockHotel1 from '@components/skeleton-block/skeleton-block-hotel-1';
@@ -158,7 +162,11 @@ const HomePage = () =>
     }, 500);
   };
   return (
-    <Page name='home'>
+    <Page
+      name='home'
+      onPageBeforeIn={showNavigationBar}
+      onPageBeforeOut={showNavigationBar}
+    >
       <Box mx='4' mb='4' mt='5'>
         <Avatar className='shadow align-middle mb-2' src={user.avatar}>
           Hi

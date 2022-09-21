@@ -44,7 +44,7 @@ function Section({
   );
 }
 
-function BookingDetail({ zmproute, zmprouter }) {
+function RoomDetail({ zmprouter }) {
   // const bookings = useStore('bookings') as Booking[];
   // const booking = useMemo(() => bookings.find(b => b.id === zmproute.query.id), [zmproute])
   const bookingDetail = useStore('bookingDetail');
@@ -122,4 +122,4 @@ function BookingDetail({ zmproute, zmprouter }) {
   );
 }
 
-export default BookingDetail;
+export default RoomDetail;

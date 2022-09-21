@@ -11,10 +11,10 @@ import {
   Preloader,
   Title,
 } from 'zmp-framework/react';
-import { District } from '../models';
-import store from '../store';
+import { District } from '../models'
+import store from "../store";
 import { useState } from 'react';
-import ChooseLocation from './modal/ChooseLocation';
+import ChooseLocation from "./modal/ChooseLocation";
 import { debounce } from 'lodash';
 
 function Inquiry() {
@@ -22,42 +22,47 @@ function Inquiry() {
   const loading = useStore('loadingSearchKeyword');
   const hotelSearch = useStore('hotelSearch');
   const logo = 'https://go2joy.vn/images/logo-mini.png';
-  const setKeyword = async (s: string) => {
+  const setKeyword = async (s: string) =>
+  {
     await store.dispatch('setKeyword', s);
-    if (!s) {
-      return;
+    if (!s)
+    {
+      return
     }
     setFocusDisplay('block');
-
-    getApiSearchKeyword();
-  };
+    
+    getApiSearchKeyword()
+    
+  }
   const [focusDisplay, setFocusDisplay] = useState('block');
   const getApiSearchKeyword = debounce(() => {
     store.dispatch('getHotelSearchKeyword');
   }, 500);
-  const handleBlur = () => {
+  const handleBlur = () =>
+  {
     // setFocusDisplay('none');
-  };
-  const clickToHotelDetail = (sn) => {
+  }
+  const clickToHotelDetail = (sn) =>
+  {
     zmp.views.main.router.navigate({
-      path: '/restaurant',
+      path: '/hotel-detail/',
       query: {
         hotelSn: sn,
         bookingType: 1,
       },
     });
-  };
+  }
   return (
     <>
       <Searchbar
         value={keyword}
         onChange={(e) => setKeyword(e.target.value)}
         clearButton={false}
-        className='inquiry'
+        className='inquiry z-40'
         placeholder='Tìm kiếm'
         onBlur={handleBlur}
       />
-      <Card className='list-card' onBlur={handleBlur}>
+      <Card className='list-card p-0' >
         {loading ? (
           <>
             {' '}
@@ -87,7 +92,7 @@ function Inquiry() {
                   <ul>
                     {hotelSearch?.hotelList?.map((item, index) => (
                       <ListItem
-                        key={item.sn}
+                        key={index}
                         mediaItem
                         link='#'
                         title={item.name}
@@ -117,24 +122,26 @@ function Inquiry() {
 
 export function QuickFilter() {
   const selectedDistrict = useStore('selectedDistrict') as number;
-  const setSelectedDistrict = (districtId: number) => {
+  const setSelectedDistrict = (districtId: number) =>
+  {
     store.dispatch('changeDistrict', districtId);
-  };
+  }
   const viewHotelList = () => {
     zmp.views.main.router.navigate({
-      path: '/hotel-detail',
+      path: '/hotel-list',
     });
-  };
+  }
   const [customSheetOpened, setCustomSheetOpened] = useState(false);
   const parentHandleChange = (e) => {
-    setCustomSheetOpened(false);
+    setCustomSheetOpened(false)
   };
-  const openModalLocation = () => {
+  const openModalLocation = () =>
+  {
     setCustomSheetOpened(true);
-  };
+  }
   const districts = useStore('districts') as District[];
   return (
-    <div className='overflow-auto no-scrollbar snap-x snap-mandatory'>
+    <div className='overflow-auto no-scrollbar snap-x snap-mandatory z-50 relative'>
       <div className='flex w-max'>
         <Button
           onClick={() => setSelectedDistrict(0)}
@@ -156,9 +163,9 @@ export function QuickFilter() {
           handleChange={parentHandleChange}
           customSheetOpened={customSheetOpened}
         />
-        {districts.map((district, index) => (
+        {districts.map((district) => (
           <Button
-            key={index}
+            key={district.sn}
             typeName={selectedDistrict === district.sn ? 'primary' : 'tertiary'}
             className='mr-3 snap-start'
             fill

@@ -7,8 +7,9 @@ import {
 import HotelContext from './restaurant/context';
 import RestaurantDetail from './restaurant/detail';
 import React, { useEffect, useState } from 'react';
+import RoomList from '../components/room-list'
 import store from '../store';
-function RestaurantPage({ zmproute }) {
+function HotelDetailPage({ zmproute }) {
   const query = {
     bookingType: zmproute.query.bookingType,
     hotelSn: zmproute.query.hotelSn,
@@ -26,11 +27,11 @@ function RestaurantPage({ zmproute }) {
       onPageBeforeOut={showNavigationBar}
     >
       <HotelContext.Provider value={{ hotelDetail }}>
-        <RestaurantDetail hotel={hotelDetail} />
+        <RestaurantDetail hotelDetail={hotelDetail} />
       </HotelContext.Provider>
-      <Box height={200}></Box>
+      <RoomList roomList={hotelDetail.roomSettingFormList} />
     </Page>
   );
 }
 
-export default RestaurantPage;
+export default HotelDetailPage;
