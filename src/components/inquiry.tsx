@@ -30,17 +30,19 @@ function Inquiry() {
       return
     }
     setFocusDisplay('block');
-    
+    setFocusIndex('100')
     getApiSearchKeyword()
     
   }
   const [focusDisplay, setFocusDisplay] = useState('block');
+  const [focusIndex, setFocusIndex] = useState('1')
   const getApiSearchKeyword = debounce(() => {
     store.dispatch('getHotelSearchKeyword');
   }, 500);
   const handleBlur = () =>
   {
     setFocusDisplay('none');
+    setFocusIndex('1')
   }
   const clickToHotelDetail = (sn) =>
   {
@@ -78,7 +80,7 @@ function Inquiry() {
               className='searchbar-found'
               mediaList
               virtualList
-              style={{ display: `${focusDisplay}` }}
+              style={{ display: `${focusDisplay}`, zIndex: `${focusIndex}` }}
               virtualListParams={{
                 height: 80,
               }}

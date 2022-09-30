@@ -1,5 +1,6 @@
 
 import { Page, useStore, Title, Box, Text, zmp } from 'zmp-framework/react';
+import React, { useState, useRef, useEffect, useCallback } from "react"
 import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
 import setHeader from '../services/header';
@@ -7,15 +8,58 @@ import { changeStatusBarColor } from '../services/navigation-bar';
 import {
   showNavigationBar
 } from '../components/navigation-bar';
+import store from '../store';
 
 const HotelList = () => {
-  const hotelList = useStore('hotelList');
+  const { hotelList, skip = 0, limit = 10, hasMore } = useStore('hotelList');
+  const allowInfinite = useRef(true)
+  const vlEl = useRef(null)
+  const [vlData, setVlData] = useState({
+    items: hotelList,
+  })
+  useEffect(() => {
+    if (!hotelList.length) {
+      store.dispatch("hotelList", { skip: 0, limit: 10, showSkeleton: true })
+    }
+  }, [])
+    useEffect(() => {
+    allowInfinite.current = hasMore
+    if (vlEl.current) {
+      const virtualList = vlEl.current?.zmpVirtualList()
+      virtualList.items = [...hotelList]
+      virtualList.update()
+    }
+  }, [hotelList])
+  const loadMore = () => {
+    if (!allowInfinite.current) return
+    allowInfinite.current = false
+    if (hasMore) {
+      store.dispatch("hotelList", {
+        skip: skip + limit,
+        limit,
+        showSkeleton: false,
+      })
+    }
+  }
+  const refreshPage = (done) => {
+    store
+      .dispatch("hotelList", {
+        skip: 0,
+        showSkeleton: true,
+        reset: true,
+      })
+      .finally(() => {
+        done()
+      })
+  }
   return (
     <>
       <div>
         <Page
           name='hotel-list'
           key='hotel-list'
+          ptr
+          onPtrRefresh={refreshPage}
           onPageBeforeIn={() => {
             zmp.toolbar.show('#view-hotel-list', true);
             showNavigationBar;
