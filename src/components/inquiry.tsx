@@ -128,9 +128,12 @@ export function QuickFilter() {
   {
     store.dispatch('changeDistrict', districtId);
   }
-  const viewHotelList = () => {
+  const viewHotelList = (sn) => {
     zmp.views.main.router.navigate({
       path: '/hotel-list',
+      query: {
+        districtSn: sn,
+      },
     });
   }
   const [customSheetOpened, setCustomSheetOpened] = useState(false);
@@ -171,7 +174,7 @@ export function QuickFilter() {
             typeName={selectedDistrict === district.sn ? 'primary' : 'tertiary'}
             className='mr-3 snap-start'
             fill
-            onClick={viewHotelList}
+            onClick={()=> viewHotelList(district.sn)}
           >
             {district.name}
           </Button>

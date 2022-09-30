@@ -1,3 +1,4 @@
+
 export interface Restaurant {
   id: number
   name: string
@@ -90,11 +91,13 @@ export interface IQueryBookingDetail
 {
   userBookingSn: number | string
 }
-export interface District {
-  code: string | number
+export interface Province {
+  code: string | number,
+  areaCode?:string,
   idx?: number,
   iosTotalAccess?: number,
   lastUpdate?: string
+  countrySn?: number,
   name?: string
   nameCode?: string
   provinceSn?: number,
@@ -102,8 +105,27 @@ export interface District {
   status?: number,
   totalContracted?: number,
   totalHotel?: number,
+  longitude?: string | number,
+  latitude?: string | number,
+  androidTotalAccess?: string| number,
+  banner?: string | number,
+  regions?: string | number,
+  popup?: string | number,
 }
-
+export interface District {
+  androidTotalAccess?: string | number,
+  code?: string | number,
+  idx?: string | number,
+  iosTotalAccess?: string | number,
+  lastUpdate?: string | number,
+  name?: string | number,
+  nameCode?: string | number,
+  provinceSn?: string | number,
+  sn?: string | number,
+  status?: string | number,
+  totalContracted?: string | number,
+  totalHotel?: string | number,
+}
 export interface Location {
   lat: number,
   long: number

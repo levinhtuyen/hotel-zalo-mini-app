@@ -98,6 +98,7 @@ function Nearest(props) {
               <HotelItem
                 layout='list-item'
                 hotel={hotel}
+                key={index}
                 after={
                   <Text size='small' className='text-gray-500'>
                     {hotel.address}
