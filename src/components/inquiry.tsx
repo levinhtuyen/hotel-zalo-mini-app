@@ -40,7 +40,7 @@ function Inquiry() {
   }, 500);
   const handleBlur = () =>
   {
-    // setFocusDisplay('none');
+    setFocusDisplay('none');
   }
   const clickToHotelDetail = (sn) =>
   {
@@ -62,7 +62,7 @@ function Inquiry() {
         placeholder='Tìm kiếm'
         onBlur={handleBlur}
       />
-      <Card className='list-card p-0' >
+      <Card className='list-card p-0'  onBlur={handleBlur}>
         {loading ? (
           <>
             {' '}

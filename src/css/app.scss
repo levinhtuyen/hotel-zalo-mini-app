@@ -160,11 +160,12 @@ body {
 }
 .searchbar-found {
   position: absolute;
-  top: 160px;
+  top: 200px;
   width: calc(100% - 30px);
   height: 300px;
   overflow-x: scroll;
   border: 2px;
+  z-index: 100;
 }
 #left-buttons {
   color: #f4f5f6;

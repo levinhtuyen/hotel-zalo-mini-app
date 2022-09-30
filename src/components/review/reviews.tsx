@@ -45,7 +45,7 @@ const ListReview = (props) => {
                 >
                   <Box m='0' flex className='h-12 max-h-full'>
                     <Box flex flexDirection='column' alignItems='center'>
-                      <Avatar size={48} story>
+                      <Avatar size={48} src='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg' >
                         {getFistTextString(review.userNickName)}
                       </Avatar>
                       
