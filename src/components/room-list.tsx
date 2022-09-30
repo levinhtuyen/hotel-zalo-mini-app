@@ -25,14 +25,19 @@ const RoomList = (props) => {
                   <Box m='0' flex className='h-36 max-h-full'>
                     <div className='flex-none aspect-card relative w-32'>
                       <img
-                        src={getImgUrl(room.hotelImage)}
+                        src={getImgUrl(props?.hotelImage)}
                         className='absolute w-full h-full object-cover rounded-xl'
                       />
                     </div>
                     <Box my='4' mx='5'>
-                      <Title className='limit-text-2-line h-48' size='small'>
+                      <Title className='text-orange-400 limit-text-2-line h-48' size='small'>
                         {room.roomTypeName}
                       </Title>
+                      {
+                        room.applyFlashSale ? 'Flash Sale' : 'No Flash Sale'
+                      }
+                      
+                      <Title className='text-zinc-400' size='small'>roomSn : {room.sn}</Title>
                     </Box>
                   </Box>
                 </Box>
@@ -43,8 +48,9 @@ const RoomList = (props) => {
         ) : (
           <Box mx='4'>Khách sạn này không có phòng</Box>
         )}
-        <Box className='h-40'></Box>
       </Box>
+
+      
   );
 }
 export default RoomList;

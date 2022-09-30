@@ -7,6 +7,7 @@ import {
 import HotelContext from './restaurant/context';
 import RestaurantDetail from './restaurant/detail';
 import React, { useEffect, useState } from 'react';
+import ListReview from '@components/review/reviews';
 import RoomList from '../components/room-list'
 import store from '../store';
 function HotelDetailPage({ zmproute }) {
@@ -29,7 +30,8 @@ function HotelDetailPage({ zmproute }) {
       <HotelContext.Provider value={{ hotelDetail }}>
         <RestaurantDetail hotelDetail={hotelDetail} />
       </HotelContext.Provider>
-      <RoomList roomList={hotelDetail.roomSettingFormList} />
+      <RoomList roomList={hotelDetail.roomSettingFormList} hotelImage={hotelDetail.imagePath} />
+      <ListReview userReviewFormList= {hotelDetail.userReviewFormList} hotelDetail={hotelDetail} />
     </Page>
   );
 }
