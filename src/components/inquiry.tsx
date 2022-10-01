@@ -15,7 +15,7 @@ import {
 import { District } from '../models'
 import store from "../store";
 import { useEffect, useState } from 'react';
-import ChooseLocation from "./modal/ChooseLocation";
+// import ChooseLocation from "./modal/ChooseLocation";
 import { debounce } from 'lodash';
 
 function Inquiry() {
@@ -221,10 +221,10 @@ export function QuickFilter() {
             ]}
           />
         </div>
-        <ChooseLocation
+        {/* <ChooseLocation
           handleChange={parentHandleChange}
           customSheetOpened={customSheetOpened}
-        />
+        /> */}
         {districts.map((district) => (
           <Button
             key={district.sn}
