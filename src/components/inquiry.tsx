@@ -10,6 +10,7 @@ import {
   Box,
   Preloader,
   Title,
+  Picker
 } from 'zmp-framework/react';
 import { District } from '../models'
 import store from "../store";
@@ -155,13 +156,22 @@ export function QuickFilter() {
   const parentHandleChange = (e) => {
     setCustomSheetOpened(false)
   };
-  const openModalLocation = () =>
+  const handleChangeDistrict = (e) =>
   {
-    setCustomSheetOpened(true);
+    const sn = e.value[0]
+    if(sn !== 'Chọn quận'){ 
+      zmp.views.main.router.navigate({
+      path: '/hotel-list',
+      query: {
+        districtSn: sn,
+      },
+    });
+    }
+    
   }
   const districts = useStore('districts') as District[];
   return (
-    <div className='overflow-auto no-scrollbar snap-x snap-mandatory z-50 relative'>
+    <div className='overflow-auto no-scrollbar snap-x snap-mandatory z-50 relative choose-district'>
       <div className='flex w-max'>
         <Button
           onClick={() => setSelectedDistrict(0)}
@@ -171,14 +181,46 @@ export function QuickFilter() {
         >
           Tất cả
         </Button>
-        <Button
-          typeName='tertiary'
-          className='mr-3 snap-start'
-          onClick={() => openModalLocation()}
-          fill
-        >
-          Chọn vị trí
-        </Button>
+        <div className='select-picker-district'>
+          <Picker
+            title='Chọn quận'
+            defaultSelect={['Chọn quận']}
+            style={{ 
+              width:'120px', 
+              marginRight: '10px', 
+              backgroundColor: '#fff', 
+              alignItems:'center', 
+              borderRadius: '100px',
+              border: '1px solid #c9d1d8',
+              height: '40px', 
+              overflow: 'hidden', 
+              justifyContent:'center', 
+              verticalAlign: 'middle',
+              textAlign: 'center', 
+              fontWeight: '600',
+              display: 'block',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              position: 'relative',
+              fontFamily: 'inherit',
+              cursor: 'pointer',
+              outline: '0',
+              boxSizing: 'border-box'
+            }}
+            onClickAction={(e)=> handleChangeDistrict(e)}
+            data={[
+              {
+                textAlign: 'center',
+                values: districts.map(function(item) {
+                  return item['sn'];
+                }),
+                displayValues: districts.map(function(item) {
+                  return item['name'];
+                }),
+              }
+            ]}
+          />
+        </div>
         <ChooseLocation
           handleChange={parentHandleChange}
           customSheetOpened={customSheetOpened}
