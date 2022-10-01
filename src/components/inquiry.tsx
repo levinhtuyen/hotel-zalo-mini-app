@@ -13,7 +13,7 @@ import {
 } from 'zmp-framework/react';
 import { District } from '../models'
 import store from "../store";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ChooseLocation from "./modal/ChooseLocation";
 import { debounce } from 'lodash';
 
@@ -34,16 +34,12 @@ function Inquiry() {
     getApiSearchKeyword()
     
   }
-  const [focusDisplay, setFocusDisplay] = useState('block');
-  const [focusIndex, setFocusIndex] = useState('1')
+  const [focusDisplay, setFocusDisplay] = useState('none');
+  const [focusIndex, setFocusIndex] = useState('0')
   const getApiSearchKeyword = debounce(() => {
     store.dispatch('getHotelSearchKeyword');
   }, 500);
-  const handleBlur = () =>
-  {
-    setFocusDisplay('none');
-    setFocusIndex('1')
-  }
+
   const clickToHotelDetail = (sn) =>
   {
     zmp.views.main.router.navigate({
@@ -54,6 +50,21 @@ function Inquiry() {
       },
     });
   }
+  const handleBlur = () =>
+  {;
+    setFocusDisplay('none');
+    setFocusIndex('1')
+  }
+  useEffect(() => {
+    let ignoreClickOnMeElement : any = document.getElementById('blurSearch');
+    document.addEventListener('click', function (event) {
+        var isClickInsideElement = ignoreClickOnMeElement.contains(event.target);
+        if (!isClickInsideElement) {
+          setFocusDisplay('none');
+          setFocusIndex('1')
+        }
+    });
+  })
   return (
     <>
       <Searchbar
@@ -62,62 +73,66 @@ function Inquiry() {
         clearButton={false}
         className='inquiry z-40'
         placeholder='Tìm kiếm'
-        onBlur={handleBlur}
+        
       />
-      <Card className='list-card p-0'  onBlur={handleBlur}>
-        {loading ? (
-          <>
-            {' '}
-            <Box mx='4' mt='5'>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Preloader logo={logo} />
-              </div>
-            </Box>
-          </>
-        ) : (
-          <>
-            <List
-              className='searchbar-found'
-              mediaList
-              virtualList
-              style={{ display: `${focusDisplay}`, zIndex: `${focusIndex}` }}
-              virtualListParams={{
-                height: 80,
-              }}
-            >
-              {hotelSearch?.length === 0 && keyword ? (
-                <>
-                  <Title size='small'>Không tìm thấy khách sạn nào</Title>
-                </>
-              ) : (
-                <>
-                  <ul>
-                    {hotelSearch?.hotelList?.map((item, index) => (
-                      <ListItem
-                        key={index}
-                        mediaItem
-                        link='#'
-                        title={item.name}
-                        subtitle={item.address}
-                        style={{ top: `${hotelSearch.topPosition}px` }}
-                        onClick={() => clickToHotelDetail(item.sn)}
-                      >
-                        <Title slot='sn'>{item.sn}</Title>
-                        <Avatar slot='media'>
-                          <img
-                            src={logo}
-                            className='absolute w-full h-full object-cover'
-                          />
-                        </Avatar>
-                      </ListItem>
-                    ))}
-                  </ul>
-                </>
-              )}
-            </List>
-          </>
-        )}
-      </Card>
+      <div id='blurSearch' onBlur={handleBlur}>
+        <Card className='list-card p-0'  >
+          {loading ? (
+            <>
+              {' '}
+              <Box mx='4' mt='5'>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Preloader logo={logo} />
+                </div>
+              </Box>
+            </>
+          ) : (
+            <>
+              <List
+                className='searchbar-found'
+                mediaList
+                virtualList
+                style={{ display: `${focusDisplay}`, zIndex: `${focusIndex}` }}
+                virtualListParams={{
+                  height: 80,
+                }}
+                
+              >
+                {hotelSearch?.length === 0 && keyword ? (
+                  <>
+                    <Title size='small'>Không tìm thấy khách sạn nào</Title>
+                  </>
+                ) : (
+                  <>
+                    <ul>
+                      {hotelSearch?.hotelList?.map((item, index) => (
+                        <ListItem
+                          key={index}
+                          mediaItem
+                          link='#'
+                          title={item.name}
+                          subtitle={item.address}
+                          style={{ top: `${hotelSearch.topPosition}px` }}
+                          onClick={() => clickToHotelDetail(item.sn)}
+                          
+                        >
+                          <Title slot='sn'>{item.sn}</Title>
+                          <Avatar slot='media'>
+                            <img
+                              src={logo}
+                              className='absolute w-full h-full object-cover'
+                            />
+                          </Avatar>
+                        </ListItem>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </List>
+            </>
+          )}
+        </Card>
+      </div>
     </>
   );
 }
