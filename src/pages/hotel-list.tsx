@@ -1,5 +1,5 @@
 
-import { Page, useStore, Title, Box, Text, zmp, List } from 'zmp-framework/react';
+import { Page, useStore, Title, Box, Text, zmp, List,Card } from 'zmp-framework/react';
 import React, { useState, useRef, useEffect, useCallback } from "react"
 import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
@@ -25,7 +25,7 @@ const HotelList = ({ zmproute }) => {
     items: dataHotelList,
   })
   useEffect(() => {
-    if (!dataHotelList?.length) {
+    if (dataHotelList?.length === 0) {
       store.dispatch("getHotelListPage", { skip: 0, limit: 10, showSkeleton: true, provinceSn : 1, districtSn : sn })
     }
   }, [])
@@ -41,8 +41,6 @@ const HotelList = ({ zmproute }) => {
     setVlData({ ...newData })
   }
   const loadMore = () => {
-    console.log('Load more');
-    console.log('hasMore :>> ', hasMore);
     if (!allowInfinite.current) return
     allowInfinite.current = false
     if (hasMore) {
@@ -89,11 +87,11 @@ const HotelList = ({ zmproute }) => {
         virtualListParams={{
           items: dataHotelList,
           renderExternal,
-          height: 146,
+          height: 50,
         }}
       >
-        <ul >
-          {vlData.items.map((item, index) => (
+        <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
+        {vlData.items.map((item, index) => (
             <HotelItem
             layout='list-page'
             hotel={item}
@@ -129,7 +127,9 @@ const HotelList = ({ zmproute }) => {
           onInfinite={loadMore}
         >
           <Box>
+          <Card title='Hotel list'>
             {pageContent}
+          </Card>
           </Box>
         </Page>
       </div>

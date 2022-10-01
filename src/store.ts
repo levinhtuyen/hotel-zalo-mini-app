@@ -1164,7 +1164,6 @@ const store = createStore<StoreState>({
       state.loadingBookingItem = false
     },
     async getHotelListPage ({ state }, { skip, limit, showSkeleton, reset = false,provinceSn,districtSn }) {
-      console.log('skip, limit, showSkeleton, reset = false,provinceSn,districtSn :>> ', skip, limit, showSkeleton, reset = false,provinceSn,districtSn);
       if (showSkeleton) {
         state.loadHotelList = true
       }
