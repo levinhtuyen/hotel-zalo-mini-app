@@ -1,26 +1,27 @@
 
-import { Page, useStore, Box, Title, zmp, List,Card,Button } from 'zmp-framework/react';
-import React, { useState, useRef, useEffect } from "react"
+import { Page, useStore, Title, Box, Text, zmp, List,Card } from 'zmp-framework/react';
+import React, { useState, useRef, useEffect, useCallback } from "react"
+import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
+import setHeader from '../services/header';
+import { changeStatusBarColor } from '../services/navigation-bar';
 import {
   showNavigationBar
 } from '../components/navigation-bar';
-import Distance from '../components/distance';
 import store from '../store';
 import SkeletonBlockHotel1 from '@components/skeleton-block/skeleton-block-hotel-1';
-import getImgUrl from '../utils/img-url';
+
 const HotelList = ({ zmproute }) => {
   let sn = 0
   if (zmproute.query) {
     sn = zmproute.query.districtSn;
   }
-  const allowInfinite = useRef(true)
   const { limit,skip, dataHotelList, hasMore } = useStore('hotelListPage');
-  
-  // const vlEl = useRef(null)
+  const allowInfinite = useRef(true)
+  const vlEl = useRef(null)
   const loading = useStore("loadHotelList")
   let pageContent: any = ''
-  const [vlData, setVlData] : any = useState({
+  const [vlData, setVlData] = useState({
     items: dataHotelList,
   })
   useEffect(() => {
@@ -28,15 +29,17 @@ const HotelList = ({ zmproute }) => {
       store.dispatch("getHotelListPage", { skip: 0, limit: 10, showSkeleton: true, provinceSn : 1, districtSn : sn })
     }
   }, [])
-  // useEffect(() => {
-  //   allowInfinite.current = hasMore
-  //   if (vlEl.current) {
-  //     const virtualList = vlEl.current?.zmpVirtualList()
-  //     virtualList.items = [...dataHotelList]
-  //     virtualList.update()
-  //   }
-  // }, [dataHotelList])
-  
+  useEffect(() => {
+    allowInfinite.current = hasMore
+    if (vlEl.current) {
+      const virtualList = vlEl.current?.zmpVirtualList()
+      virtualList.items = [...dataHotelList]
+      virtualList.update()
+    }
+  }, [dataHotelList])
+  const renderExternal = (vl, newData) => {
+    setVlData({ ...newData })
+  }
   const loadMore = () => {
     if (!allowInfinite.current) return
     allowInfinite.current = false
@@ -65,21 +68,6 @@ const HotelList = ({ zmproute }) => {
         done()
       })
   }
-  const renderExternal = (vl, newData) => {
-    setVlData({ ...newData })
-  }
-  const viewDetail = (hotel) => {
-    // currentRoute.path.startsWith('/hotel-detail');
-    const query = { hotelSn: hotel.sn, bookingType: hotel.bookingType };
-    store.dispatch('getHotelDetail', query);
-    zmp.views.current?.router.navigate({
-      path: '/hotel-detail',
-      query: {
-        hotelSn: hotel.sn,
-        bookingType: hotel.bookingType,
-      },
-    });
-  };
   if (loading) {
     pageContent = (
       <div className="posts">
@@ -91,7 +79,11 @@ const HotelList = ({ zmproute }) => {
   } else {
     pageContent = (
       <List
+        ref={vlEl}
+        noHairlines
+        className=""
         virtualList
+        noHairlinesBetween
         virtualListParams={{
           items: dataHotelList,
           renderExternal,
@@ -100,65 +92,48 @@ const HotelList = ({ zmproute }) => {
       >
         <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
         {vlData.items.map((item, index) => (
-            <div
+            <HotelItem
+            layout='list-page'
+            hotel={item}
             key={index}
-            onClick={() => viewDetail(item)}
-            className='border-gray-700 bg-white restaurant-with-cover mt-4'
-              >
-                <Box m='0' flex className='h-36 max-h-full'>
-                  <div className='flex-none aspect-card relative w-32'>
-                    <img
-                      src={getImgUrl(item.hotelImage)}
-                      className='absolute w-full h-full object-cover rounded-xl'
-                    />
-                  </div>
-                  <Box my='4' mx='5'>
-                    <Title className='limit-text-2-line h-48' size='small'>
-                      {item.name}
-                    </Title>
-                    <Box mx='0' mb='0' flex>
-                      <Button
-                        iconZMP='zi-star-solid'
-                        small
-                        className='text-yellow-400 pl-0'
-                      >
-                        <span className='text-gray-500'>{item.averageMark}</span>
-                      </Button>
-                      <Button iconZMP='zi-send-solid' small>
-                        <span className='text-gray-500'>
-                          <Distance
-                            location={{ lat: item.latitude, long: item.longitude }}
-                          />
-                        </span>
-                      </Button>
-                    </Box>
-                  </Box>
-                </Box>
-              </div>
+            after={
+              <Text size='small' className='text-gray-500'>
+                {item.address}
+              </Text>
+            }
+          />
           ))}
         </ul>
       </List>
     )
   }
   return (
-    <Page
-    ptr
-    onPtrRefresh={refreshPage}
-    onPageBeforeIn={() => {
-      showNavigationBar;
-    }}
-    infinite
-    infiniteDistance={50}
-    infinitePreloader={!loading && hasMore}
-    onInfinite={loadMore}
-  >
-    <Box  mx='4' mt='5'>
-      <Title>Hotel list</Title>
-    </Box>
-    <Box  mx='4' mt='5'>
-      {pageContent}
-    </Box>
-  </Page>
+    <>
+      <div>
+        <Page
+          name='hotel-list'
+          key='hotel-list'
+          ptr
+          onPtrRefresh={refreshPage}
+          onPageBeforeIn={() => {
+            zmp.toolbar.show('#view-hotel-list', true);
+            showNavigationBar;
+            setHeader({ title: 'Hotel List', type: 'primary' });
+            changeStatusBarColor('secondary');
+          }}
+          infinite
+          infiniteDistance={50}
+          infinitePreloader={!loading && hasMore}
+          onInfinite={loadMore}
+        >
+          <Box>
+          <Card title='Hotel list'>
+            {pageContent}
+          </Card>
+          </Box>
+        </Page>
+      </div>
+    </>
   );
 };
 
