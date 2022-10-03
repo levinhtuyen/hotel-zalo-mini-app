@@ -8,8 +8,8 @@ import {
 function ProfileDetail() {
   const user = useStore('user');
   let numberPhone: any = ''
-  const getNumberPhone = () => new Promise(() => {
-    api.getPhoneNumber({
+  const getNumberPhone = async () =>  {
+    await api.getPhoneNumber({
       success: (data) => {
         // xử lý khi gọi api thành công
         numberPhone = data;
@@ -19,7 +19,7 @@ function ProfileDetail() {
         console.log(error);
       }
     });
-  })
+  }
   const getProfile = async () => {
     try {
       await api.openProfile({
