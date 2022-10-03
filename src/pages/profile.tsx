@@ -1,7 +1,6 @@
 
-import { Box, Title, useStore, Page } from 'zmp-framework/react';
+import { Title, useStore, Page } from 'zmp-framework/react';
 import {
-  hideNavigationBar,
   showNavigationBar,
 } from '../components/navigation-bar';
 function ProfileDetail() {
