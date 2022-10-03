@@ -1,16 +1,14 @@
 
-import { Page, useStore, Box, Title, zmp, List,Card } from 'zmp-framework/react';
+import { Page, useStore, Box, Title, zmp, List,Card,Button } from 'zmp-framework/react';
 import React, { useState, useRef, useEffect } from "react"
-import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
-import setHeader from '../services/header';
-import { changeStatusBarColor } from '../services/navigation-bar';
 import {
   showNavigationBar
 } from '../components/navigation-bar';
+import Distance from '../components/distance';
 import store from '../store';
 import SkeletonBlockHotel1 from '@components/skeleton-block/skeleton-block-hotel-1';
-
+import getImgUrl from '../utils/img-url';
 const HotelList = ({ zmproute }) => {
   let sn = 0
   if (zmproute.query) {
@@ -19,7 +17,7 @@ const HotelList = ({ zmproute }) => {
   const allowInfinite = useRef(true)
   const { limit,skip, dataHotelList, hasMore } = useStore('hotelListPage');
   
-  const vlEl = useRef(null)
+  // const vlEl = useRef(null)
   const loading = useStore("loadHotelList")
   let pageContent: any = ''
   const [vlData, setVlData] : any = useState({
@@ -30,17 +28,15 @@ const HotelList = ({ zmproute }) => {
       store.dispatch("getHotelListPage", { skip: 0, limit: 10, showSkeleton: true, provinceSn : 1, districtSn : sn })
     }
   }, [])
-  useEffect(() => {
-    allowInfinite.current = hasMore
-    if (vlEl.current) {
-      const virtualList = vlEl.current?.zmpVirtualList()
-      virtualList.items = [...dataHotelList]
-      virtualList.update()
-    }
-  }, [dataHotelList])
-  const renderExternal = (vl, newData) => {
-    setVlData({ ...newData })
-  }
+  // useEffect(() => {
+  //   allowInfinite.current = hasMore
+  //   if (vlEl.current) {
+  //     const virtualList = vlEl.current?.zmpVirtualList()
+  //     virtualList.items = [...dataHotelList]
+  //     virtualList.update()
+  //   }
+  // }, [dataHotelList])
+  
   const loadMore = () => {
     if (!allowInfinite.current) return
     allowInfinite.current = false
@@ -69,6 +65,21 @@ const HotelList = ({ zmproute }) => {
         done()
       })
   }
+  const renderExternal = (vl, newData) => {
+    setVlData({ ...newData })
+  }
+  const viewDetail = (hotel) => {
+    // currentRoute.path.startsWith('/hotel-detail');
+    const query = { hotelSn: hotel.sn, bookingType: hotel.bookingType };
+    store.dispatch('getHotelDetail', query);
+    zmp.views.current?.router.navigate({
+      path: '/hotel-detail',
+      query: {
+        hotelSn: hotel.sn,
+        bookingType: hotel.bookingType,
+      },
+    });
+  };
   if (loading) {
     pageContent = (
       <div className="posts">
@@ -80,28 +91,50 @@ const HotelList = ({ zmproute }) => {
   } else {
     pageContent = (
       <List
-        ref={vlEl}
         virtualList
-        noHairlinesBetween  
         virtualListParams={{
           items: dataHotelList,
           renderExternal,
-          height: 20,
+          height: 50,
         }}
       >
         <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
         {vlData.items.map((item, index) => (
-            <HotelItem
-            layout='list-page'
-            hotel={item}
+            <div
             key={index}
-            virtualListIndex={dataHotelList.findIndex((it) => it.id === item.id)}
-              style={{ top: `${ vlData.topPosition}px` }}
-              {...item}
-              title={`${item.id}, ${item.title}`}
-              vlTopPosition={vlData.topPosition}
-              vtitle={`${item.id}, ${item.title}`}
-          />
+            onClick={() => viewDetail(item)}
+            className='border-gray-700 bg-white restaurant-with-cover mt-4'
+              >
+                <Box m='0' flex className='h-36 max-h-full'>
+                  <div className='flex-none aspect-card relative w-32'>
+                    <img
+                      src={getImgUrl(item.hotelImage)}
+                      className='absolute w-full h-full object-cover rounded-xl'
+                    />
+                  </div>
+                  <Box my='4' mx='5'>
+                    <Title className='limit-text-2-line h-48' size='small'>
+                      {item.name}
+                    </Title>
+                    <Box mx='0' mb='0' flex>
+                      <Button
+                        iconZMP='zi-star-solid'
+                        small
+                        className='text-yellow-400 pl-0'
+                      >
+                        <span className='text-gray-500'>{item.averageMark}</span>
+                      </Button>
+                      <Button iconZMP='zi-send-solid' small>
+                        <span className='text-gray-500'>
+                          <Distance
+                            location={{ lat: item.latitude, long: item.longitude }}
+                          />
+                        </span>
+                      </Button>
+                    </Box>
+                  </Box>
+                </Box>
+              </div>
           ))}
         </ul>
       </List>
