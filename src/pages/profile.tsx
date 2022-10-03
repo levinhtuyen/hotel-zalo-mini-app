@@ -23,8 +23,8 @@ function ProfileDetail() {
   const getProfile = async () => {
     try {
       await api.openProfile({
-        type: 'oa',
-        id: 'oa-id'
+        type: 'user',
+        id: user.id
       });
     } catch (error) {
       // xử lý khi gọi api thất bại
