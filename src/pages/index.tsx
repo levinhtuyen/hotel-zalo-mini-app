@@ -75,13 +75,16 @@ function SliderHome(props) {
   return (
     <div>
       <Box m='0'>
-      <Swiper pagination speed={400}
+      <Swiper 
           slidesPerView={1}
           loop={true}
+          pagination 
+          speed={400}
+          autoplay={true}
           spaceBetween={10}>
           {props.bannerListHome.map((item,index) => (
             <SwiperSlide  key={index} >
-              <div className=' w-full'>
+              <div className='w-full'>
               <img className='rounded-[12px]'
                 src={getImgUrl(item.imagePath)}/>
               </div>

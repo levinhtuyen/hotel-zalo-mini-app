@@ -1,6 +1,6 @@
 
-import { Page, useStore, Title, Box, Text, zmp, List,Card } from 'zmp-framework/react';
-import React, { useState, useRef, useEffect, useCallback } from "react"
+import { Page, useStore, Box, Title, zmp, List,Card } from 'zmp-framework/react';
+import React, { useState, useRef, useEffect } from "react"
 import { userInfo } from 'zmp-sdk';
 import HotelItem from '../components/hotel-item'
 import setHeader from '../services/header';
@@ -16,12 +16,13 @@ const HotelList = ({ zmproute }) => {
   if (zmproute.query) {
     sn = zmproute.query.districtSn;
   }
-  const { limit,skip, dataHotelList, hasMore } = useStore('hotelListPage');
   const allowInfinite = useRef(true)
+  const { limit,skip, dataHotelList, hasMore } = useStore('hotelListPage');
+  
   const vlEl = useRef(null)
   const loading = useStore("loadHotelList")
   let pageContent: any = ''
-  const [vlData, setVlData] = useState({
+  const [vlData, setVlData] : any = useState({
     items: dataHotelList,
   })
   useEffect(() => {
@@ -80,14 +81,12 @@ const HotelList = ({ zmproute }) => {
     pageContent = (
       <List
         ref={vlEl}
-        noHairlines
-        className=""
         virtualList
-        noHairlinesBetween
+        noHairlinesBetween  
         virtualListParams={{
           items: dataHotelList,
           renderExternal,
-          height: 50,
+          height: 20,
         }}
       >
         <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
@@ -96,11 +95,12 @@ const HotelList = ({ zmproute }) => {
             layout='list-page'
             hotel={item}
             key={index}
-            after={
-              <Text size='small' className='text-gray-500'>
-                {item.address}
-              </Text>
-            }
+            virtualListIndex={dataHotelList.findIndex((it) => it.id === item.id)}
+              style={{ top: `${ vlData.topPosition}px` }}
+              {...item}
+              title={`${item.id}, ${item.title}`}
+              vlTopPosition={vlData.topPosition}
+              vtitle={`${item.id}, ${item.title}`}
           />
           ))}
         </ul>
@@ -108,32 +108,24 @@ const HotelList = ({ zmproute }) => {
     )
   }
   return (
-    <>
-      <div>
-        <Page
-          name='hotel-list'
-          key='hotel-list'
-          ptr
-          onPtrRefresh={refreshPage}
-          onPageBeforeIn={() => {
-            zmp.toolbar.show('#view-hotel-list', true);
-            showNavigationBar;
-            setHeader({ title: 'Hotel List', type: 'primary' });
-            changeStatusBarColor('secondary');
-          }}
-          infinite
-          infiniteDistance={50}
-          infinitePreloader={!loading && hasMore}
-          onInfinite={loadMore}
-        >
-          <Box>
-          <Card title='Hotel list'>
-            {pageContent}
-          </Card>
-          </Box>
-        </Page>
-      </div>
-    </>
+    <Page
+    ptr
+    onPtrRefresh={refreshPage}
+    onPageBeforeIn={() => {
+      showNavigationBar;
+    }}
+    infinite
+    infiniteDistance={50}
+    infinitePreloader={!loading && hasMore}
+    onInfinite={loadMore}
+  >
+    <Box  mx='4' mt='5'>
+      <Title>Hotel list</Title>
+    </Box>
+    <Box  mx='4' mt='5'>
+      {pageContent}
+    </Box>
+  </Page>
   );
 };
 

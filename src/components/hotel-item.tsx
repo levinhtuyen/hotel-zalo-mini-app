@@ -74,7 +74,7 @@ const HotelItem: FunctionComponent<HotelProps> = ({
     return (
       <div
         onClick={onClick ?? viewDetail}
-        className='border-gray-700 bg-white rounded-xl overflow-hidden restaurant-with-cover mt-4'
+        className='border-gray-700 bg-white restaurant-with-cover mt-4'
       >
         <Box m='0' flex className='h-36 max-h-full'>
           <div className='flex-none aspect-card relative w-32'>
