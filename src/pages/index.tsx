@@ -7,12 +7,14 @@ import {
   Text,
   ToastPreloader,
   Preloader,
+  zmp,
 } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
 import HotelItem from '../components/restaurant';
 import { Restaurant, HotelList } from '../models';
 import React, { useEffect, useState } from 'react';
+import { useCurrentRoute } from '../hooks';
 import {
   hideNavigationBar,
   showNavigationBar,
@@ -124,6 +126,7 @@ const HomePage = () =>
   const loadingNearest = useStore('loadingNearest');
   const loadingPopular = useStore('loadingPopular');
   const [toastLoading, setToastLoading] = useState(true);
+  const [currentRoute] = useCurrentRoute();
   useEffect(() => {
     openToastLoading();
     if (!hotelList?.length) {
@@ -162,6 +165,12 @@ const HomePage = () =>
       setToastLoading(false);
     }, 500);
   };
+  const directToProfile = () => {
+    currentRoute.path.startsWith('/profile');
+    zmp.views.current?.router.navigate({
+      path: '/profile'
+    });
+  }
   return (
     <Page
       name='home'
@@ -169,7 +178,7 @@ const HomePage = () =>
       onPageBeforeOut={showNavigationBar}
     >
       <Box mx='4' mb='4' mt='5'>
-        <Avatar className='shadow align-middle mb-2' src={user.avatar}>
+        <Avatar className='shadow align-middle mb-2' onClick={directToProfile} src={user.avatar}>
           Hi
         </Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>

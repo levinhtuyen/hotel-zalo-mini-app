@@ -24,7 +24,6 @@ interface BookingItemProps {
 
 const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
   const [selectingState, setSelectingState] = useState(false);
-  console.log('booking 222 :>> ', booking);
   return (
     <Box flex alignItems='center'>
       <div className='bg-white p-2 max-w-2xl sm:w-full sm:p-4 h-auto sm:h-14 rounded-2xl shadow-lg flex flex-col sm:flex-row gap-5 select-none'>

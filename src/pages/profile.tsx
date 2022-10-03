@@ -1,15 +1,20 @@
 
-import { Box, Title, useStore } from 'zmp-framework/react';
-
+import { Box, Title, useStore, Page } from 'zmp-framework/react';
+import {
+  hideNavigationBar,
+  showNavigationBar,
+} from '../components/navigation-bar';
 function ProfileDetail() {
   const user = useStore('user');
   return (
-    <>
-      <Box m='5'>
-        <div className=' font-sans h-screen w-full flex flex-row justify-center items-center'>
-          <div className='card w-96 mx-auto bg-white  shadow-xl hover:shadow'>
+    <Page
+      onPageBeforeIn={showNavigationBar}
+      onPageBeforeOut={showNavigationBar}
+    >
+      <div className=' font-sans h-screen w-full flex flex-row justify-center'>
+          <div className='card w-96 mx-auto shadow-xl hover:shadow'>
             <img
-              className='w-32 mx-auto rounded-full -mt-20 border-8 border-white'
+              className='w-32 mx-auto rounded-full border-8 border-white'
               src={user.avatar}
               alt=''
             />
@@ -35,8 +40,7 @@ function ProfileDetail() {
             </div>
           </div>
         </div>
-      </Box>
-    </>
+    </Page>
   );
 }
 
