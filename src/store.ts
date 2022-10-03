@@ -13,6 +13,7 @@ import { getApiBookingList } from './utils/api/booking-list'
 import { getApiListRoom } from './utils/api/list-room'
 import { getHotelList } from './utils/api/hotel-list'
 import { getHotelListPage } from './utils/api/hotel-list-page'
+import { getApiBannerList } from './utils/api/banner-list'
 // import { getApiDistrict } from './utils/api/districts'
 
 interface StoreState {
@@ -53,6 +54,8 @@ interface StoreState {
 
   loadingNearest: Boolean,
   hotelNearest: any;
+  bannerListHome: any;
+  loadingBannerHome: Boolean
 }
 
 const store = createStore<StoreState>({
@@ -931,6 +934,7 @@ const store = createStore<StoreState>({
     loadingQuickFilter: false,
     loadingListRoom: false,
     loadingSearchKeyword: false,
+    loadingBannerHome: false,
     bookingDetail: {},
     listRoom: [],
     hotelPopular: [],
@@ -944,7 +948,8 @@ const store = createStore<StoreState>({
       dataHotelList: [],
       hasMore: true,
     },
-    loadHotelList: false
+    loadHotelList: false,
+    bannerListHome: []
   },
   getters: {
     user({ state }) {
@@ -1059,6 +1064,12 @@ const store = createStore<StoreState>({
     },
     loadHotelList({ state }) {
       return state.loadHotelList;
+    },
+    bannerListHome({ state }) {
+      return state.bannerListHome;
+    },
+    loadingBannerHome ({ state }) {
+      return state.loadingBannerHome;
     },
   },
   actions: {
@@ -1181,6 +1192,13 @@ const store = createStore<StoreState>({
         state.loadHotelList = false
       }
     },
+    async bannerListHome  ({ state }) {
+      state.loadingBannerHome = true
+      const { data } = await getApiBannerList()
+      state.bannerListHome = data.data
+      state.loadingBannerHome = false
+
+    }
   },
   
 })

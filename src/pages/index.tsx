@@ -8,6 +8,7 @@ import {
   ToastPreloader,
   Preloader,
   zmp,
+  Card, Swiper, SwiperSlide
 } from 'zmp-framework/react';
 import { userInfo } from 'zmp-sdk';
 import Inquiry, { QuickFilter } from '../components/inquiry';
@@ -15,6 +16,7 @@ import HotelItem from '../components/restaurant';
 import { Restaurant, HotelList } from '../models';
 import React, { useEffect, useState } from 'react';
 import { useCurrentRoute } from '../hooks';
+import getImgUrl from '../utils/img-url';
 import {
   hideNavigationBar,
   showNavigationBar,
@@ -69,7 +71,27 @@ function Popular(props) {
     </>
   );
 }
-
+function SliderHome(props) {
+  return (
+    <div>
+      <Box m='0'>
+      <Swiper pagination speed={400}
+          slidesPerView={1}
+          loop={true}
+          spaceBetween={10}>
+          {props.bannerListHome.map((item,index) => (
+            <SwiperSlide  key={index} >
+              <div className=' w-full'>
+              <img className='rounded-[12px]'
+                src={getImgUrl(item.imagePath)}/>
+              </div>
+            </SwiperSlide>
+            ))}
+          </Swiper>
+      </Box>    
+    </div>
+  )
+}
 function Nearest(props) {
   const nearests = props.dataHotel;
   const logo = 'https://go2joy.vn/images/logo-mini.png';
@@ -125,12 +147,17 @@ const HomePage = () =>
   const hotelNearest = useStore('hotelNearest');
   const loadingNearest = useStore('loadingNearest');
   const loadingPopular = useStore('loadingPopular');
+  const loadingBannerHome = useStore('loadingBannerHome');
+  const bannerListHome = useStore('bannerListHome');
   const [toastLoading, setToastLoading] = useState(true);
   const [currentRoute] = useCurrentRoute();
   useEffect(() => {
     openToastLoading();
     if (!hotelList?.length) {
       store.dispatch('setHotelList');
+    }
+    if(!bannerListHome?.length || bannerListHome?.length === 0) {
+      store.dispatch('bannerListHome');
     }
   }, []);
   useEffect(() => {
@@ -159,6 +186,7 @@ const HomePage = () =>
       });
     }
   }, []);
+  console.log('bannerListHome :>> ', bannerListHome);
   const openToastLoading = () => {
     setToastLoading(true);
     setTimeout(() => {
@@ -182,8 +210,9 @@ const HomePage = () =>
           Hi
         </Avatar>
         <Text>{user.name ? <>Chào, {user.name}!</> : '...'}</Text>
-        <Title size='xlarge' bold>
-          Hôm nay bạn muốn ăn ở đâu?
+        <SliderHome loadingBannerHome={loadingBannerHome} bannerListHome={bannerListHome}/>
+        <Title size='xlarge' className='pt-4' bold>
+          Hôm nay bạn muốn đi khách sạn nào?
         </Title>
         <Inquiry />
         <Title size='small' className='mt-6 mb-4'>
