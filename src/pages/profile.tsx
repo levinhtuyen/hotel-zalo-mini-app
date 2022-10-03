@@ -1,10 +1,40 @@
 
 import { Title, useStore, Page } from 'zmp-framework/react';
+import api from 'zmp-sdk';
+import { useEffect } from 'react';
 import {
   showNavigationBar,
 } from '../components/navigation-bar';
 function ProfileDetail() {
   const user = useStore('user');
+  let numberPhone: any = ''
+  const getNumberPhone = () => new Promise(() => {
+    api.getPhoneNumber({
+      success: (data) => {
+        // xử lý khi gọi api thành công
+        numberPhone = data;
+      },
+      fail: (error) => {
+        // xử lý khi gọi api thất bại
+        console.log(error);
+      }
+    });
+  })
+  const getProfile = async () => {
+    try {
+      await api.openProfile({
+        type: 'oa',
+        id: 'oa-id'
+      });
+    } catch (error) {
+      // xử lý khi gọi api thất bại
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getNumberPhone();
+    getProfile()
+  }, [])
   return (
     <Page
       onPageBeforeIn={showNavigationBar}
@@ -21,11 +51,11 @@ function ProfileDetail() {
               {user.name}
             </Title>
             <Title className='text-center mt-2 font-light text-sm'>
-              {user.name}
+              { numberPhone }
             </Title>
             <div className='text-center font-normal text-lg'>{user.id}</div>
             <div className='px-6 text-center mt-2 font-light text-sm'>
-              <p>Front end Developer</p>
+              <p>Career</p>
             </div>
             <hr className='mt-8' />
             <div className='flex p-4'>
