@@ -60,7 +60,6 @@ function PromotionDetail({ zmproute, zmprouter }) {
       store.dispatch('getDataPromotionDetail', query);
     }
   }, []);
-  console.log('dataPromotionDetail :>> ', dataPromotionDetail);
   return (
     <Page
       onPageBeforeIn={showNavigationBar}

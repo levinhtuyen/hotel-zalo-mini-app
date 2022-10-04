@@ -1,6 +1,6 @@
 import { Link, Tabbar, zmp } from "zmp-framework/react";
 import { useCurrentRoute } from "../hooks";
-
+import { FaHome,FaGift,FaCalendarCheck } from 'react-icons/fa';
 export const hideNavigationBar = () => {
   zmp.toolbar.hide("#app-tab-bar");
   zmp.$('.view-main')[0].classList.add('hidden-nav');
@@ -19,18 +19,23 @@ function NavigationBar() {
       <Link
         href='/'
         animate={false}
-        iconZMP='zi-home'
         tabLinkActive={currentRoute.path === '/'}
       >
-        Trang chủ
+        <FaHome fontSize={24} /> Trang chủ
+      </Link>
+      <Link
+        href='/promotion-list'
+        animate={false}
+        tabLinkActive={currentRoute.path.startsWith('/promotion-list')}
+      >
+        <FaGift fontSize={24} />  Promotion
       </Link>
       <Link
         href='/booking-list'
         animate={false}
-        iconZMP='zi-calendar'
         tabLinkActive={currentRoute.path.startsWith('/booking-list')}
       >
-        Lịch của tôi
+        <FaCalendarCheck fontSize={24} /> Booking của tôi
       </Link>
     </Tabbar>
   );

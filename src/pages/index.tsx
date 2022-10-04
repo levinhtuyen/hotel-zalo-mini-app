@@ -199,7 +199,6 @@ const HomePage = () =>
       });
     }
   }, []);
-  console.log('bannerListHome :>> ', bannerListHome);
   const openToastLoading = () => {
     setToastLoading(true);
     setTimeout(() => {

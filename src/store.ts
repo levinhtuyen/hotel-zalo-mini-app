@@ -16,6 +16,7 @@ import { getHotelList } from './utils/api/hotel-list'
 import { getHotelListPage } from './utils/api/hotel-list-page'
 import { getApiBannerList } from './utils/api/banner-list'
 import { getPromotionDetail } from './utils/api/promotion-detail'
+import { getApiPromotionList } from './utils/api/promotion-list'
 
 interface StoreState {
   user: userInfo,
@@ -58,7 +59,9 @@ interface StoreState {
   bannerListHome: any;
   loadingBannerHome: Boolean,
   loadingPromotionDetail: boolean,
-  dataPromotionDetail: any
+  dataPromotionDetail: any,
+  loadingPromotionList: Boolean,
+  dataPromotionList: any
 }
 
 const store = createStore<StoreState>({
@@ -954,7 +957,9 @@ const store = createStore<StoreState>({
     loadHotelList: false,
     bannerListHome: [],
     loadingPromotionDetail: false,
-    dataPromotionDetail: {}
+    dataPromotionDetail: {},
+    loadingPromotionList: false,
+    dataPromotionList: []
   },
   getters: {
     user({ state }) {
@@ -1081,6 +1086,12 @@ const store = createStore<StoreState>({
     },
     dataPromotionDetail ({ state }) {
       return state.dataPromotionDetail;
+    },
+    loadingPromotionList({ state }) {
+      return state.loadingPromotionList;
+    },
+    dataPromotionList({ state }) {
+      return state.dataPromotionList;
     },
   },
   actions: {
@@ -1215,7 +1226,12 @@ const store = createStore<StoreState>({
       const { data } = await getPromotionDetail(query)
       state.dataPromotionDetail = data.data
       state.loadingPromotionDetail = false
-
+    },
+    async getDataPromotionList ({ state }, query: number) {
+      state.loadingPromotionList = true
+      const { data } = await getApiPromotionList(query)
+      state.dataPromotionList = [...state.dataPromotionList,...data.data.promotionList]
+      state.loadingPromotionList = false
     },
   },
   
