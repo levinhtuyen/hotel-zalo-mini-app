@@ -21,7 +21,6 @@ const HotelItem: FunctionComponent<HotelProps> = ({
   onClick,
 }) => {
   const [currentRoute] = useCurrentRoute();
-  console.log('hotel 33333:>> ', hotel);
   const viewDetail = () => {
     currentRoute.path.startsWith('/hotel-detail');
     // const query = { hotelSn: hotel.sn, bookingType: hotel.bookingType };

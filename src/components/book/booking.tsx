@@ -36,7 +36,7 @@ const BookingItem: FunctionComponent<BookingItemProps> = ({ booking }) => {
         </div>
         <div className='flex sm:flex-1 flex-col gap-2 p-1'>
           <h1 className='text-lg sm:text-xl font-semibold text-primary'>
-            {booking.hotelName}
+            {booking.hotelName} 567
           </h1>
           <Title>{booking.roomTypeName}</Title>
           <p className='text-gray-500 text-sm sm:text-base line-clamp-3'>

@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { Box, Button, Page, useStore,Title } from "zmp-framework/react";
 import PromotionItem from "../components/promotion-item";
 import store from '../store'
-
+import {
+  hideNavigationBar,
+  showNavigationBar,
+} from '../components/navigation-bar';
 
 function PromotionListPage() {
   const dataPromotionList = useStore('dataPromotionList');
@@ -35,7 +38,8 @@ function PromotionListPage() {
     )
   }
   return (
-      <Page>
+      <Page onPageBeforeIn={showNavigationBar}
+      onPageBeforeOut={showNavigationBar}>
         <Box  my='4' mx='5'>
           <Title>Promotion List</Title>
         </Box>

@@ -8,6 +8,7 @@ import FoodPicker from '../pages/food-picker';
 import Cart from './cart';
 import floating from '@utils/floating';
 import BookingDetail from '../pages/booking-detail';
+import SheetPromotionDetail from '../pages/sheet-promotion-detail';
 import { useSheetStatusBar } from '../hooks';
 import ErrorBoundary from './error-boundary';
 import { getUser, requestLocation } from '../services/zalo';
@@ -72,6 +73,12 @@ const MyApp = () => {
               path: '/booking-detail/',
               sheet: {
                 component: BookingDetail,
+              }
+            },
+            {
+              path: '/sheet-promotion-detail/',
+              sheet: {
+                component: SheetPromotionDetail,
               }
             }
           ]}

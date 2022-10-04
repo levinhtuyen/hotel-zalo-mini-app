@@ -1,6 +1,5 @@
-import { FunctionComponent } from 'react';
-import { Box, Button, Icon, Text, Title, zmp,  SkeletonText,
-  SkeletonImage, } from 'zmp-framework/react';
+import { FunctionComponent,useState } from 'react';
+import { Box, Button, Icon, Text, Title, zmp,  SkeletonText,SkeletonImage, } from 'zmp-framework/react';
 import { Hotel, HotelListDetail } from '../models';
 import Distance from './distance';
 import DistrictName from './district-name';
@@ -16,19 +15,10 @@ interface PromotionProps {
 
 const PromotionItem: FunctionComponent<PromotionProps> = ({
   promotion,
-  loading,
-  onClick,
+  loading
 }) => {
-  const [currentRoute] = useCurrentRoute();
-  const viewDetail = () => {
-    currentRoute.path.startsWith('/promotion-detail');
-    zmp.views.current?.router.navigate({
-      path: '/promotion-detail',
-      query: {
-        promotionSn: promotion.sn,
-      },
-    });
-  };
+  const [selectingState, setSelectingState] = useState(false);
+  console.log('promotion :>> ', promotion);
   if(loading) {
     return (
       <div className='bg-white relative m-4'>
@@ -67,7 +57,6 @@ const PromotionItem: FunctionComponent<PromotionProps> = ({
   }
   return (
     <div
-      onClick={onClick ?? viewDetail}
       className='bg-white relative m-4'
     >
       <div className='to-transparent flex flex-wrap gap-4 h-64 overflow-hidden p-4 relative w-full z-20'>
@@ -85,7 +74,17 @@ const PromotionItem: FunctionComponent<PromotionProps> = ({
           <Box m='0' flex justifyContent='space-between'>
           <Title className='w-64 line-clamp-2'>{promotion.title} <Text>Hết hạn : {promotion.expiredDate}</Text></Title>
           <Button
-                onClick={() => viewDetail()}
+                onClick={(e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  setSelectingState(false);
+                  zmp.views.main.router.navigate({
+                    path: '/sheet-promotion-detail/',
+                    query: {
+                      promotionSn: promotion.sn,
+                    },
+                  });
+                }}
                 typeName='primary'
                 responsive
                 className='w-32 bg-[#ff6400] text-[#fff]'
