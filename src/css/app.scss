@@ -185,3 +185,19 @@ body {
 .picker-item.picker-item-selected {
   background-color: #fff;
 }
+meter::-webkit-meter-optimum-value {
+  box-shadow: 0 5px 5px -5px #999 inset;
+  background-image: linear-gradient(
+    90deg, 
+    #ff6400 5%, 
+    #ff6400 5%,
+    #ff6400 15%,
+    #ff6400 15%,
+    #ff6400 55%,
+    #ff6400 55%,
+    #ff6400 95%,
+    #ff6400 95%,
+    #ff6400 100%
+  );
+  background-size: 100% 100%;
+}

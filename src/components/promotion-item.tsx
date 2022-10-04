@@ -18,7 +18,6 @@ const PromotionItem: FunctionComponent<PromotionProps> = ({
   loading
 }) => {
   const [selectingState, setSelectingState] = useState(false);
-  console.log('promotion :>> ', promotion);
   if(loading) {
     return (
       <div className='bg-white relative m-4'>
@@ -72,7 +71,8 @@ const PromotionItem: FunctionComponent<PromotionProps> = ({
         </Box>
         <Box m='0' className='h-40 max-h-full w-full'>
           <Box m='0' flex justifyContent='space-between'>
-          <Title className='w-64 line-clamp-2'>{promotion.title} <Text>Hết hạn : {promotion.expiredDate}</Text></Title>
+          <Title className='w-64 line-clamp-2'>{promotion.title} <Text>Hết hạn : {promotion.expiredDate}
+          </Text></Title>
           <Button
                 onClick={(e) => {
                   e.preventDefault();

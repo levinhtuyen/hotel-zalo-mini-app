@@ -24,14 +24,52 @@ const ListReview = (props) => {
   }, []);
   return (
     <Box>
-        <Box mx='4' mt='6'>
-          <Title size='small'>ĐÁNH GIÁ</Title>
-        </Box>
-        <Box mx='4' mt='3'>
-          <Text className='font-semibold'><Icon color='#ff6400' size='24'
-              zmp='zi-star-solid'
-            /> {props.hotelDetail.averageMark}/5 : {props.hotelDetail.totalReview} Đánh giá</Text>
-        </Box>
+        <div className='w-full justify-between flex'>
+          <Box mx='4' mt='6'>
+            <Box >
+              <Title size='small'>ĐÁNH GIÁ</Title>
+            </Box>
+            <Box mx='4' mt='3'>
+              <Text className='font-semibold'>
+                <Icon color='#ff6400' size='24'
+                  zmp='zi-star-solid'
+                /> {props.hotelDetail.averageMark}/5 : {props.hotelDetail.totalReview} Đánh giá</Text>
+            </Box>
+          </Box>
+          <Box mx='4' mt='6' className='text-right'>
+            <Box p='0' m='0'>
+              Sạch sẽ :  <meter
+              min="0"
+              max="5"
+              low={25}
+              high={75}
+              optimum={80}
+              value={props.hotelDetail.averageMarkClean}
+            ></meter>
+            </Box>
+            <Box p='0' m='0'>
+              Tiện ích :  <meter
+              min="0"
+              max="5"
+              low={25}
+              high={75}
+              optimum={80}
+              value={props.hotelDetail.averageMarkFacility}
+            ></meter>
+            </Box>
+            <Box p='0' m='0'>
+              Dịch vụ :  <meter
+              min="0"
+              max="5"
+              low={25}
+              high={75}
+              optimum={80}
+              value={props.hotelDetail.averageMarkService}
+            ></meter>
+            </Box>
+          </Box>
+        </div>
+        
         {props?.userReviewFormList?.length ? (
           <div className='overflow-auto snap-x snap-mandatory scroll-p-4 no-scrollbar'>
             <Box m='0' pr='4' flex className='w-max '>
