@@ -72,6 +72,16 @@ function Popular(props) {
   );
 }
 function SliderHome(props) {
+  const [currentRoute] = useCurrentRoute();
+  currentRoute.path.startsWith('/promotion-detail');
+  const directBookingDetail = (sn) => {
+    zmp.views.current?.router.navigate({
+      path: '/promotion-detail',
+      query: {
+        promotionSn: sn
+      }
+    });
+  }
   return (
     <div>
       <Box m='0'>
@@ -84,7 +94,7 @@ function SliderHome(props) {
           spaceBetween={10}>
           {props.bannerListHome.map((item,index) => (
             <SwiperSlide  key={index} >
-              <div className='w-full'>
+              <div className='w-full' onClick={()=> directBookingDetail(item.sn)}>
               <img className='rounded-[12px]'
                 src={getImgUrl(item.imagePath)}/>
               </div>

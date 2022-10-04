@@ -18,7 +18,7 @@ const HotelList = ({ zmproute }) => {
   }
   const { limit,skip, dataHotelList, hasMore } = useStore('hotelListPage');
   const allowInfinite = useRef(true)
-  const vlEl = useRef(null)
+  const vlEl:any = useRef(null)
   const loading = useStore("loadHotelList")
   let pageContent: any = ''
   const [vlData, setVlData] = useState({

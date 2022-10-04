@@ -15,6 +15,7 @@
     "/hotel-detail",
     "/hotel-list",
     "/room-list",
-    "/profile"
+    "/profile",
+    "/promotion-detail"
   ]
 }
