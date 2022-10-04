@@ -33,7 +33,7 @@ function SheetPromotionDetail({ zmproute, zmprouter }) {
           <div className=' overflow-scroll h-[650px]' >
             <Card >
               <div className='flex items-center justify-center px-4'>
-                <div className='max-w-sm h-full  rounded-xl bg-white shadow-md duration-200 hover:scale-105  hover:shadow-xl'>
+                <div className='max-w-sm h-full  rounded-xl bg-white shadow-md duration-200 '>
                   <img
                     src={getImgUrl(dataPromotionDetail.imagePath)}
                     alt='plant'
@@ -50,7 +50,7 @@ function SheetPromotionDetail({ zmproute, zmprouter }) {
             </Card>
             <Box >
               <div className='flex items-center justify-center '>
-                <div className='max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl'>
+                <div className='max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 '>
                   {/* <div className='p-5'> { ReactHtmlParser (dataPromotionDetail.content) } </div> */}
                   <div className='p-5' dangerouslySetInnerHTML={{__html: dataPromotionDetail.content}}></div>
                 </div>
