@@ -64,10 +64,11 @@ function PromotionDetail({ zmproute, zmprouter }) {
     <Page
       onPageBeforeIn={showNavigationBar}
       onPageBeforeOut={showNavigationBar}
+      className='pb-8'
     >
-      <Card>
+      <Card >
         <div className='flex items-center justify-center px-4'>
-          <div className='max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl'>
+          <div className='max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105  hover:shadow-xl'>
             <img
               src={getImgUrl(dataPromotionDetail.imagePath)}
               alt='plant'

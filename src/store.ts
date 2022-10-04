@@ -1227,10 +1227,12 @@ const store = createStore<StoreState>({
       state.dataPromotionDetail = data.data
       state.loadingPromotionDetail = false
     },
-    async getDataPromotionList ({ state }, query: number) {
+    async getDataPromotionList ({ state }, query: any) {
       state.loadingPromotionList = true
       const { data } = await getApiPromotionList(query)
-      state.dataPromotionList = [...state.dataPromotionList,...data.data.promotionList]
+      if(query.page <= data.data.meta.lastPage) {
+        state.dataPromotionList = [...state.dataPromotionList,...data.data.promotionList]
+      }
       state.loadingPromotionList = false
     },
   },
