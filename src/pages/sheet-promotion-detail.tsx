@@ -23,7 +23,6 @@ function SheetPromotionDetail({ zmproute, zmprouter }) {
   return (
     <Sheet
       backdrop
-      swipeToClose
       className='h-full top-10'
       closeButton
       title="Promotion detail"

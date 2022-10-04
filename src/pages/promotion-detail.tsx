@@ -86,7 +86,8 @@ function PromotionDetail({ zmproute, zmprouter }) {
       <Box >
         <div className='flex items-center justify-center '>
           <div className='max-w-sm overflow-hidden rounded-xl bg-white shadow-md duration-200 hover:scale-105 hover:shadow-xl'>
-            <div className='p-5'> { ReactHtmlParser (dataPromotionDetail.content) } </div>
+            {/* <div className='p-5'> { ReactHtmlParser (dataPromotionDetail.content) } </div> */}
+            <div className='p-5' dangerouslySetInnerHTML={{__html: dataPromotionDetail.content}}></div>
           </div>
         </div>
       </Box>
