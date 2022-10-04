@@ -30,7 +30,7 @@ function SheetPromotionDetail({ zmproute, zmprouter }) {
     >
         <div className='overflow-hidden'>
         {dataPromotionDetail && (<>
-          <div className=' overflow-scroll h-[42rem]' >
+          <div className=' overflow-scroll h-[650px]' >
             <Card >
               <div className='flex items-center justify-center px-4'>
                 <div className='max-w-sm h-full  rounded-xl bg-white shadow-md duration-200 hover:scale-105  hover:shadow-xl'>
