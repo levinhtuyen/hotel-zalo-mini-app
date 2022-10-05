@@ -86,7 +86,6 @@ const HotelList = ({ zmproute }) => {
           
           <List
             noHairlines
-        
           >
             <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
             {dataHotelList.map((item, index) => (

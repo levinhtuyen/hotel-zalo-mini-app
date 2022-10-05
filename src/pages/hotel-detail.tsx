@@ -1,4 +1,4 @@
-import { Box, Page, useStore, zmp, ToastPreloader } from 'zmp-framework/react';
+import { Box, Page, useStore, zmp, Button } from 'zmp-framework/react';
 import { useRestaurant } from '../hooks';
 import {
   hideNavigationBar,
@@ -22,16 +22,31 @@ function HotelDetailPage({ zmproute }) {
   }, []);
   const hotelDetail: any = useStore('hotelDetail');
   const loading = useStore('loadingHotelDetail');
+  const onClickBookNow = (data) => {
+    zmp.views.current?.router.navigate({
+      path: '/booking-list',
+    })
+  }
   return (
     <Page
       onPageBeforeIn={hideNavigationBar}
       onPageBeforeOut={showNavigationBar}
     >
+      
       <HotelContext.Provider value={{ hotelDetail }}>
         <RestaurantDetail hotelDetail={hotelDetail} />
       </HotelContext.Provider>
       <RoomList roomList={hotelDetail.roomSettingFormList} hotelImage={hotelDetail.imagePath} />
       <ListReview userReviewFormList= {hotelDetail.userReviewFormList} hotelDetail={hotelDetail} />
+      <Box className='w-full flex justify-center h-12 fixed bottom-0'>
+        <Button
+          typeName='primary'
+          onClick={() => onClickBookNow(hotelDetail)}
+          className='w-32'
+        >
+          Boow Now
+        </Button>
+      </Box>
     </Page>
   );
 }

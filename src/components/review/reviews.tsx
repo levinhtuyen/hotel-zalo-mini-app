@@ -23,7 +23,7 @@ const ListReview = (props) => {
     return () => clearTimeout(timmer);
   }, []);
   return (
-    <Box>
+    <Box pb='10'>
         <div className='w-full justify-between flex'>
           <Box mx='4' mt='6'>
             <Box >
@@ -112,7 +112,7 @@ const ListReview = (props) => {
         ) : (
           <Box mx='4'>Khách sạn này không có review</Box>
         )}
-        <Box className='h-40'></Box>
+        
       </Box>
   //   <Card inset title='ĐÁNH GIÁ'>
   //     {props?.userReviewFormList?.length ? (
