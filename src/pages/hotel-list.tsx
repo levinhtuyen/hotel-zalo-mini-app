@@ -20,7 +20,6 @@ const HotelList = ({ zmproute }) => {
   const allowInfinite = useRef(true)
   const vlEl:any = useRef(null)
   const loading = useStore("loadHotelList")
-  let pageContent: any = ''
   const [vlData, setVlData] = useState({
     items: dataHotelList,
   })
@@ -68,58 +67,13 @@ const HotelList = ({ zmproute }) => {
         done()
       })
   }
-  if (loading) {
-    pageContent = (
-      <div className="posts">
-          <SkeletonBlockHotel1 />
-          <SkeletonBlockHotel1 />
-          <SkeletonBlockHotel1 />
-      </div>
-    )
-  } else {
-    pageContent = (
-      <List
-        ref={vlEl}
-        noHairlines
-        className=""
-        virtualList
-        noHairlinesBetween
-        virtualListParams={{
-          items: dataHotelList,
-          renderExternal,
-          height: 50,
-        }}
-      >
-        <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
-        {vlData.items.map((item, index) => (
-            <HotelItem
-            layout='list-page'
-            hotel={item}
-            key={index}
-            after={
-              <Text size='small' className='text-gray-500'>
-                {item.address}
-              </Text>
-            }
-          />
-          ))}
-        </ul>
-      </List>
-    )
-  }
   return (
     <>
       <div>
         <Page
-          name='hotel-list'
-          key='hotel-list'
-          ptr
           onPtrRefresh={refreshPage}
           onPageBeforeIn={() => {
-            zmp.toolbar.show('#view-hotel-list', true);
             showNavigationBar;
-            setHeader({ title: 'Hotel List', type: 'primary' });
-            changeStatusBarColor('secondary');
           }}
           infinite
           infiniteDistance={50}
@@ -128,7 +82,24 @@ const HotelList = ({ zmproute }) => {
         >
           <Box>
           <Card title='Hotel list'>
-            {pageContent}
+          <List
+            noHairlines
+          >
+            <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
+            {dataHotelList.map((item, index) => (
+                <HotelItem
+                layout='list-page'
+                hotel={item}
+                key={index}
+                after={
+                  <Text size='small' className='text-gray-500'>
+                    {item.address}
+                  </Text>
+                }
+              />
+              ))}
+            </ul>
+          </List>
           </Card>
           </Box>
         </Page>
