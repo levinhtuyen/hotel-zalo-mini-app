@@ -69,8 +69,8 @@ const HotelList = ({ zmproute }) => {
     <>
       <div>
         <Page
+          ptr
           onPtrRefresh={refreshPage}
-          onPtrDone={refreshPage}
           onPageBeforeIn={() => {
             showNavigationBar;
           }}
@@ -86,6 +86,7 @@ const HotelList = ({ zmproute }) => {
           
           <List
             noHairlines
+        
           >
             <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
             {dataHotelList.map((item, index) => (
