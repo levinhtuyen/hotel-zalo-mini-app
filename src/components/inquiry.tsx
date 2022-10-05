@@ -152,10 +152,6 @@ export function QuickFilter() {
       },
     });
   }
-  const [customSheetOpened, setCustomSheetOpened] = useState(false);
-  const parentHandleChange = (e) => {
-    setCustomSheetOpened(false)
-  };
   const handleChangeDistrict = (e) =>
   {
     const sn = e.value[0]
@@ -169,6 +165,7 @@ export function QuickFilter() {
     }
     
   }
+
   const districts = useStore('districts') as District[];
   return (
     <div className='overflow-auto no-scrollbar snap-x snap-mandatory z-50 relative choose-district'>
@@ -207,6 +204,7 @@ export function QuickFilter() {
               outline: '0',
               boxSizing: 'border-box'
             }}
+
             onClickAction={(e)=> handleChangeDistrict(e)}
             data={[
               {
@@ -221,10 +219,7 @@ export function QuickFilter() {
             ]}
           />
         </div>
-        {/* <ChooseLocation
-          handleChange={parentHandleChange}
-          customSheetOpened={customSheetOpened}
-        /> */}
+
         {districts.map((district) => (
           <Button
             key={district.sn}

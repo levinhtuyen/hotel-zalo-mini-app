@@ -36,9 +36,7 @@ const HotelList = ({ zmproute }) => {
       virtualList.update()
     }
   }, [dataHotelList])
-  const renderExternal = (vl, newData) => {
-    setVlData({ ...newData })
-  }
+
   const loadMore = () => {
     if (!allowInfinite.current) return
     allowInfinite.current = false
@@ -67,23 +65,41 @@ const HotelList = ({ zmproute }) => {
         done()
       })
   }
+  if(loading) {
+    return (
+      <>
+      <Box >
+        <Title>Hotel list</Title>
+      </Box>
+      <SkeletonBlockHotel1 />
+      <SkeletonBlockHotel1 />
+      <SkeletonBlockHotel1 />
+      </>
+    )
+  }
   return (
     <>
       <div>
         <Page
-          onPtrRefresh={refreshPage}
+          
           onPageBeforeIn={() => {
             showNavigationBar;
           }}
           infinite
           infiniteDistance={50}
+          ptrMousewheel={true}
           infinitePreloader={!loading && hasMore}
           onInfinite={loadMore}
+          onPtrRefresh={refreshPage}
+          onPtrDone={refreshPage}
         >
           <Box>
-          <Card title='Hotel list'>
+            <Title>Hotel list</Title>
+          </Box>
+          <Box>
           <List
             noHairlines
+            mediaList
           >
             <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
             {dataHotelList.map((item, index) => (
@@ -100,7 +116,6 @@ const HotelList = ({ zmproute }) => {
               ))}
             </ul>
           </List>
-          </Card>
           </Box>
         </Page>
       </div>
