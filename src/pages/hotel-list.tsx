@@ -65,41 +65,27 @@ const HotelList = ({ zmproute }) => {
         done()
       })
   }
-  if(loading) {
-    return (
-      <>
-      <Box >
-        <Title>Hotel list</Title>
-      </Box>
-      <SkeletonBlockHotel1 />
-      <SkeletonBlockHotel1 />
-      <SkeletonBlockHotel1 />
-      </>
-    )
-  }
   return (
     <>
       <div>
         <Page
-          
+          onPtrRefresh={refreshPage}
+          onPtrDone={refreshPage}
           onPageBeforeIn={() => {
             showNavigationBar;
           }}
           infinite
           infiniteDistance={50}
-          ptrMousewheel={true}
           infinitePreloader={!loading && hasMore}
           onInfinite={loadMore}
-          onPtrRefresh={refreshPage}
-          onPtrDone={refreshPage}
         >
           <Box>
             <Title>Hotel list</Title>
           </Box>
           <Box>
+          
           <List
             noHairlines
-            mediaList
           >
             <ul style={{ backgroundColor: `rgb(244 245 246)` }}>
             {dataHotelList.map((item, index) => (
