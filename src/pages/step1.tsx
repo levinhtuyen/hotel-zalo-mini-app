@@ -1,12 +1,14 @@
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { Box, Page, Button, Swiper, Title, useStore, zmp,SwiperSlide,Text } from "zmp-framework/react";
 import getImgUrl from '../utils/img-url';
+import api from 'zmp-sdk';
 import store from '../store'
-import { FaCalendarAlt } from 'react-icons/fa';
+import { FaCalendarAlt,FaCheckCircle,FaCircle } from 'react-icons/fa';
 import {
   hideNavigationBar,
   showNavigationBar,
 } from '../components/navigation-bar';
+
 function Section({
   left,
   right,
@@ -43,8 +45,26 @@ function Section({
 }
 
 function Step1({ zmproute }) {
-
+  const dataUser = useStore('user')
   const dataRoomDetail = useStore('dataRoomDetail');
+  const user = useStore('user');
+  let numberPhone: any = ''
+  const getNumberPhone = async () =>  {
+    await api.getPhoneNumber({
+      success: (data) => {
+        // xử lý khi gọi api thành công
+        numberPhone = data;
+      },
+      fail: (error) => {
+        // xử lý khi gọi api thất bại
+        console.log(error);
+      }
+    });
+  }
+
+  useEffect(() => {
+    getNumberPhone();
+  }, [])
   useEffect(() =>
   {
     const query = {
@@ -63,7 +83,6 @@ function Step1({ zmproute }) {
   const onClickToStep = (data) => {
     console.log('data :>> ', data);
   }
-  console.log('dataRoomDetail :>> ', dataRoomDetail);
   return (
     <Page onPageBeforeIn={hideNavigationBar}
     onPageBeforeOut={hideNavigationBar} className="bg-white">
@@ -74,17 +93,26 @@ function Step1({ zmproute }) {
             <div className="text-[#ff6400] w-10  border-2 border-[#ff6400] h-10 flex justify-center items-center rounded-full">
               <FaCalendarAlt className="p-1" fontSize={24} />
             </div>
-            
           </div>
           <Text className="pt-2">Xác nhận thông tin</Text>
+          <div className="pt-2 steps-booking relative">
+              <div className="flex absolute justify-between w-[150px]">
+              <FaCheckCircle className="text-[#ff6400] left-5 right-0 top-0" fontSize={12}/>
+              {/* <FaCheckCircle className="text-[#ff6400] right-50%" fontSize={12}/>
+              <FaCheckCircle className="text-[#ff6400] " fontSize={12}/> */}
+              <FaCircle className="text-[#ffb685] right-50%" fontSize={12}/>
+              <FaCircle className="text-[#ffb685]" fontSize={12}/>
+              </div>
+          </div>
         </Box>
         <Box m="0" p="0">
           <div className="mt-2 border-b-2">
-            <Text className="py-2 font-semibold text-[18px]">Giá phòng gốc</Text>
-            <Section left='Giá 1 giờ đầu' right={dataRoomDetail.firstHoursOrigin} />
-            <Section left='Giá 1 giờ thêm' right={dataRoomDetail.additionalOrigin} />
-            <Section left='Giá qua đêm' right={dataRoomDetail.overnightOrigin} />
-            <Section left='Giá 1 ngày' right={dataRoomDetail.oneDayOrigin} />
+            <Section styleLeft='text-[#999]  font-normal' left='Hình thức đặt phòng' right='Theo giờ' />
+            <Section styleLeft='text-[#999]  font-normal' left='Khách sạn' right={dataRoomDetail.hotelName} />
+            <Section styleLeft='text-[#999]  font-normal' left='Loại phòng' right={dataRoomDetail.name} />
+            <hr />
+            <Section styleLeft='text-[#999]  font-normal' left='Tên của bạn' right={user.name} />
+            <Section styleLeft='text-[#999]  font-normal' left='Số điện thoại' right={numberPhone} />
           </div>
         </Box> 
         <Box className="h-32"></Box>
