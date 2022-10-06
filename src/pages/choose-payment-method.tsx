@@ -16,6 +16,7 @@ function SheetPaymentMethod({zmprouter}) {
   const choosePayment = (payment) => {
     store.dispatch("setPaymentMethod", payment)
     setPaymentState(payment)
+    console.log('payment :>> ', payment);
   }
   const onClickToEndPaymentMethod = () => {
     store.dispatch("setPaymentMethod", paymentState)

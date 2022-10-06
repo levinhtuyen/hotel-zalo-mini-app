@@ -1116,7 +1116,9 @@ const store = createStore<StoreState>({
       
     },
     setPaymentMethod ({ state }, payment: number) {
+
       state.paymentMethod = payment
+
     },
     setPosition({ state }, data: Location) {
       state.position = data;
