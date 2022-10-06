@@ -63,7 +63,8 @@ interface StoreState {
   loadingPromotionList: Boolean,
   dataPromotionList: any,
   loadingRoomDetail:Boolean,
-  dataRoomDetail: any
+  dataRoomDetail: any,
+  paymentMethod: any
 }
 
 const store = createStore<StoreState>({
@@ -963,7 +964,8 @@ const store = createStore<StoreState>({
     loadingPromotionList: false,
     dataPromotionList: [],
     loadingRoomDetail:false,
-    dataRoomDetail: {}
+    dataRoomDetail: {},
+    paymentMethod: 0
   },
   getters: {
     user({ state }) {
@@ -1103,12 +1105,18 @@ const store = createStore<StoreState>({
     dataRoomDetail({ state }) {
       return state.dataRoomDetail;
     },
+    paymentMethod ({ state }) {
+      return state.paymentMethod;
+    },
   },
   actions: {
     setUser({ state }, data: userInfo) {
       state.user = { ...state.user, ...data }
       // mock booking
       
+    },
+    setPaymentMethod ({ state }, payment: number) {
+      state.paymentMethod = payment
     },
     setPosition({ state }, data: Location) {
       state.position = data;

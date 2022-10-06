@@ -209,7 +209,20 @@ meter::-webkit-meter-optimum-value {
 }
 .steps-booking::before {
   content: "";
-  width: 150px;
+  width: 130px;
   border-top: 3px solid #ffb685;
   display: block;
+  z-index: 8;
+}
+
+.steps-booking-line::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  z-index: 9;
+  width: 50px;
+  border-top: 3px solid #ff6400;
+  display: block;
+  float: right;
+  right: 84px;
 }
