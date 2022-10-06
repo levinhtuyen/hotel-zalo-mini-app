@@ -17,6 +17,8 @@
     "/room-list",
     "/profile",
     "/promotion-detail",
-    "/promotion-list"
+    "/promotion-list",
+    "/room-detail",
+    "/step1"
   ]
 }

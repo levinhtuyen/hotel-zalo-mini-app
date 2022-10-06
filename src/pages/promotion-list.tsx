@@ -38,8 +38,10 @@ function PromotionListPage() {
     )
   }
   return (
-      <Page onPageBeforeIn={showNavigationBar}
-      onPageBeforeOut={showNavigationBar}>
+      <Page 
+      onPageBeforeIn={showNavigationBar}
+      onPageBeforeOut={showNavigationBar}
+      >
         <Box  my='4' mx='5'>
           <Title>Promotion List</Title>
         </Box>
