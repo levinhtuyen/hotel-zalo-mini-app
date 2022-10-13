@@ -65,7 +65,7 @@ function Step1({ zmproute }) {
     }
   }, []);
   const onClickToStep = () => {
-    console.log('data :>> ', data);
+    // console.log('data :>> ', data);
   }
   const [selectingState, setSelectingState] = useState(false);
   const choosePayment = () => {
@@ -128,7 +128,7 @@ function Step1({ zmproute }) {
           onClick={()=> onClickToStep()}
           className='w-64'
         >
-          Tiếp theo
+          Thanh toán
         </Button>
       </Box>
     </Page>
