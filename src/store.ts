@@ -1258,7 +1258,6 @@ const store = createStore<StoreState>({
     async getDataRoomDetail ({ state }, query: any) {
       state.loadingRoomDetail = true
       const { data } = await getRoomDetail(query)
-      console.log('data :>> ', data);
       state.dataRoomDetail = data.data
       state.loadingRoomDetail = false
     },

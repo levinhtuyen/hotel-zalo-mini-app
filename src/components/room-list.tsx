@@ -47,7 +47,7 @@ const RoomList = (props) => {
                           room.applyFlashSale ? 'Flash Sale' : 'No Flash Sale'
                         }
                         
-                        <Title className='text-zinc-400' size='small'>roomSn : {room.sn}</Title>
+                        {/* <Title className='text-zinc-400' size='small'>roomSn : {room.sn}</Title> */}
                       </Box>
                     </Box>
                   </div>

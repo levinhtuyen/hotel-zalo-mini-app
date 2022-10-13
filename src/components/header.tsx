@@ -9,7 +9,6 @@ function Header() {
   const restaurant = useRestaurant(Number(currentRoute.query?.id));
 
   const title = useMemo(() => {
-
     return appConfig.app.title;
   }, [currentRoute])
 

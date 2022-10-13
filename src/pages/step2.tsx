@@ -65,7 +65,6 @@ function Step1({ zmproute }) {
     }
   }, []);
   const onClickToStep = () => {
-    // console.log('data :>> ', data);
   }
   const [selectingState, setSelectingState] = useState(false);
   const choosePayment = () => {
