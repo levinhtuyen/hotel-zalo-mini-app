@@ -48,28 +48,31 @@ function Step1({ zmproute }) {
   const dataUser = useStore('user')
   const dataRoomDetail = useStore('dataRoomDetail');
   const user = useStore('user');
-
+  const query = {
+    startTime:'16:00',
+    endTime: '18:00',
+    startDate: '2022-10-05',
+    endDate: '2022-10-05',
+    mode: 1,
+    roomTypeSn: zmproute.query.roomTypeSn,
+    bookingType: zmproute.query.bookingType
+  };
   useEffect(() =>
   {
-    const query = {
-      startTime:'16:00',
-      endTime: '18:00',
-      startDate: '2022-10-05',
-      endDate: '2022-10-05',
-      mode: 1,
-      roomTypeSn: zmproute.query.roomTypeSn,
-      bookingType: zmproute.query.bookingType
-    };
+    
     if (!dataRoomDetail.length) {
       store.dispatch('getDataRoomDetail', query);
     }
   }, []);
   const onClickToStep = () => {
+
+    zmp.views.current.router.navigate({
+      path: '/waiting-payment',
+      query: query
+    })
   }
   const [selectingState, setSelectingState] = useState(false);
-  const choosePayment = () => {
-    console.log('123');
-  }
+
   return (
     <Page onPageBeforeIn={hideNavigationBar}
     onPageBeforeOut={hideNavigationBar} className="bg-white">
