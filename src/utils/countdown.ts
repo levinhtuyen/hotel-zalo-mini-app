@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 
 const useCountdown = (targetDate) => {
   const countDownDate = new Date(targetDate).getTime();
-  console.log('countDownDate',countDownDate)
   const [countDown, setCountDown] = useState(
     countDownDate - new Date().getTime()
   );
@@ -14,7 +13,6 @@ const useCountdown = (targetDate) => {
 
     return () => clearInterval(interval);
   }, []);
-  console.log('countDownDate',countDownDate)
   return getReturnValues(countDown);
 };
 const getString = (number) => {
