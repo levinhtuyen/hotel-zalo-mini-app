@@ -30,7 +30,12 @@ const getReturnValues = (countDown) => {
   );
   const minutes = Math.floor((countDown % (1000 * 60 * 60)) / (1000 * 60));
   const seconds = Math.floor((countDown % (1000 * 60)) / 1000);
-  return [getString(days), getString(hours), getString(minutes), getString(seconds)];
+  if(countDown < 0){
+    return [0,0,0,0]
+  }
+  else {
+    return [getString(days), getString(hours), getString(minutes), getString(seconds)];
+  }
 };
 
 export { useCountdown };

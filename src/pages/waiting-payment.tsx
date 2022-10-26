@@ -68,7 +68,7 @@ function WaitingPayment({ zmproute }) {
   const choosePayment = () => {
     console.log('123');
   }
-  const TIMECOUNTDOWN = 3 * 60 * 1000;
+  const TIMECOUNTDOWN = 10 * 1000;
   const NOW_IN_MS = new Date().getTime();
 
   const dateTimeAfterThreeDays = NOW_IN_MS + TIMECOUNTDOWN;
