@@ -1,9 +1,7 @@
 import { ReactNode, useEffect, useRef, useState } from "react";
 import { Box, Page, Button, Swiper, Title, useStore, zmp,SwiperSlide,Text } from "zmp-framework/react";
-import getImgUrl from '../utils/img-url';
-import api from 'zmp-sdk';
+import { useCountdown } from '../utils/countdown';
 import store from '../store'
-import { FaCcAmazonPay,FaCheckCircle,FaCircle } from 'react-icons/fa';
 import {
   hideNavigationBar,
   showNavigationBar,
@@ -51,6 +49,7 @@ function WaitingPayment({ zmproute }) {
 
   useEffect(() =>
   {
+    
     const query = {
       startTime:'16:00',
       endTime: '18:00',
@@ -69,107 +68,11 @@ function WaitingPayment({ zmproute }) {
   const choosePayment = () => {
     console.log('123');
   }
-  const Ref = useRef(null);
-  
-  // The state for our timer
-  const [timer, setTimer] = useState('00:00:00');
+  const TIMECOUNTDOWN = 3 * 60 * 1000;
+  const NOW_IN_MS = new Date().getTime();
 
-
-  const getTimeRemaining = (e) => {
-      const total = Date.parse(e) - Date.parse((new Date() as any));
-      const seconds = Math.floor((total / 1000) % 60);
-      const minutes = Math.floor((total / 1000 / 60) % 60);
-      const hours = Math.floor((total / 1000 / 60 / 60) % 24);
-      return {
-          total, hours, minutes, seconds
-      };
-  }
-
-
-  const startTimer = (e) => {
-      let { total, hours, minutes, seconds } 
-                  = getTimeRemaining(e);
-      if (total >= 0) {
-
-          // update the timer
-          // check if less than 10 then we need to 
-          // add '0' at the beginning of the variable
-          setTimer(
-              (hours > 9 ? hours : '0' + hours) + ':' +
-              (minutes > 9 ? minutes : '0' + minutes) + ':'
-              + (seconds > 9 ? seconds : '0' + seconds)
-          )
-      }
-  }
-
-
-  const clearTimer = (e) => {
-
-      // If you adjust it you should also need to
-      // adjust the Endtime formula we are about
-      // to code next    
-      setTimer('00:00:10');
-
-      // If you try to remove this line the 
-      // updating of timer Variable will be
-      // after 1000ms or 1sec
-      if (Ref.current) clearInterval(Ref.current);
-      const id = setInterval(() => {
-          startTimer(e);
-      }, 1000)
-  }
-
-  const getDeadTime = () => {
-      let deadline = new Date();
-
-      // This is where you need to adjust if 
-      // you entend to add more time
-      deadline.setSeconds(deadline.getSeconds() + 10);
-      return deadline;
-  }
-
-  // We can use useEffect so that when the component
-  // mount the timer will start as soon as possible
-
-  // We put empty array to act as componentDid
-  // mount only
-  useEffect(() => {
-      clearTimer(getDeadTime());
-  }, []);
-
-  // Another way to call the clearTimer() to start
-  // the countdown is via action event from the
-  // button first we create function to be called
-  // by the button
-  const onClickReset = () => {
-      clearTimer(getDeadTime());
-  }
-  const calculateTimeLeft = () => {
-    const difference = +new Date("2022-10-25T15:00:00+07:00") - +new Date();
-    let timeLeft = {
-      hours: 0,
-      minutes:0,
-      seconds: 0
-    };
-
-    if (difference > 0) {
-      timeLeft = {
-        hours: Math.floor(difference / (1000 * 60 * 60)),
-        minutes: Math.floor((difference / 1000 / 60) % 60),
-        seconds: Math.floor((difference / 1000) % 60),
-      };
-    }
-
-    return timeLeft;
-  };
-
-  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-  useEffect(() => {
-    setTimeout(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-  });
+  const dateTimeAfterThreeDays = NOW_IN_MS + TIMECOUNTDOWN;
+  const [days, hours, minutes, seconds] = useCountdown(dateTimeAfterThreeDays);
   return (
     <Page onPageBeforeIn={hideNavigationBar}
     onPageBeforeOut={hideNavigationBar} className="bg-white  overflow-scroll">
@@ -178,13 +81,15 @@ function WaitingPayment({ zmproute }) {
             <img src="https://go2joy.vn/images/direct-app-notice-img.png" alt="" />
           </div>
           <Text className="pt-2 text-[20px] font-semibold">Chờ thanh toán</Text>
-          <Box className="pt-2 text-[18px] font-semibold"> {timeLeft.hours || timeLeft.minutes || timeLeft.seconds ? (
+          <Box className="pt-2 text-[18px] font-semibold"> {days || hours || minutes || seconds ? (
             <p>
-              <span>{timeLeft.hours}</span>
+              <span>{days}</span>
               <span>:</span>
-              <span>{timeLeft.minutes}</span>
+              <span>{hours}</span>
               <span>:</span>
-              <span>{timeLeft.seconds}</span>
+              <span>{minutes}</span>
+              <span>:</span>
+              <span>{seconds}</span>
             </p>
           ) : (
             <p className="text-[16px] font-normal">Thanh toán đã bị hủy</p>
